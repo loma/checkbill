@@ -202,7 +202,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.javapos</groupId>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>jpos</artifactId>
             <version>1.13</version>
         </dependency>
@@ -312,17 +312,8 @@
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
             <version>1.0.2</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/activation-1.0.2.jar</systemPath>
         </dependency>
 
-        <dependency>
-            <groupId>com.javapos</groupId>
-            <artifactId>jpos</artifactId>
-            <version>1.13</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/jpos113.jar</systemPath>
-        </dependency>
     </dependencies>
 
     <build>
@@ -358,6 +349,7 @@
                         </manifest>
                     </archive>
                 </configuration>
+                <version>2.4</version>
             </plugin>
 
             <!--
