@@ -24,7 +24,9 @@ import com.openbravo.pos.forms.AppConfig;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppProperties;
 import com.openbravo.pos.forms.JRootFrame;
+import static com.openbravo.pos.forms.StartPOS.setUIFont;
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -93,6 +95,7 @@ public class JFrmConfig extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
+    
     /**
      * @param args the command line arguments
      */
@@ -103,6 +106,8 @@ public class JFrmConfig extends javax.swing.JFrame {
                 
                 AppConfig config = new AppConfig(args);
                 config.load();    
+                
+                setUIFont (new javax.swing.plaf.FontUIResource("Saysettha OT", Font.PLAIN, 16));
                 
 // Set the look and feel.
 // JG 6 May 2013 to Multicatch                

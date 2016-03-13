@@ -1847,14 +1847,6 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         j_btnKitchenPrt = new javax.swing.JButton();
         m_jPanelBag = new javax.swing.JPanel();
         m_jPanTicket = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        m_jUp = new javax.swing.JButton();
-        m_jDown = new javax.swing.JButton();
-        m_jDelete = new javax.swing.JButton();
-        m_jList = new javax.swing.JButton();
-        m_jEditLine = new javax.swing.JButton();
-        jEditAttributes = new javax.swing.JButton();
         m_jPanelCentral = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         m_jTicketId = new javax.swing.JLabel();
@@ -1866,6 +1858,14 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jTaxesEuros = new javax.swing.JLabel();
         m_jTotalEuros = new javax.swing.JLabel();
         m_jContEntries = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        m_jUp = new javax.swing.JButton();
+        m_jDown = new javax.swing.JButton();
+        m_jDelete = new javax.swing.JButton();
+        m_jList = new javax.swing.JButton();
+        m_jEditLine = new javax.swing.JButton();
+        jEditAttributes = new javax.swing.JButton();
         m_jPanEntries = new javax.swing.JPanel();
         m_jNumberKeys = new com.openbravo.beans.JNumberKeys();
         jPanel9 = new javax.swing.JPanel();
@@ -2020,7 +2020,97 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jPanContainer.add(m_jOptions, java.awt.BorderLayout.NORTH);
 
         m_jPanTicket.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        m_jPanTicket.setPreferredSize(new java.awt.Dimension(800, 250));
         m_jPanTicket.setLayout(new java.awt.BorderLayout());
+
+        m_jPanelCentral.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
+        m_jPanelCentral.setPreferredSize(new java.awt.Dimension(450, 240));
+        m_jPanelCentral.setLayout(new java.awt.BorderLayout());
+
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        m_jTicketId.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
+        m_jTicketId.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        m_jTicketId.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        m_jTicketId.setAutoscrolls(true);
+        m_jTicketId.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        m_jTicketId.setOpaque(true);
+        m_jTicketId.setPreferredSize(new java.awt.Dimension(200, 40));
+        m_jTicketId.setRequestFocusEnabled(false);
+        m_jTicketId.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        jPanel4.add(m_jTicketId, java.awt.BorderLayout.WEST);
+
+        m_jPanTotals.setMinimumSize(new java.awt.Dimension(500, 50));
+        m_jPanTotals.setPreferredSize(new java.awt.Dimension(500, 60));
+        m_jPanTotals.setLayout(new java.awt.GridLayout(2, 3, 4, 0));
+
+        m_jLblTotalEuros3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        m_jLblTotalEuros3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        m_jLblTotalEuros3.setLabelFor(m_jSubtotalEuros);
+        m_jLblTotalEuros3.setText(AppLocal.getIntString("label.subtotalcash")); // NOI18N
+        m_jPanTotals.add(m_jLblTotalEuros3);
+
+        m_jLblTotalEuros2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        m_jLblTotalEuros2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        m_jLblTotalEuros2.setLabelFor(m_jSubtotalEuros);
+        m_jLblTotalEuros2.setText(AppLocal.getIntString("label.taxcash")); // NOI18N
+        m_jPanTotals.add(m_jLblTotalEuros2);
+
+        m_jLblTotalEuros1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        m_jLblTotalEuros1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        m_jLblTotalEuros1.setLabelFor(m_jTotalEuros);
+        m_jLblTotalEuros1.setText(AppLocal.getIntString("label.totalcash")); // NOI18N
+        m_jPanTotals.add(m_jLblTotalEuros1);
+
+        m_jSubtotalEuros.setBackground(m_jEditLine.getBackground());
+        m_jSubtotalEuros.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        m_jSubtotalEuros.setForeground(m_jEditLine.getForeground());
+        m_jSubtotalEuros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        m_jSubtotalEuros.setLabelFor(m_jSubtotalEuros);
+        m_jSubtotalEuros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        m_jSubtotalEuros.setMaximumSize(new java.awt.Dimension(200, 25));
+        m_jSubtotalEuros.setMinimumSize(new java.awt.Dimension(80, 25));
+        m_jSubtotalEuros.setOpaque(true);
+        m_jSubtotalEuros.setPreferredSize(new java.awt.Dimension(80, 25));
+        m_jSubtotalEuros.setRequestFocusEnabled(false);
+        m_jPanTotals.add(m_jSubtotalEuros);
+
+        m_jTaxesEuros.setBackground(m_jEditLine.getBackground());
+        m_jTaxesEuros.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        m_jTaxesEuros.setForeground(m_jEditLine.getForeground());
+        m_jTaxesEuros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        m_jTaxesEuros.setLabelFor(m_jTaxesEuros);
+        m_jTaxesEuros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        m_jTaxesEuros.setMaximumSize(new java.awt.Dimension(200, 25));
+        m_jTaxesEuros.setMinimumSize(new java.awt.Dimension(80, 25));
+        m_jTaxesEuros.setOpaque(true);
+        m_jTaxesEuros.setPreferredSize(new java.awt.Dimension(80, 25));
+        m_jTaxesEuros.setRequestFocusEnabled(false);
+        m_jPanTotals.add(m_jTaxesEuros);
+
+        m_jTotalEuros.setBackground(m_jEditLine.getBackground());
+        m_jTotalEuros.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        m_jTotalEuros.setForeground(m_jEditLine.getForeground());
+        m_jTotalEuros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        m_jTotalEuros.setLabelFor(m_jTotalEuros);
+        m_jTotalEuros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        m_jTotalEuros.setMaximumSize(new java.awt.Dimension(200, 25));
+        m_jTotalEuros.setMinimumSize(new java.awt.Dimension(80, 25));
+        m_jTotalEuros.setOpaque(true);
+        m_jTotalEuros.setPreferredSize(new java.awt.Dimension(100, 25));
+        m_jTotalEuros.setRequestFocusEnabled(false);
+        m_jPanTotals.add(m_jTotalEuros);
+
+        jPanel4.add(m_jPanTotals, java.awt.BorderLayout.CENTER);
+
+        m_jPanelCentral.add(jPanel4, java.awt.BorderLayout.SOUTH);
+
+        m_jPanTicket.add(m_jPanelCentral, java.awt.BorderLayout.CENTER);
+
+        m_jPanContainer.add(m_jPanTicket, java.awt.BorderLayout.WEST);
+
+        m_jContEntries.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jContEntries.setLayout(new java.awt.BorderLayout());
 
         jPanel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanel5.setPreferredSize(new java.awt.Dimension(60, 200));
@@ -2125,97 +2215,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         });
         jPanel2.add(jEditAttributes);
 
-        jPanel5.add(jPanel2, java.awt.BorderLayout.NORTH);
-
-        m_jPanTicket.add(jPanel5, java.awt.BorderLayout.LINE_END);
-
-        m_jPanelCentral.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        m_jPanelCentral.setPreferredSize(new java.awt.Dimension(450, 240));
-        m_jPanelCentral.setLayout(new java.awt.BorderLayout());
-
-        jPanel4.setLayout(new java.awt.BorderLayout());
-
-        m_jTicketId.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        m_jTicketId.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        m_jTicketId.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        m_jTicketId.setAutoscrolls(true);
-        m_jTicketId.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        m_jTicketId.setOpaque(true);
-        m_jTicketId.setPreferredSize(new java.awt.Dimension(300, 40));
-        m_jTicketId.setRequestFocusEnabled(false);
-        m_jTicketId.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        jPanel4.add(m_jTicketId, java.awt.BorderLayout.CENTER);
-
-        m_jPanTotals.setPreferredSize(new java.awt.Dimension(375, 60));
-        m_jPanTotals.setLayout(new java.awt.GridLayout(2, 3, 4, 0));
-
-        m_jLblTotalEuros3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        m_jLblTotalEuros3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        m_jLblTotalEuros3.setLabelFor(m_jSubtotalEuros);
-        m_jLblTotalEuros3.setText(AppLocal.getIntString("label.subtotalcash")); // NOI18N
-        m_jPanTotals.add(m_jLblTotalEuros3);
-
-        m_jLblTotalEuros2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        m_jLblTotalEuros2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        m_jLblTotalEuros2.setLabelFor(m_jSubtotalEuros);
-        m_jLblTotalEuros2.setText(AppLocal.getIntString("label.taxcash")); // NOI18N
-        m_jPanTotals.add(m_jLblTotalEuros2);
-
-        m_jLblTotalEuros1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        m_jLblTotalEuros1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        m_jLblTotalEuros1.setLabelFor(m_jTotalEuros);
-        m_jLblTotalEuros1.setText(AppLocal.getIntString("label.totalcash")); // NOI18N
-        m_jPanTotals.add(m_jLblTotalEuros1);
-
-        m_jSubtotalEuros.setBackground(m_jEditLine.getBackground());
-        m_jSubtotalEuros.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        m_jSubtotalEuros.setForeground(m_jEditLine.getForeground());
-        m_jSubtotalEuros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        m_jSubtotalEuros.setLabelFor(m_jSubtotalEuros);
-        m_jSubtotalEuros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        m_jSubtotalEuros.setMaximumSize(new java.awt.Dimension(125, 25));
-        m_jSubtotalEuros.setMinimumSize(new java.awt.Dimension(80, 25));
-        m_jSubtotalEuros.setOpaque(true);
-        m_jSubtotalEuros.setPreferredSize(new java.awt.Dimension(80, 25));
-        m_jSubtotalEuros.setRequestFocusEnabled(false);
-        m_jPanTotals.add(m_jSubtotalEuros);
-
-        m_jTaxesEuros.setBackground(m_jEditLine.getBackground());
-        m_jTaxesEuros.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        m_jTaxesEuros.setForeground(m_jEditLine.getForeground());
-        m_jTaxesEuros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        m_jTaxesEuros.setLabelFor(m_jTaxesEuros);
-        m_jTaxesEuros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        m_jTaxesEuros.setMaximumSize(new java.awt.Dimension(125, 25));
-        m_jTaxesEuros.setMinimumSize(new java.awt.Dimension(80, 25));
-        m_jTaxesEuros.setOpaque(true);
-        m_jTaxesEuros.setPreferredSize(new java.awt.Dimension(80, 25));
-        m_jTaxesEuros.setRequestFocusEnabled(false);
-        m_jPanTotals.add(m_jTaxesEuros);
-
-        m_jTotalEuros.setBackground(m_jEditLine.getBackground());
-        m_jTotalEuros.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        m_jTotalEuros.setForeground(m_jEditLine.getForeground());
-        m_jTotalEuros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        m_jTotalEuros.setLabelFor(m_jTotalEuros);
-        m_jTotalEuros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        m_jTotalEuros.setMaximumSize(new java.awt.Dimension(125, 25));
-        m_jTotalEuros.setMinimumSize(new java.awt.Dimension(80, 25));
-        m_jTotalEuros.setOpaque(true);
-        m_jTotalEuros.setPreferredSize(new java.awt.Dimension(100, 25));
-        m_jTotalEuros.setRequestFocusEnabled(false);
-        m_jPanTotals.add(m_jTotalEuros);
-
-        jPanel4.add(m_jPanTotals, java.awt.BorderLayout.LINE_END);
-
-        m_jPanelCentral.add(jPanel4, java.awt.BorderLayout.SOUTH);
-
-        m_jPanTicket.add(m_jPanelCentral, java.awt.BorderLayout.CENTER);
-
-        m_jPanContainer.add(m_jPanTicket, java.awt.BorderLayout.CENTER);
-
-        m_jContEntries.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        m_jContEntries.setLayout(new java.awt.BorderLayout());
+        jPanel5.add(jPanel2, java.awt.BorderLayout.WEST);
 
         m_jPanEntries.setLayout(new javax.swing.BoxLayout(m_jPanEntries, javax.swing.BoxLayout.Y_AXIS));
 
@@ -2329,22 +2329,18 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         });
         m_jPanEntries.add(m_jKeyFactory);
 
-        m_jContEntries.add(m_jPanEntries, java.awt.BorderLayout.NORTH);
+        jPanel5.add(m_jPanEntries, java.awt.BorderLayout.CENTER);
 
-        m_jPanContainer.add(m_jContEntries, java.awt.BorderLayout.LINE_END);
+        m_jContEntries.add(jPanel5, java.awt.BorderLayout.CENTER);
 
         catcontainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         catcontainer.setLayout(new java.awt.BorderLayout());
-        m_jPanContainer.add(catcontainer, java.awt.BorderLayout.SOUTH);
+        m_jContEntries.add(catcontainer, java.awt.BorderLayout.SOUTH);
+
+        m_jPanContainer.add(m_jContEntries, java.awt.BorderLayout.CENTER);
 
         add(m_jPanContainer, "ticket");
     }// </editor-fold>//GEN-END:initComponents
-
-    private void m_jbtnScaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jbtnScaleActionPerformed
-
-        stateTransition('\u00a7');
-        
-    }//GEN-LAST:event_m_jbtnScaleActionPerformed
 
     private void m_jEditLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jEditLineActionPerformed
         int i = m_ticketlines.getSelectedIndex();
@@ -2418,55 +2414,6 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         
     }//GEN-LAST:event_m_jListActionPerformed
 
-    private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
-       if (listener  != null) {
-            listener.stop();
-        }
-       JCustomerFinder finder = JCustomerFinder.getCustomerFinder(this, dlCustomers);
-                finder.search(m_oTicket.getCustomer());
-                finder.setVisible(true);
-        
-        try {            
-           if (finder.getSelectedCustomer() == null){
-               m_oTicket.setCustomer(null);
-           }else {
-               m_oTicket.setCustomer(dlSales.loadCustomerExt(finder.getSelectedCustomer().getId()));
-           if ("restaurant".equals(m_App.getProperties().getProperty("machine.ticketsbag"))) { 
-// JG 30 Apr 14 Redundant String() to String() assignment
-//               restDB.setCustomerNameInTableByTicketId (dlSales.loadCustomerExt(finder.getSelectedCustomer().getId()).toString(), m_oTicket.getId().toString());  
-               restDB.setCustomerNameInTableByTicketId (dlSales.loadCustomerExt(finder.getSelectedCustomer().getId()).toString(), m_oTicket.getId());  
-               }
-           }
-
-        } catch (BasicException e) {
-            MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotfindcustomer"), e);
-            msg.show(this);            
-        }
-
-        refreshTicket();     
-}//GEN-LAST:event_btnCustomerActionPerformed
-
-    private void btnSplitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSplitActionPerformed
-
-        if (m_oTicket.getLinesCount() > 0) {
-            ReceiptSplit splitdialog = ReceiptSplit.getDialog(this, dlSystem.getResourceAsXML("Ticket.Line"), dlSales, dlCustomers, taxeslogic);
-            
-            TicketInfo ticket1 = m_oTicket.copyTicket();
-            TicketInfo ticket2 = new TicketInfo();
-            ticket2.setCustomer(m_oTicket.getCustomer());
-            
-            if (splitdialog.showDialog(ticket1, ticket2, m_oTicketExt)) {
-                if (closeTicket(ticket2, m_oTicketExt)) { // already checked  that number of lines > 0                            
-                    setActiveTicket(ticket1, m_oTicketExt);// set result ticket
-// maybe look at returning to table set up after splitting the bill
-
-                    
-                }
-            }
-        }
-        
-}//GEN-LAST:event_btnSplitActionPerformed
-
     private void jEditAttributesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditAttributesActionPerformed
        if (listener  != null) {
             listener.stop();
@@ -2496,54 +2443,114 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
        }
 }//GEN-LAST:event_jEditAttributesActionPerformed
 
+    private void m_jaddtaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jaddtaxActionPerformed
+        if ("+".equals(m_jaddtax.getText())){
+            m_jaddtax.setText("-");
+        }else{
+            m_jaddtax.setText("+");
+        }
+    }//GEN-LAST:event_m_jaddtaxActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-// Show the custmer panel - this does deactivate
-        {                                        
-m_App.getAppUserView().showTask("com.openbravo.pos.customers.CustomersPanel");
+        // Show the custmer panel - this does deactivate
+        {
+            m_App.getAppUserView().showTask("com.openbravo.pos.customers.CustomersPanel");
 
-
-
-}
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jbtnMooringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMooringActionPerformed
-// Display vessel selection box on screen if reply is good add to the ticket
-       if (listener  != null) {
+    private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
+        if (listener  != null) {
             listener.stop();
-        } 
-       JMooringDetails mooring = JMooringDetails.getMooringDetails(this, m_App.getSession());
-       mooring.setVisible(true);
-       if (mooring.isCreate()){ 
-           if (((mooring.getVesselDays()>0 )) &&  ((mooring.getVesselSize()>1))){          
-           try{
-           ProductInfoExt vProduct = dlSales.getProductInfoByCode("BFeesDay1");
-           vProduct.setName("Berth Fees 1st Day " + mooring.getVesselName());
-           addTicketLine(vProduct, mooring.getVesselSize(), vProduct.getPriceSell());
-           if (mooring.getVesselDays()>1){
-           vProduct = dlSales.getProductInfoByCode("BFeesDay2");
-           vProduct.setName("Additional Days " +(mooring.getVesselDays()-1));
-           addTicketLine(vProduct, mooring.getVesselSize() * (mooring.getVesselDays()-1), vProduct.getPriceSell());               
-           }
-           if (mooring.getVesselPower()){
-           vProduct = dlSales.getProductInfoByCode("PowerSupplied");
-           addTicketLine(vProduct, mooring.getVesselDays(), vProduct.getPriceSell());               
-           }         
-           }catch (BasicException e){}
-       }
-       }
-               refreshTicket(); 
+        }
+        JCustomerFinder finder = JCustomerFinder.getCustomerFinder(this, dlCustomers);
+        finder.search(m_oTicket.getCustomer());
+        finder.setVisible(true);
+
+        try {
+            if (finder.getSelectedCustomer() == null){
+                m_oTicket.setCustomer(null);
+            }else {
+                m_oTicket.setCustomer(dlSales.loadCustomerExt(finder.getSelectedCustomer().getId()));
+                if ("restaurant".equals(m_App.getProperties().getProperty("machine.ticketsbag"))) {
+                    // JG 30 Apr 14 Redundant String() to String() assignment
+                    //               restDB.setCustomerNameInTableByTicketId (dlSales.loadCustomerExt(finder.getSelectedCustomer().getId()).toString(), m_oTicket.getId().toString());
+                    restDB.setCustomerNameInTableByTicketId (dlSales.loadCustomerExt(finder.getSelectedCustomer().getId()).toString(), m_oTicket.getId());
+                }
+            }
+
+        } catch (BasicException e) {
+            MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotfindcustomer"), e);
+            msg.show(this);
+        }
+
+        refreshTicket();
+    }//GEN-LAST:event_btnCustomerActionPerformed
+
+    private void btnSplitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSplitActionPerformed
+
+        if (m_oTicket.getLinesCount() > 0) {
+            ReceiptSplit splitdialog = ReceiptSplit.getDialog(this, dlSystem.getResourceAsXML("Ticket.Line"), dlSales, dlCustomers, taxeslogic);
+
+            TicketInfo ticket1 = m_oTicket.copyTicket();
+            TicketInfo ticket2 = new TicketInfo();
+            ticket2.setCustomer(m_oTicket.getCustomer());
+
+            if (splitdialog.showDialog(ticket1, ticket2, m_oTicketExt)) {
+                if (closeTicket(ticket2, m_oTicketExt)) { // already checked  that number of lines > 0
+                    setActiveTicket(ticket1, m_oTicketExt);// set result ticket
+                    // maybe look at returning to table set up after splitting the bill
+
+                }
+            }
+        }
+
+    }//GEN-LAST:event_btnSplitActionPerformed
+
+    private void m_jbtnScaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jbtnScaleActionPerformed
+
+        stateTransition('\u00a7');
+
+    }//GEN-LAST:event_m_jbtnScaleActionPerformed
+
+    private void jbtnMooringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMooringActionPerformed
+        // Display vessel selection box on screen if reply is good add to the ticket
+        if (listener  != null) {
+            listener.stop();
+        }
+        JMooringDetails mooring = JMooringDetails.getMooringDetails(this, m_App.getSession());
+        mooring.setVisible(true);
+        if (mooring.isCreate()){
+            if (((mooring.getVesselDays()>0 )) &&  ((mooring.getVesselSize()>1))){
+                try{
+                    ProductInfoExt vProduct = dlSales.getProductInfoByCode("BFeesDay1");
+                    vProduct.setName("Berth Fees 1st Day " + mooring.getVesselName());
+                    addTicketLine(vProduct, mooring.getVesselSize(), vProduct.getPriceSell());
+                    if (mooring.getVesselDays()>1){
+                        vProduct = dlSales.getProductInfoByCode("BFeesDay2");
+                        vProduct.setName("Additional Days " +(mooring.getVesselDays()-1));
+                        addTicketLine(vProduct, mooring.getVesselSize() * (mooring.getVesselDays()-1), vProduct.getPriceSell());
+                    }
+                    if (mooring.getVesselPower()){
+                        vProduct = dlSales.getProductInfoByCode("PowerSupplied");
+                        addTicketLine(vProduct, mooring.getVesselDays(), vProduct.getPriceSell());
+                    }
+                }catch (BasicException e){}
+            }
+        }
+        refreshTicket();
     }//GEN-LAST:event_jbtnMooringActionPerformed
 
     private void j_btnKitchenPrtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_j_btnKitchenPrtActionPerformed
-// John L - replace older SendOrder script
-        
+        // John L - replace older SendOrder script
+
         String rScript = (dlSystem.getResourceAsText("script.SendOrder"));
 
-            Interpreter i = new Interpreter(); 
-        try {                       
-            i.set("ticket", m_oTicket);  
-            i.set("place",  m_oTicketExt);             
+        Interpreter i = new Interpreter();
+        try {
+            i.set("ticket", m_oTicket);
+            i.set("place",  m_oTicketExt);
             i.set("user", m_App.getAppUserView().getUser());
             i.set("sales", this);
             i.set("pickupid", m_oTicket.getPickupId());
@@ -2552,25 +2559,16 @@ m_App.getAppUserView().showTask("com.openbravo.pos.customers.CustomersPanel");
         } catch (EvalError ex) {
             Logger.getLogger(JPanelTicket.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-// Autologoff after sending to kitchen   
-       
-            String autoLogoff = (m_App.getProperties().getProperty("till.autoLogoff"));
-            if (autoLogoff != null){
-                if (autoLogoff.equals("true")){  
-                    ((JRootApp)m_App).closeAppView();    
-                      }
-                }    
 
-    }//GEN-LAST:event_j_btnKitchenPrtActionPerformed
+        // Autologoff after sending to kitchen
 
-    private void m_jaddtaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jaddtaxActionPerformed
-        if ("+".equals(m_jaddtax.getText())){
-            m_jaddtax.setText("-");
-        }else{
-            m_jaddtax.setText("+");
+        String autoLogoff = (m_App.getProperties().getProperty("till.autoLogoff"));
+        if (autoLogoff != null){
+            if (autoLogoff.equals("true")){
+                ((JRootApp)m_App).closeAppView();
+            }
         }
-    }//GEN-LAST:event_m_jaddtaxActionPerformed
+    }//GEN-LAST:event_j_btnKitchenPrtActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

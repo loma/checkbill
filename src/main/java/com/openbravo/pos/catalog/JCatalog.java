@@ -484,7 +484,7 @@ public class JCatalog extends JPanel implements ListSelectionListener, CatalogSe
         m_jscrollcat.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         m_jscrollcat.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
 
-        m_jListCategories.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jListCategories.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         m_jListCategories.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         m_jListCategories.setFocusable(false);
         m_jListCategories.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -565,6 +565,7 @@ public class JCatalog extends JPanel implements ListSelectionListener, CatalogSe
 
         add(m_jCategories, java.awt.BorderLayout.LINE_START);
 
+        m_jProducts.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         m_jProducts.setLayout(new java.awt.CardLayout());
         add(m_jProducts, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents

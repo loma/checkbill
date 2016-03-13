@@ -4,6 +4,7 @@
  */
 package com.openbravo.pos.payment;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -11,6 +12,7 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
+import javax.swing.UIManager;
 
 /**
  *
@@ -150,6 +152,16 @@ public class NewOkCancelDialog extends javax.swing.JDialog {
         dispose();
     }
 
+    public static void setUIFont (javax.swing.plaf.FontUIResource f) {
+        java.util.Enumeration keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get (key);
+            if (value != null && value instanceof javax.swing.plaf.FontUIResource)
+            UIManager.put (key, f);
+        }
+    } 
+    
     /**
      * @param args the command line arguments
      */
@@ -162,6 +174,7 @@ public class NewOkCancelDialog extends javax.swing.JDialog {
         try {
             String message = "Return Change: ";
                 JLabel = message;
+            setUIFont (new javax.swing.plaf.FontUIResource("Saysettha OT", Font.PLAIN, 16));
 	
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

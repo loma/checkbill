@@ -60,14 +60,14 @@ public class JCatalogTab extends javax.swing.JPanel {
      * @param al
      * @param textTip
      */
-        public void addButton(Icon ico, ActionListener al, String textTip) {
+    public void addButton(Icon ico, ActionListener al, String textTip) {
         JButton btn = new JButton();
         btn.applyComponentOrientation(getComponentOrientation());
         btn.setIcon(ico);
         btn.setFocusPainted(false);
         btn.setFocusable(false);
         if (textTip != null){
-        btn.setToolTipText(textTip);
+            btn.setToolTipText(textTip);
         }
         btn.setRequestFocusEnabled(false);
         btn.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -85,7 +85,7 @@ public class JCatalogTab extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         setLayout(new java.awt.BorderLayout());
     }// </editor-fold>//GEN-END:initComponents
     

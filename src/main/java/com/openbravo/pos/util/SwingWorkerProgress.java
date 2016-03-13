@@ -8,8 +8,10 @@ package com.openbravo.pos.util;
  *
  * @author JG uniCenta
  */
+import static com.openbravo.pos.forms.StartPOS.setUIFont;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -38,6 +40,7 @@ public class SwingWorkerProgress {
      */
     public static void main(String[] args) {
         SwingWorkerProgress swingWorkerProgress = new SwingWorkerProgress();
+        setUIFont (new javax.swing.plaf.FontUIResource("Saysettha OT", Font.PLAIN, 16));
     }
 
     /**

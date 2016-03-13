@@ -32,6 +32,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import com.openbravo.pos.ticket.TicketInfo;
+import java.awt.Font;
 
 
 // JG 16 May 2013 deprecated for pushingpixels
@@ -69,6 +70,16 @@ public class StartPOS {
         }  
     }
     
+    public static void setUIFont (javax.swing.plaf.FontUIResource f) {
+        java.util.Enumeration keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get (key);
+            if (value != null && value instanceof javax.swing.plaf.FontUIResource)
+            UIManager.put (key, f);
+        }
+    } 
+    
     /**
      *
      * @param args
@@ -82,6 +93,8 @@ public class StartPOS {
                 if (!registerApp()) {
                     System.exit(1);
                 }
+                
+                setUIFont (new javax.swing.plaf.FontUIResource("Saysettha OT", Font.PLAIN, 16));
                 
                 AppConfig config = new AppConfig(args);
                 config.load();

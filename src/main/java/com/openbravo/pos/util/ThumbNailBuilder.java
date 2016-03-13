@@ -108,7 +108,8 @@ public class ThumbNailBuilder {
                 
         // The text        
         JLabel label = new JLabel();
-        label.setOpaque(false);
+        label.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
+        label.setOpaque(true);
         label.setText(text);
         //label.setText("<html><center>Line1<br>Line2");
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
