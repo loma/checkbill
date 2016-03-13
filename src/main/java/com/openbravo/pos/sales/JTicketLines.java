@@ -25,6 +25,7 @@ import com.openbravo.pos.scripting.ScriptEngine;
 import com.openbravo.pos.scripting.ScriptException;
 import com.openbravo.pos.scripting.ScriptFactory;
 import com.openbravo.pos.ticket.TicketLineInfo;
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -41,6 +42,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -102,7 +104,14 @@ public class JTicketLines extends javax.swing.JPanel {
         
         m_jScrollTableTicket.getVerticalScrollBar().setPreferredSize(new Dimension(35, 35));
        
-        m_jTicketTable.getTableHeader().setReorderingAllowed(false);         
+        m_jTicketTable.getTableHeader().setReorderingAllowed(false);
+        m_jTicketTable.setTableHeader(new JTableHeader(m_jTicketTable.getColumnModel()) {
+  @Override public Dimension getPreferredSize() {
+    Dimension d = super.getPreferredSize();
+    d.height = 32;
+    return d;
+  }
+});
         m_jTicketTable.setDefaultRenderer(Object.class, new TicketCellRenderer(acolumns));
  //       m_jTicketTable.setDefaultRenderer(Object.class, new TicketCellRendererSent(acolumns));        
         
