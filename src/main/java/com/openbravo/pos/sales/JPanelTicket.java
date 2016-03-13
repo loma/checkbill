@@ -2030,8 +2030,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         jPanel4.setLayout(new java.awt.BorderLayout());
 
         m_jTicketId.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
-        m_jTicketId.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        m_jTicketId.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        m_jTicketId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m_jTicketId.setAutoscrolls(true);
         m_jTicketId.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         m_jTicketId.setOpaque(true);
@@ -2281,10 +2280,11 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         jPanel9.add(m_jEnter, gridBagConstraints);
 
-        m_jTax.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        m_jTax.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         m_jTax.setFocusable(false);
-        m_jTax.setPreferredSize(new java.awt.Dimension(28, 25));
+        m_jTax.setPreferredSize(new java.awt.Dimension(50, 25));
         m_jTax.setRequestFocusEnabled(false);
+        m_jTax.setSize(new java.awt.Dimension(50, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;

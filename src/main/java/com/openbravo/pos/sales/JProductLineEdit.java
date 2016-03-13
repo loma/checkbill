@@ -30,6 +30,7 @@ import javax.swing.JFrame;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppView;
 import com.openbravo.pos.ticket.TicketLineInfo;
+import java.awt.Font;
 
 /**
  *
@@ -70,7 +71,8 @@ public class JProductLineEdit extends javax.swing.JDialog {
         m_jPriceTax.setEnabled(app.getAppUserView().getUser().hasPermission("com.openbravo.pos.sales.JPanelTicketEdits"));
         
 //        m_jName.setText(m_oLine.getProperty("product.name"));
-        m_jName.setText(oLine.getProductName());        
+        m_jName.setText(oLine.getProductName());     
+        m_jName.setFont(new Font("Saysettha OT", 0, 16));
         m_jUnits.setDoubleValue(oLine.getMultiply());
         m_jPrice.setDoubleValue(oLine.getPrice()); 
         m_jPriceTax.setDoubleValue(oLine.getPriceTax());
@@ -241,41 +243,41 @@ public class JProductLineEdit extends javax.swing.JDialog {
 
         jPanel2.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         jLabel1.setText(AppLocal.getIntString("label.price")); // NOI18N
         jPanel2.add(jLabel1);
         jLabel1.setBounds(10, 80, 90, 25);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("label.units")); // NOI18N
         jPanel2.add(jLabel2);
         jLabel2.setBounds(10, 50, 90, 25);
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         jLabel3.setText(AppLocal.getIntString("label.pricetax")); // NOI18N
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(10, 110, 90, 25);
+        jLabel3.setBounds(10, 110, 150, 25);
 
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         jLabel4.setText(AppLocal.getIntString("label.item")); // NOI18N
         jPanel2.add(jLabel4);
         jLabel4.setBounds(10, 20, 90, 25);
 
-        m_jName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jName.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         jPanel2.add(m_jName);
-        m_jName.setBounds(100, 20, 270, 25);
+        m_jName.setBounds(170, 20, 270, 25);
 
         m_jUnits.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jPanel2.add(m_jUnits);
-        m_jUnits.setBounds(100, 50, 240, 25);
+        m_jUnits.setBounds(170, 50, 270, 25);
 
         m_jPrice.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jPanel2.add(m_jPrice);
-        m_jPrice.setBounds(100, 80, 240, 25);
+        m_jPrice.setBounds(170, 80, 270, 25);
 
         m_jPriceTax.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jPanel2.add(m_jPriceTax);
-        m_jPriceTax.setBounds(100, 110, 240, 25);
+        m_jPriceTax.setBounds(170, 110, 270, 25);
 
         m_jTaxrate.setBackground(javax.swing.UIManager.getDefaults().getColor("TextField.disabledBackground"));
         m_jTaxrate.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -285,17 +287,17 @@ public class JProductLineEdit extends javax.swing.JDialog {
         m_jTaxrate.setPreferredSize(new java.awt.Dimension(150, 25));
         m_jTaxrate.setRequestFocusEnabled(false);
         jPanel2.add(m_jTaxrate);
-        m_jTaxrate.setBounds(100, 140, 210, 25);
+        m_jTaxrate.setBounds(170, 140, 240, 25);
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         jLabel5.setText(AppLocal.getIntString("label.tax")); // NOI18N
         jPanel2.add(jLabel5);
         jLabel5.setBounds(10, 140, 90, 25);
 
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         jLabel6.setText(AppLocal.getIntString("label.totalcash")); // NOI18N
         jPanel2.add(jLabel6);
-        jLabel6.setBounds(10, 200, 90, 25);
+        jLabel6.setBounds(10, 200, 150, 25);
 
         m_jTotal.setBackground(javax.swing.UIManager.getDefaults().getColor("TextField.disabledBackground"));
         m_jTotal.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -305,12 +307,12 @@ public class JProductLineEdit extends javax.swing.JDialog {
         m_jTotal.setPreferredSize(new java.awt.Dimension(150, 25));
         m_jTotal.setRequestFocusEnabled(false);
         jPanel2.add(m_jTotal);
-        m_jTotal.setBounds(100, 200, 210, 25);
+        m_jTotal.setBounds(170, 200, 240, 25);
 
-        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         jLabel7.setText(AppLocal.getIntString("label.subtotalcash")); // NOI18N
         jPanel2.add(jLabel7);
-        jLabel7.setBounds(10, 170, 90, 25);
+        jLabel7.setBounds(10, 170, 150, 25);
 
         m_jSubtotal.setBackground(javax.swing.UIManager.getDefaults().getColor("TextField.disabledBackground"));
         m_jSubtotal.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -320,7 +322,7 @@ public class JProductLineEdit extends javax.swing.JDialog {
         m_jSubtotal.setPreferredSize(new java.awt.Dimension(150, 25));
         m_jSubtotal.setRequestFocusEnabled(false);
         jPanel2.add(m_jSubtotal);
-        m_jSubtotal.setBounds(100, 170, 210, 25);
+        m_jSubtotal.setBounds(170, 170, 240, 25);
 
         jPanel5.add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -367,8 +369,8 @@ public class JProductLineEdit extends javax.swing.JDialog {
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.EAST);
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-580)/2, (screenSize.height-362)/2, 580, 362);
+        setSize(new java.awt.Dimension(642, 408));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void m_jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jButtonCancelActionPerformed
