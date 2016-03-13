@@ -805,7 +805,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         setTitle(AppLocal.getIntString("payment.title")); // NOI18N
         setResizable(false);
 
-        m_jLblTotalEuros1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        m_jLblTotalEuros1.setFont(new java.awt.Font("Saysettha OT", 1, 18)); // NOI18N
         m_jLblTotalEuros1.setText(AppLocal.getIntString("label.totalcash")); // NOI18N
         jPanel4.add(m_jLblTotalEuros1);
 
@@ -813,13 +813,13 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         m_jPayTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         m_jPayTotal.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
         m_jPayTotal.setOpaque(true);
-        m_jPayTotal.setPreferredSize(new java.awt.Dimension(125, 25));
+        m_jPayTotal.setPreferredSize(new java.awt.Dimension(170, 25));
         m_jPayTotal.setRequestFocusEnabled(false);
         jPanel4.add(m_jPayTotal);
 
         jPanel6.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
-        m_jLblRemainingEuros.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        m_jLblRemainingEuros.setFont(new java.awt.Font("Saysettha OT", 1, 18)); // NOI18N
         m_jLblRemainingEuros.setText(AppLocal.getIntString("label.remainingcash")); // NOI18N
         jPanel6.add(m_jLblRemainingEuros);
 
@@ -827,7 +827,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         m_jRemaininglEuros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         m_jRemaininglEuros.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
         m_jRemaininglEuros.setOpaque(true);
-        m_jRemaininglEuros.setPreferredSize(new java.awt.Dimension(125, 25));
+        m_jRemaininglEuros.setPreferredSize(new java.awt.Dimension(170, 25));
         m_jRemaininglEuros.setRequestFocusEnabled(false);
         jPanel6.add(m_jRemaininglEuros);
 
@@ -919,7 +919,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
 
         getContentPane().add(jPanel5, java.awt.BorderLayout.SOUTH);
 
-        setSize(new java.awt.Dimension(672, 497));
+        setSize(new java.awt.Dimension(824, 514));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
