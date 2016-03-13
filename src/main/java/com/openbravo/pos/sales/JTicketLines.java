@@ -106,15 +106,14 @@ public class JTicketLines extends javax.swing.JPanel {
        
         m_jTicketTable.getTableHeader().setReorderingAllowed(false);
         m_jTicketTable.setTableHeader(new JTableHeader(m_jTicketTable.getColumnModel()) {
-  @Override public Dimension getPreferredSize() {
-    Dimension d = super.getPreferredSize();
-    d.height = 32;
-    return d;
-  }
-});
-        m_jTicketTable.setDefaultRenderer(Object.class, new TicketCellRenderer(acolumns));
- //       m_jTicketTable.setDefaultRenderer(Object.class, new TicketCellRendererSent(acolumns));        
+            @Override public Dimension getPreferredSize() {
+                Dimension d = super.getPreferredSize();
+                d.height = 32;
+                return d;
+            }
+        });
         
+        m_jTicketTable.setDefaultRenderer(Object.class, new TicketCellRenderer(acolumns));       
         
         m_jTicketTable.setRowHeight(40);
         m_jTicketTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
