@@ -30,6 +30,7 @@ import com.openbravo.pos.scripting.ScriptFactory;
 import com.openbravo.pos.util.RoundUtils;
 import com.openbravo.pos.util.ThumbNailBuilder;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -134,7 +135,7 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
 
         Double value = m_jTendered.getDoubleValue();
         if (value == null || value == 0.0) {
-            m_dPaid = m_dTotal;
+            m_dPaid = 0;
         } else {            
             m_dPaid = value;
 
@@ -177,7 +178,7 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
             this.m_config = m_config;
         
             this.dlSystem = dlSystem;
-            tnbbutton = new ThumbNailBuilder(64, 50, "com/openbravo/images/cash.png");
+            tnbbutton = new ThumbNailBuilder(150, 80, "com/openbravo/images/cash.png");
         }
         
         /**
@@ -189,13 +190,13 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
             JButton btn = new JButton();
 //added 19.04.13 JDL removal of text on payment buttons if required.   
             try {
-            if ((m_config.getProperty("payments.textoverlay")).equals("true")){
-                     btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image),"")));  
-            } else {
-                     btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image), Formats.CURRENCY.formatValue(amount)))); 
-            }
+                if ((m_config.getProperty("payments.textoverlay")).equals("true")){
+                         btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image),"")));  
+                } else {
+                         btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image), Formats.CURRENCY.formatValue(amount)))); 
+                }
             } catch (Exception e){
-                    btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image), Formats.CURRENCY.formatValue(amount))));        
+                btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image), Formats.CURRENCY.formatValue(amount))));        
             }   
             
             btn.setFocusPainted(false);
@@ -205,6 +206,7 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
             btn.setVerticalTextPosition(SwingConstants.BOTTOM);
             btn.setMargin(new Insets(2, 2, 2, 2));
             btn.addActionListener(new AddAmount(amount));
+            //btn.setPreferredSize(new Dimension(200,100));
             jPanel6.add(btn);  
         }
     }

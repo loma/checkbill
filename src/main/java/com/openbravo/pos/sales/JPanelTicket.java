@@ -2024,7 +2024,8 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jPanTicket.setLayout(new java.awt.BorderLayout());
 
         m_jPanelCentral.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
-        m_jPanelCentral.setPreferredSize(new java.awt.Dimension(450, 240));
+        m_jPanelCentral.setMinimumSize(new java.awt.Dimension(250, 50));
+        m_jPanelCentral.setPreferredSize(new java.awt.Dimension(250, 240));
         m_jPanelCentral.setLayout(new java.awt.BorderLayout());
 
         jPanel4.setLayout(new java.awt.BorderLayout());
