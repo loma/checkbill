@@ -49,7 +49,7 @@ public class StartPOS {
     
     
     /** Creates a new instance of StartPOS */
-    private StartPOS() {
+    public StartPOS() {
     }
 
     /**

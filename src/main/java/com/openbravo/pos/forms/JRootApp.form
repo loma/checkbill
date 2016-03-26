@@ -68,6 +68,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Window.Title"/>
+            <Property name="name" type="java.lang.String" value="m_jLbTitle" noResource="true"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="JRootApp_m_jLblTitle"/>
@@ -319,11 +320,15 @@
                         </Property>
                         <Property name="focusPainted" type="boolean" value="false"/>
                         <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="name" type="java.lang.String" value="close" noResource="true"/>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[100, 50]"/>
                         </Property>
                         <Property name="requestFocusEnabled" type="boolean" value="false"/>
                       </Properties>
+                      <AccessibilityProperties>
+                        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="closeBtn"/>
+                      </AccessibilityProperties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="m_jCloseActionPerformed"/>
                       </Events>

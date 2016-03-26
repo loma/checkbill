@@ -255,6 +255,7 @@ public class JTicketsBagShared extends JTicketsBag {
                 m_jHold.setMargin(new java.awt.Insets(0, 4, 0, 4));
                 m_jHold.setMaximumSize(new java.awt.Dimension(50, 40));
                 m_jHold.setMinimumSize(new java.awt.Dimension(50, 40));
+                m_jHold.setName("logout"); // NOI18N
                 m_jHold.setPreferredSize(new java.awt.Dimension(50, 50));
                 m_jHold.setRequestFocusEnabled(false);
                 m_jHold.addActionListener(new java.awt.event.ActionListener() {

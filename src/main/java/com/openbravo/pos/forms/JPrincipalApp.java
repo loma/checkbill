@@ -96,6 +96,7 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
         m_principalnotificator.applyComponentOrientation(getComponentOrientation());
         m_principalnotificator.setText(m_appuser.getName());
         m_principalnotificator.setIcon(m_appuser.getIcon());
+	m_principalnotificator.setName("active-user");
 //        m_principalnotificator.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("TextField.shadow")), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5)));        
         
         if (jButton1.getComponentOrientation().isLeftToRight()) {
@@ -576,6 +577,7 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
                 jButton1.setMargin(new java.awt.Insets(14, 2, 14, 2));
                 jButton1.setMaximumSize(new java.awt.Dimension(32, 32));
                 jButton1.setMinimumSize(new java.awt.Dimension(32, 32));
+                jButton1.setName("toggle-menu"); // NOI18N
                 jButton1.setPreferredSize(new java.awt.Dimension(32, 32));
                 jButton1.setRequestFocusEnabled(false);
                 jButton1.addActionListener(new java.awt.event.ActionListener() {

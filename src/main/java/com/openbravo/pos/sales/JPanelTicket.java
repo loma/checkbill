@@ -1998,7 +1998,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
                 j_btnKitchenPrt.setMargin(new java.awt.Insets(0, 4, 0, 4));
                 j_btnKitchenPrt.setMaximumSize(new java.awt.Dimension(50, 40));
                 j_btnKitchenPrt.setMinimumSize(new java.awt.Dimension(50, 40));
-                j_btnKitchenPrt.setPreferredSize(new java.awt.Dimension(120, 50));
+                j_btnKitchenPrt.setPreferredSize(new java.awt.Dimension(150, 50));
                 j_btnKitchenPrt.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 j_btnKitchenPrtActionPerformed(evt);
