@@ -1,3 +1,5 @@
+package integration.tests;
+
 import com.athaydes.automaton.Swinger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -5,14 +7,12 @@ import org.junit.Test;
 
 import com.openbravo.pos.forms.StartPOS;
 import java.awt.Component;
-import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
 
-public class TestLogin {
+public class ITLogin {
 
 	static Swinger swinger;
 
@@ -21,9 +21,8 @@ public class TestLogin {
 	public static void launchApp() throws Exception {
 		System.out.println( "Launching Java App" );
 
-		StartPOS pos = new StartPOS();
 	      	String[] arguments = new String[] {"/Users/loma/unicentaopos.properties"};
-      		pos.main(arguments);
+      		StartPOS.main(arguments);
 
 		// get a Swing-driver, or Swinger
 		swinger = Swinger.forSwingWindow();
@@ -43,7 +42,7 @@ public class TestLogin {
 		try {
 			Thread.sleep( time );
 		} catch (InterruptedException ex) {
-			Logger.getLogger(TestLogin.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ITLogin.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 	@Test
