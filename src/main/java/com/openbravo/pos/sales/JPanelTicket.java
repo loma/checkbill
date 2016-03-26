@@ -542,7 +542,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
             }  
         
             // The ticket name
-            m_jTicketId.setText(m_oTicket.getName(m_oTicketExt));
+            m_jTicketId.setText("<html>" + m_oTicket.getName(m_oTicketExt).replaceAll("-", "<br>") + "</html>"); 
 
             // Limpiamos todas las filas y anadimos las del ticket actual
             m_ticketlines.clearTicketLines();
