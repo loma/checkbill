@@ -24,6 +24,7 @@ import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppUser;
 import com.openbravo.pos.util.ThumbNailBuilder;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -160,6 +161,7 @@ public class JPanelButtons extends javax.swing.JPanel {
                     JButton btn = new JButtonFunc(attributes.getValue("key"), 
                             attributes.getValue("image"), 
                             title);
+		    btn.setPreferredSize(new Dimension(50,50));
                     // The template resource or the code resource
                     final String template = attributes.getValue("template");
                     if (template == null) {
