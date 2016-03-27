@@ -115,8 +115,7 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
         showView("<NULL>");
         
         try {
-
-        m_jPanelLeft.setViewportView(getScriptMenu(m_dlSystem.getResourceAsText("Menu.Root")));       
+			m_jPanelLeft.setViewportView(getScriptMenu(m_dlSystem.getResourceAsText("Menu.Root")));       
         } catch (ScriptException e) {
             logger.log(Level.SEVERE, "Cannot read Menu.Root resource. Trying default menu.", e);
             try {
@@ -598,7 +597,7 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
 
                 m_jPanelTitle.setLayout(new java.awt.BorderLayout());
 
-                m_jTitle.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+                m_jTitle.setFont(new java.awt.Font("Saysettha OT", 1, 18)); // NOI18N
                 m_jTitle.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, java.awt.Color.darkGray), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
                 m_jPanelTitle.add(m_jTitle, java.awt.BorderLayout.NORTH);
 

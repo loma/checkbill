@@ -21,16 +21,13 @@ public class ITLogin {
 	@BeforeClass
 	public static void launchApp() throws Exception {
 		System.out.println( "Launching Java App" );
-
-	      	String[] arguments = new String[] {"/Users/loma/unicentaopos.properties"};
-      		StartPOS.main(arguments);
+		String[] arguments = new String[] {"/Users/loma/unicentaopos.properties"};
+		StartPOS.main(arguments);
 
 		// get a Swing-driver, or Swinger
 		swinger = new SafeSwinger(Swinger.forSwingWindow());
 
 		System.out.println( "App has been launched" );
-
-		// let the window open and show before running tests
 	}
 
 	@AfterClass
