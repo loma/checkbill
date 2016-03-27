@@ -2035,7 +2035,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
                 m_jTicketId.setAutoscrolls(true);
                 m_jTicketId.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
                 m_jTicketId.setOpaque(true);
-                m_jTicketId.setPreferredSize(new java.awt.Dimension(150, 40));
+                m_jTicketId.setPreferredSize(new java.awt.Dimension(120, 40));
                 m_jTicketId.setRequestFocusEnabled(false);
                 m_jTicketId.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
                 jPanel4.add(m_jTicketId, java.awt.BorderLayout.WEST);

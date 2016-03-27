@@ -779,7 +779,7 @@ public class JRootApp extends JPanel implements AppView {
                 m_jClose = new javax.swing.JButton();
 
                 setEnabled(false);
-                setPreferredSize(new java.awt.Dimension(1024, 768));
+                setPreferredSize(new java.awt.Dimension(1366, 768));
                 setLayout(new java.awt.BorderLayout());
 
                 m_jPanelTitle.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));
@@ -912,7 +912,7 @@ public class JRootApp extends JPanel implements AppView {
                                                 .add(m_jLogonName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                 .add(434, 434, 434))
                                         .add(jPanel5Layout.createSequentialGroup()
-                                                .add(jScrollPane1)
+                                                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE)
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                 .addContainerGap())))
