@@ -11,10 +11,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 public class ITLogin {
 
-	static Swinger swinger;
+	static SafeSwinger swinger;
 
 
 	@BeforeClass
@@ -25,12 +26,11 @@ public class ITLogin {
       		StartPOS.main(arguments);
 
 		// get a Swing-driver, or Swinger
-		swinger = Swinger.forSwingWindow();
+		swinger = new SafeSwinger(Swinger.forSwingWindow());
 
 		System.out.println( "App has been launched" );
 
 		// let the window open and show before running tests
-		explicitWait( 10000 );
 	}
 
 	@AfterClass
@@ -38,13 +38,6 @@ public class ITLogin {
 		System.out.println( "Cleaning up" );
 	}
 
-	private static void explicitWait(int time) {
-		try {
-			Thread.sleep( time );
-		} catch (InterruptedException ex) {
-			Logger.getLogger(ITLogin.class.getName()).log(Level.SEVERE, null, ex);
-		}
-	}
 	@Test
 	public void windowTitleTest() {
 		Component c = swinger.getAt( "m_jLbTitle" );
@@ -55,12 +48,10 @@ public class ITLogin {
 	@Test
 	public void loginTest() {
 		swinger.clickOn( "user0" );
-		explicitWait(1000);
 		Component c = swinger.getAt( "active-user" );
 		JLabel l = (JLabel)c;
 		assertEquals("ຜູ້ຈັດການ", l.getText());
 		swinger.clickOn( "logout" );
-		explicitWait(1000);
 		swinger.clickOn( "close" );
 	}
 }
