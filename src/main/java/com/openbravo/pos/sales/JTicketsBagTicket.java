@@ -215,10 +215,12 @@ public class JTicketsBagTicket extends JTicketsBag {
                 : m_dlSales.loadTicket(iTickettype, iTicketid) ;
 
             if (ticket == null) {
-                //MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.notexiststicket"));
-                //msg.show(this);
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,AppLocal.getIntString("message.notexiststicket"),AppLocal.getIntString("message.notexiststickettitle"),JOptionPane.WARNING_MESSAGE);
+		JPanel jtp = new JPanel();
+		JLabel label = new JLabel();
+		label.setText(AppLocal.getIntString("message.notexiststicket"));
+		label.setPreferredSize(new Dimension(200, 50));
+		jtp.add(label);
+                JOptionPane.showMessageDialog(null, jtp, AppLocal.getIntString("message.notexiststickettitle"), JOptionPane.WARNING_MESSAGE);
                 
             } else {
                 m_ticket = ticket;
