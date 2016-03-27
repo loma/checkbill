@@ -328,12 +328,13 @@ public class JProductLineEdit extends javax.swing.JDialog {
 
                 jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-                m_jButtonCancel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+                m_jButtonCancel.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
                 m_jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/cancel.png"))); // NOI18N
                 m_jButtonCancel.setText(AppLocal.getIntString("Button.Cancel")); // NOI18N
                 m_jButtonCancel.setFocusPainted(false);
                 m_jButtonCancel.setFocusable(false);
                 m_jButtonCancel.setMargin(new java.awt.Insets(8, 16, 8, 16));
+                m_jButtonCancel.setPreferredSize(new java.awt.Dimension(120, 50));
                 m_jButtonCancel.setRequestFocusEnabled(false);
                 m_jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -348,6 +349,7 @@ public class JProductLineEdit extends javax.swing.JDialog {
                 m_jButtonOK.setFocusPainted(false);
                 m_jButtonOK.setFocusable(false);
                 m_jButtonOK.setMargin(new java.awt.Insets(8, 16, 8, 16));
+                m_jButtonOK.setPreferredSize(new java.awt.Dimension(120, 50));
                 m_jButtonOK.setRequestFocusEnabled(false);
                 m_jButtonOK.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
