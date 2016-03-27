@@ -2020,7 +2020,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
                 m_jPanContainer.add(m_jOptions, java.awt.BorderLayout.NORTH);
 
                 m_jPanTicket.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-                m_jPanTicket.setPreferredSize(new java.awt.Dimension(800, 250));
+                m_jPanTicket.setPreferredSize(new java.awt.Dimension(600, 250));
                 m_jPanTicket.setLayout(new java.awt.BorderLayout());
 
                 m_jPanelCentral.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
@@ -2035,7 +2035,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
                 m_jTicketId.setAutoscrolls(true);
                 m_jTicketId.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
                 m_jTicketId.setOpaque(true);
-                m_jTicketId.setPreferredSize(new java.awt.Dimension(200, 40));
+                m_jTicketId.setPreferredSize(new java.awt.Dimension(150, 40));
                 m_jTicketId.setRequestFocusEnabled(false);
                 m_jTicketId.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
                 jPanel4.add(m_jTicketId, java.awt.BorderLayout.WEST);
