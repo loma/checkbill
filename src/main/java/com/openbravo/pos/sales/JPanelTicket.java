@@ -1991,6 +1991,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
                 });
                 jPanel1.add(jbtnMooring);
 
+                j_btnKitchenPrt.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
                 j_btnKitchenPrt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/printer24.png"))); // NOI18N
                 java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("pos_messages"); // NOI18N
                 j_btnKitchenPrt.setText(bundle.getString("button.sendorder")); // NOI18N

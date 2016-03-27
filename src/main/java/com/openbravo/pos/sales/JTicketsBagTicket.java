@@ -382,7 +382,7 @@ public class JTicketsBagTicket extends JTicketsBag {
                 m_jPrint.setMargin(new java.awt.Insets(0, 4, 0, 4));
                 m_jPrint.setMaximumSize(new java.awt.Dimension(50, 40));
                 m_jPrint.setMinimumSize(new java.awt.Dimension(50, 40));
-                m_jPrint.setPreferredSize(new java.awt.Dimension(150, 50));
+                m_jPrint.setPreferredSize(new java.awt.Dimension(170, 50));
                 m_jPrint.setRequestFocusEnabled(false);
                 m_jPrint.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {

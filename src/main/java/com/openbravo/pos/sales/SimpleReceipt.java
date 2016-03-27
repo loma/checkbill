@@ -309,6 +309,7 @@ public class SimpleReceipt extends javax.swing.JPanel {
 
                 m_jLblTotalEuros1.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
                 m_jLblTotalEuros1.setText(AppLocal.getIntString("label.totalcash")); // NOI18N
+                m_jLblTotalEuros1.setPreferredSize(new java.awt.Dimension(124, 25));
                 gridBagConstraints = new java.awt.GridBagConstraints();
                 gridBagConstraints.gridx = 0;
                 gridBagConstraints.gridy = 2;
@@ -350,6 +351,7 @@ public class SimpleReceipt extends javax.swing.JPanel {
 
                 m_jLblTotalEuros2.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
                 m_jLblTotalEuros2.setText(AppLocal.getIntString("label.taxcash")); // NOI18N
+                m_jLblTotalEuros2.setPreferredSize(new java.awt.Dimension(73, 25));
                 gridBagConstraints = new java.awt.GridBagConstraints();
                 gridBagConstraints.gridx = 0;
                 gridBagConstraints.gridy = 1;
@@ -359,6 +361,7 @@ public class SimpleReceipt extends javax.swing.JPanel {
 
                 m_jLblTotalEuros3.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
                 m_jLblTotalEuros3.setText(AppLocal.getIntString("label.subtotalcash")); // NOI18N
+                m_jLblTotalEuros3.setPreferredSize(new java.awt.Dimension(104, 25));
                 gridBagConstraints = new java.awt.GridBagConstraints();
                 gridBagConstraints.gridx = 0;
                 gridBagConstraints.gridy = 0;
