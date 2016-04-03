@@ -144,7 +144,7 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
         int iCompare = RoundUtils.compare(m_dPaid, m_dTotal);
         
         m_jMoneyEuros.setText(Formats.CURRENCY.formatValue(m_dPaid));
-        m_jChangeEuros.setText(iCompare > 0 
+        m_jChangeEuros.setText(iCompare >= 0 
                 ? Formats.CURRENCY.formatValue(m_dPaid - m_dTotal)
                 : null); 
         
