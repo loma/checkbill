@@ -452,7 +452,7 @@ public class StockManagement extends JPanel implements JPanelView {
                 setLayout(new java.awt.BorderLayout());
 
                 jPanel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-                jPanel8.setPreferredSize(new java.awt.Dimension(780, 270));
+                jPanel8.setPreferredSize(new java.awt.Dimension(780, 290));
 
                 jLabel1.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
                 jLabel1.setText(AppLocal.getIntString("label.stockdate")); // NOI18N
@@ -465,6 +465,8 @@ public class StockManagement extends JPanel implements JPanelView {
 
                 m_jbtndate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/date.png"))); // NOI18N
                 m_jbtndate.setToolTipText("Open Calendar");
+                m_jbtndate.setPreferredSize(new java.awt.Dimension(40, 40));
+                m_jbtndate.setSize(new java.awt.Dimension(40, 40));
                 m_jbtndate.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 m_jbtndateActionPerformed(evt);
@@ -657,7 +659,7 @@ public class StockManagement extends JPanel implements JPanelView {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(m_jcodebar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(m_jEnter))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 1, Short.MAX_VALUE))
                 );
 
                 javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -674,9 +676,9 @@ public class StockManagement extends JPanel implements JPanelView {
                                                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                 .addGap(5, 5, 5)
                                                 .addComponent(m_jdate, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(10, 10, 10)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(m_jbtndate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(20, 20, 20)
+                                                .addGap(24, 24, 24)
                                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel8Layout.createSequentialGroup()
                                                 .addGap(5, 5, 5)
@@ -703,8 +705,8 @@ public class StockManagement extends JPanel implements JPanelView {
                                                                                 .addComponent(m_jDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                 .addGap(4, 4, 4)
                                                                                 .addComponent(jEditAttributes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                        .addComponent(btnDownloadProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                                .addGap(4, 4, 4)
+                                                                        .addComponent(btnDownloadProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addGap(15, 15, 15)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                 );
                 jPanel8Layout.setVerticalGroup(
@@ -715,16 +717,15 @@ public class StockManagement extends JPanel implements JPanelView {
                                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(0, 0, 0)
                                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(m_jbtndate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel8Layout.createSequentialGroup()
                                                 .addGap(10, 10, 10)
-                                                .addComponent(m_jdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel8Layout.createSequentialGroup()
-                                                .addGap(8, 8, 8)
-                                                .addComponent(m_jbtndate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel8Layout.createSequentialGroup()
-                                                .addGap(10, 10, 10)
-                                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(2, 2, 2)
+                                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(m_jdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(5, 5, 5)
                                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(m_jreason, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
