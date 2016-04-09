@@ -437,7 +437,7 @@ public class JTicketsBagTicket extends JTicketsBag {
                 gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
                 jPanel5.add(jButton1, gridBagConstraints);
 
-                m_jTicketEditor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+                m_jTicketEditor.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
                 gridBagConstraints = new java.awt.GridBagConstraints();
                 gridBagConstraints.gridx = 0;
                 gridBagConstraints.gridy = 0;

@@ -267,20 +267,20 @@ public class JProductLineEdit extends javax.swing.JDialog {
                 jPanel2.add(m_jName);
                 m_jName.setBounds(170, 20, 270, 25);
 
-                m_jUnits.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+                m_jUnits.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
                 jPanel2.add(m_jUnits);
                 m_jUnits.setBounds(170, 50, 270, 25);
 
-                m_jPrice.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+                m_jPrice.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
                 jPanel2.add(m_jPrice);
                 m_jPrice.setBounds(170, 80, 270, 25);
 
-                m_jPriceTax.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+                m_jPriceTax.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
                 jPanel2.add(m_jPriceTax);
                 m_jPriceTax.setBounds(170, 110, 270, 25);
 
                 m_jTaxrate.setBackground(javax.swing.UIManager.getDefaults().getColor("TextField.disabledBackground"));
-                m_jTaxrate.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+                m_jTaxrate.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
                 m_jTaxrate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
                 m_jTaxrate.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
                 m_jTaxrate.setOpaque(true);
@@ -300,7 +300,7 @@ public class JProductLineEdit extends javax.swing.JDialog {
                 jLabel6.setBounds(10, 200, 150, 25);
 
                 m_jTotal.setBackground(javax.swing.UIManager.getDefaults().getColor("TextField.disabledBackground"));
-                m_jTotal.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+                m_jTotal.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
                 m_jTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
                 m_jTotal.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
                 m_jTotal.setOpaque(true);
@@ -315,7 +315,7 @@ public class JProductLineEdit extends javax.swing.JDialog {
                 jLabel7.setBounds(10, 170, 150, 25);
 
                 m_jSubtotal.setBackground(javax.swing.UIManager.getDefaults().getColor("TextField.disabledBackground"));
-                m_jSubtotal.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+                m_jSubtotal.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
                 m_jSubtotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
                 m_jSubtotal.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
                 m_jSubtotal.setOpaque(true);
