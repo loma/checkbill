@@ -18,15 +18,24 @@
 //    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
 // *************************************************************************
 
-payment.addButton("note.50", 50.0);
-payment.addButton("note.20", 20.0);
-payment.addButton("note.10", 10.0);
-payment.addButton("note.5", 5.0);
-payment.addButton("coin.2", 2.0);
-payment.addButton("coin.1", 1.0);
-payment.addButton("coin.50", 0.50);
-payment.addButton("coin.20", 0.20);
-payment.addButton("coin.10", 0.10);
-payment.addButton("coin.05", 0.05);
-payment.addButton("coin.02", 0.02);
-payment.addButton("coin.01", 0.01);
+payment.addButton("note.100000", 100000);
+payment.addButton("note.50000", 50000);
+payment.addButton("note.20000", 20000);
+payment.addButton("note.10000", 10000);
+payment.addButton("note.5000", 5000);
+payment.addButton("note.2000", 2000);
+payment.addButton("note.1000", 1000);
+payment.addButton("note.500", 500);
+
+//payment.addButton("note.50", 50.0);
+//payment.addButton("note.20", 20.0);
+//payment.addButton("note.10", 10.0);
+//payment.addButton("note.5", 5.0);
+//payment.addButton("coin.2", 2.0);
+//payment.addButton("coin.1", 1.0);
+//payment.addButton("coin.50", 0.50);
+//payment.addButton("coin.20", 0.20);
+//payment.addButton("coin.10", 0.10);
+//payment.addButton("coin.05", 0.05);
+//payment.addButton("coin.02", 0.02);
+//payment.addButton("coin.01", 0.01);
