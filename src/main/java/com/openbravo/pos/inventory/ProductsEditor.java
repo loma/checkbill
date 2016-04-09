@@ -1002,7 +1002,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
                 jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 jLabel4.setText(AppLocal.getIntString("label.prodpricesell")); // NOI18N
                 jPanel1.add(jLabel4);
-                jLabel4.setBounds(330, 190, 100, 25);
+                jLabel4.setBounds(340, 190, 100, 25);
 
                 m_jPriceSell.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
                 m_jPriceSell.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -1015,14 +1015,14 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
                 jLabel19.setText(bundle.getString("label.margin")); // NOI18N
                 jLabel19.setPreferredSize(new java.awt.Dimension(48, 15));
                 jPanel1.add(jLabel19);
-                jLabel19.setBounds(560, 190, 70, 25);
+                jLabel19.setBounds(560, 190, 100, 30);
 
                 m_jmargin.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
                 m_jmargin.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
                 m_jmargin.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
                 m_jmargin.setEnabled(false);
                 jPanel1.add(m_jmargin);
-                m_jmargin.setBounds(630, 190, 110, 25);
+                m_jmargin.setBounds(660, 190, 110, 25);
 
                 jLabel3.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
                 jLabel3.setText(AppLocal.getIntString("label.prodpricebuy")); // NOI18N
@@ -1036,7 +1036,6 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
                 m_jVerpatrib.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
                 m_jVerpatrib.setText(bundle.getString("label.mandatory")); // NOI18N
-                m_jVerpatrib.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
                 m_jVerpatrib.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 none(evt);
@@ -1047,7 +1046,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
                 m_jTextTip.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
                 jPanel1.add(m_jTextTip);
-                m_jTextTip.setBounds(190, 250, 220, 25);
+                m_jTextTip.setBounds(190, 250, 370, 25);
 
                 jLabel21.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
                 jLabel21.setText(bundle.getString("label.texttip")); // NOI18N
@@ -1069,13 +1068,13 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
                 m_jGrossProfit.setDisabledTextColor(new java.awt.Color(0, 0, 0));
                 m_jGrossProfit.setEnabled(false);
                 jPanel1.add(m_jGrossProfit);
-                m_jGrossProfit.setBounds(630, 220, 110, 25);
+                m_jGrossProfit.setBounds(660, 220, 110, 25);
 
                 jLabel22.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
                 jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 jLabel22.setText(bundle.getString("label.grossprofit")); // NOI18N
                 jPanel1.add(jLabel22);
-                jLabel22.setBounds(530, 220, 90, 20);
+                jLabel22.setBounds(570, 220, 90, 30);
 
                 m_jTitle.setFont(new java.awt.Font("Saysettha OT", 1, 16)); // NOI18N
                 m_jTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -1344,7 +1343,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
                 jTabbedPane1.addTab(AppLocal.getIntString("label.properties"), jPanel3); // NOI18N
 
                 add(jTabbedPane1);
-                jTabbedPane1.setBounds(10, 0, 780, 420);
+                jTabbedPane1.setBounds(10, 0, 800, 420);
         }// </editor-fold>//GEN-END:initComponents
 
     private void m_jInCatalogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jInCatalogActionPerformed
