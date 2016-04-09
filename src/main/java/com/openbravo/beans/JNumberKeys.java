@@ -249,7 +249,10 @@ public class JNumberKeys extends javax.swing.JPanel {
                 gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
                 add(m_jMultiply, gridBagConstraints);
 
+                m_jMinus.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
                 m_jMinus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/btnminus.png"))); // NOI18N
+                java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("pos_messages"); // NOI18N
+                m_jMinus.setText(bundle.getString("Button.Minus")); // NOI18N
                 m_jMinus.setFocusPainted(false);
                 m_jMinus.setFocusable(false);
                 m_jMinus.setMargin(new java.awt.Insets(8, 16, 8, 16));
@@ -266,7 +269,10 @@ public class JNumberKeys extends javax.swing.JPanel {
                 gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 0);
                 add(m_jMinus, gridBagConstraints);
 
+                m_jPlus.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
                 m_jPlus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/btnplus.png"))); // NOI18N
+                m_jPlus.setText(bundle.getString("Button.Plus")); // NOI18N
+                m_jPlus.setToolTipText(bundle.getString("Button.plus")); // NOI18N
                 m_jPlus.setFocusPainted(false);
                 m_jPlus.setFocusable(false);
                 m_jPlus.setMargin(new java.awt.Insets(8, 16, 8, 16));
@@ -463,7 +469,6 @@ public class JNumberKeys extends javax.swing.JPanel {
 
                 m_jEquals.setFont(new java.awt.Font("Saysettha OT", 0, 18)); // NOI18N
                 m_jEquals.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/btnpayment.png"))); // NOI18N
-                java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("pos_messages"); // NOI18N
                 m_jEquals.setText(bundle.getString("button.pay")); // NOI18N
                 m_jEquals.setFocusPainted(false);
                 m_jEquals.setFocusable(false);
