@@ -189,6 +189,8 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
     public JPanelTicket() {
         
         initComponents ();
+	m_jButtons.setVisible(false);
+	
     }
    
     /**
