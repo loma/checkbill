@@ -138,14 +138,14 @@ INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('60', 'Window.Title', 0
 INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('61', 'script.posapps', 0, $FILE{/com/openbravo/pos/templates/script.posapps.txt});
 INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('62', 'img.posapps', 1, $FILE{/com/openbravo/pos/templates/img.posapps.png});
 
-INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('63', 'note.100000', 1, $FILE{/com/openbravo/pos/templates/note.100000.jpeg});
-INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('64', 'note.50000', 1, $FILE{/com/openbravo/pos/templates/note.50000.jpg});
-INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('65', 'note.20000', 1, $FILE{/com/openbravo/pos/templates/note.20000.jpeg});
-INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('66', 'note.10000', 1, $FILE{/com/openbravo/pos/templates/note.10000.jpeg});
-INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('67', 'note.5000', 1, $FILE{/com/openbravo/pos/templates/note.5000.jpeg});
-INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('68', 'note.2000', 1, $FILE{/com/openbravo/pos/templates/note.2000.jpeg});
-INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('69', 'note.1000', 1, $FILE{/com/openbravo/pos/templates/note.1000.jpeg});
-INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('70', 'note.500', 1, $FILE{/com/openbravo/pos/templates/note.500.jpeg});
+INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('63', 'note.100000', 1, $FILE{/com/openbravo/pos/templates/note.100000.png});
+INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('64', 'note.50000', 1, $FILE{/com/openbravo/pos/templates/note.50000.png});
+INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('65', 'note.20000', 1, $FILE{/com/openbravo/pos/templates/note.20000.png});
+INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('66', 'note.10000', 1, $FILE{/com/openbravo/pos/templates/note.10000.png});
+INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('66', 'note.5000', 1, $FILE{/com/openbravo/pos/templates/note.5000.png});
+INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('66', 'note.2000', 1, $FILE{/com/openbravo/pos/templates/note.2000.png});
+INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('66', 'note.1000', 1, $FILE{/com/openbravo/pos/templates/note.1000.png});
+INSERT INTO RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES('66', 'note.500', 1, $FILE{/com/openbravo/pos/templates/note.500.png});
 
 CREATE TABLE TAXCUSTCATEGORIES (
     ID VARCHAR(255) NOT NULL,
