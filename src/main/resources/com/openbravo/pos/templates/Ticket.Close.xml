@@ -59,16 +59,17 @@ if ("cash".equals(p.getName())) {
 JOptionPane pane = new JOptionPane();
 Font originalFont=pane.getFont();
 
-UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("Saysettha OT",Font.PLAIN,18)));
-message = "ເງິນທ້ອນ: " + change;
+UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("Saysettha OT",Font.PLAIN,16)));
+message = "ເງິນທອນ: " + change;
 JLabel FontText = new JLabel(message);
-FontText.setFont (new Font ( "Saysettha OT", Font.BOLD, 18) );
+FontText.setFont (new Font ( "Saysettha OT", Font.BOLD, 28) );
+FontText.setPreferredSize(new java.awt.Dimension(450, 150));
 
 if(isCash) {
-     JOptionPane pane = new JOptionPane();
-     pane.setMessage(FontText);
-     pane.setPreferredSize( new Dimension(500,150));
-     JDialog dialog = pane.createDialog("Cash payment");
+    JOptionPane pane = new JOptionPane();
+	pane.setMessage(FontText);
+	pane.setPreferredSize( new Dimension(500,150));
+	JDialog dialog = pane.createDialog("Cash payment");
     new Thread(new Runnable() {
          void run() {
             dialog.show();
