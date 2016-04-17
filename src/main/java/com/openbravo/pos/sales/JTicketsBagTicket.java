@@ -346,7 +346,7 @@ public class JTicketsBagTicket extends JTicketsBag {
                 m_jEdit.setMargin(new java.awt.Insets(0, 4, 0, 4));
                 m_jEdit.setMaximumSize(new java.awt.Dimension(50, 40));
                 m_jEdit.setMinimumSize(new java.awt.Dimension(50, 40));
-                m_jEdit.setPreferredSize(new java.awt.Dimension(150, 50));
+                m_jEdit.setPreferredSize(new java.awt.Dimension(180, 50));
                 m_jEdit.setRequestFocusEnabled(false);
                 m_jEdit.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {

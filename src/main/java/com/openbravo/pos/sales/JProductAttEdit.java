@@ -327,7 +327,7 @@ public class JProductAttEdit extends javax.swing.JDialog {
                 });
                 jPanel1.add(m_jButtonOK);
 
-                m_jButtonCancel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+                m_jButtonCancel.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
                 m_jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/cancel.png"))); // NOI18N
                 m_jButtonCancel.setText(AppLocal.getIntString("Button.Cancel")); // NOI18N
                 m_jButtonCancel.setFocusPainted(false);
