@@ -74,6 +74,7 @@
     <class name="com.openbravo.pos.inventory.AuxiliarPanel"/>
     <class name="com.openbravo.pos.inventory.CategoriesPanel"/>
     <class name="com.openbravo.pos.inventory.ProductsPanel"/>
+    <class name="com.openbravo.pos.inventory.StockManagement"/>
 
             <class name="/com/openbravo/reports/barcodesheet.bs"/>
             <class name="/com/openbravo/reports/productscatalog.bs"/>
