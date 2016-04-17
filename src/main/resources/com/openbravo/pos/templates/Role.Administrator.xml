@@ -129,7 +129,7 @@
             <class name="/com/openbravo/reports/taxes.bs"/>
             <class name="/com/openbravo/reports/timeseriesproduct.bs"/>
             <class name="/com/openbravo/reports/top10sales.bs"/>
-            <!-- <class name="/com/openbravo/reports/top10salesMySQL.bs"/> -->
+            <class name="/com/openbravo/reports/top10salesMySQL.bs"/>
 
 
 <class name="com.openbravo.pos.forms.MenuMaintenance"/>

@@ -63,12 +63,14 @@ UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("Saysettha OT
 message = "ເງິນທອນ: " + change;
 JLabel FontText = new JLabel(message);
 FontText.setFont (new Font ( "Saysettha OT", Font.BOLD, 28) );
-FontText.setPreferredSize(new java.awt.Dimension(450, 150));
+FontText.setMinimumSize(new java.awt.Dimension(450, 80));
+FontText.setPreferredSize(new java.awt.Dimension(450, 80));
+FontText.setMaximumSize(new java.awt.Dimension(450, 80));
 
 if(isCash) {
     JOptionPane pane = new JOptionPane();
 	pane.setMessage(FontText);
-	pane.setPreferredSize( new Dimension(500,150));
+	pane.setPreferredSize( new Dimension(500,200));
 	JDialog dialog = pane.createDialog("Cash payment");
     new Thread(new Runnable() {
          void run() {
