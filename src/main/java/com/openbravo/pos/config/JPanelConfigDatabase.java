@@ -368,7 +368,7 @@ public class JPanelConfigDatabase extends javax.swing.JPanel implements PanelCon
         } else if ("MySQL".equals(jcboDBDriver.getSelectedItem())) {
             jtxtDbDriverLib.setText(new File(new File(dirname), "lib/mysql-connector-java-5.1.26-bin.jar").getAbsolutePath());
             jtxtDbDriver.setText("com.mysql.jdbc.Driver");
-            jtxtDbURL.setText("jdbc:mysql://localhost:3306/unicentaopos");
+            jtxtDbURL.setText("jdbc:mysql://localhost:3306/unicentaopos?autoReconnect=true");
             
         } else if ("Oracle 11g Express".equals(jcboDBDriver.getSelectedItem())) {
             jtxtDbDriverLib.setText(new File(new File(dirname), "lib/ojdbc6.jar").getAbsolutePath());

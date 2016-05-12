@@ -373,7 +373,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         
 // Added JDL change the startup state of addtax button
 // JG 19 Feb 14 unnecessary parse -  m_jaddtax.setSelected((Boolean.valueOf(m_App.getProperties().getProperty("till.taxincluded")).booleanValue()));          
-          m_jaddtax.setSelected((Boolean.parseBoolean(m_App.getProperties().getProperty("till.taxincluded"))));  
+        m_jaddtax.setSelected((Boolean.parseBoolean(m_App.getProperties().getProperty("till.taxincluded"))));  
            
 
         // Show taxes options
@@ -2366,11 +2366,11 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
 
     private void m_jEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jEnterActionPerformed
 
-       if (m_jPrice.getText().isEmpty()) {
+       	if (m_jPrice.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null,
                 AppLocal.getIntString("message.nobarcode"),"Check", JOptionPane.INFORMATION_MESSAGE);
-       }
-        stateTransition('\n');
+       	}
+		stateTransition('\n');
 
     }//GEN-LAST:event_m_jEnterActionPerformed
 
