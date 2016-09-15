@@ -272,6 +272,7 @@ public class AppConfig implements AppProperties {
 //JG July 2014 - Thank you Ron Isaacson On-screen receipt defauls to 42 columns
         m_propsconfig.setProperty("screen.receipt.columns", "42");        
         
+        m_propsconfig.setProperty("ticket.width", "800");        
 
     }
 }

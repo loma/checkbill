@@ -229,6 +229,9 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
             // use '00' instead of '.'
             m_jNumberKeys.dotIs00(true);
         }
+
+		int ticketWidth = Integer.parseInt(m_App.getProperties().getProperty("ticket.width"));
+        m_jPanTicket.setPreferredSize(new java.awt.Dimension(ticketWidth, 250));
            
         m_ticketsbag = getJTicketsBag();
 
@@ -2023,12 +2026,12 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jPanContainer.add(m_jOptions, java.awt.BorderLayout.NORTH);
 
         m_jPanTicket.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        m_jPanTicket.setPreferredSize(new java.awt.Dimension(550, 250));
+        m_jPanTicket.setPreferredSize(new java.awt.Dimension(800, 250));
         m_jPanTicket.setLayout(new java.awt.BorderLayout());
 
         m_jPanelCentral.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
-        m_jPanelCentral.setMinimumSize(new java.awt.Dimension(250, 50));
-        m_jPanelCentral.setPreferredSize(new java.awt.Dimension(250, 240));
+        m_jPanelCentral.setMinimumSize(new java.awt.Dimension(500, 50));
+        m_jPanelCentral.setPreferredSize(new java.awt.Dimension(500, 240));
         m_jPanelCentral.setLayout(new java.awt.BorderLayout());
 
         jPanel4.setLayout(new java.awt.BorderLayout());
@@ -2038,7 +2041,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jTicketId.setAutoscrolls(true);
         m_jTicketId.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         m_jTicketId.setOpaque(true);
-        m_jTicketId.setPreferredSize(new java.awt.Dimension(120, 40));
+        m_jTicketId.setPreferredSize(new java.awt.Dimension(200, 40));
         m_jTicketId.setRequestFocusEnabled(false);
         m_jTicketId.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         jPanel4.add(m_jTicketId, java.awt.BorderLayout.WEST);

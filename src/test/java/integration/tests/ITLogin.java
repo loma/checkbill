@@ -47,7 +47,7 @@ public class ITLogin {
 		swinger.clickOn( "user0" );
 		Component c = swinger.getAt( "active-user" );
 		JLabel l = (JLabel)c;
-		assertEquals("ຜູ້ຈັດການ", l.getText());
+		assertEquals("Administrator", l.getText());
 		swinger.clickOn( "logout" );
 		swinger.clickOn( "close" );
 	}
