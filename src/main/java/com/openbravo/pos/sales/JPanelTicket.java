@@ -230,8 +230,9 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
             m_jNumberKeys.dotIs00(true);
         }
 
-		int ticketWidth = Integer.parseInt(m_App.getProperties().getProperty("ticket.width"));
-        m_jPanTicket.setPreferredSize(new java.awt.Dimension(ticketWidth, 250));
+		String ticketWidth = m_App.getProperties().getProperty("ticket.width");
+		if (!ticketWidth.equals(null))
+			m_jPanTicket.setPreferredSize(new java.awt.Dimension(Integer.parseInt(ticketWidth), 250));
            
         m_ticketsbag = getJTicketsBag();
 
