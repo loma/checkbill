@@ -44,8 +44,6 @@ public class PaymentPanelFac {
                 return new PaymentPanelMagCard(new MagCardReaderGeneric(), notifier);
             case "Keyboard":
                 return new PaymentPanelType(notifier);
-            case "Bluetooth":
-                return new PaymentPanelBluetooth(notifier);
             default:
                 // "Not defined
            return new PaymentPanelBasic(notifier);

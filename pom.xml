@@ -135,12 +135,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.jpos</groupId>
-      <artifactId>jpos</artifactId>
-      <version>2.0.0</version>
-    </dependency>
-
-    <dependency>
       <groupId>org.swinglabs.swingx</groupId>
       <artifactId>swingx-all</artifactId>
       <version>1.6.4</version>
@@ -215,12 +209,6 @@
       <groupId>org.netbeans.external</groupId>
       <artifactId>AbsoluteLayout</artifactId>
       <version>RELEASE701</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>jpos</artifactId>
-      <version>1.13</version>
     </dependency>
 
     <dependency>
@@ -333,6 +321,7 @@
   </dependencies>
 
   <build>
+     <pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -457,6 +446,33 @@
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+              <groupId>org.eclipse.m2e</groupId>
+              <artifactId>lifecycle-mapping</artifactId>
+              <version>1.0.0</version>
+              <configuration>
+                  <lifecycleMappingMetadata>
+                      <pluginExecutions>
+                          <!-- copy-dependency plugin -->
+                          <pluginExecution>
+                              <pluginExecutionFilter>
+                                  <groupId>org.apache.maven.plugins</groupId>
+                                  <artifactId>maven-dependency-plugin</artifactId>
+                                  <versionRange>[2.0.0,)</versionRange>
+                                  <goals>
+                                      <goal>copy-dependencies</goal>
+                                  </goals>
+                              </pluginExecutionFilter>
+                              <action>
+                                  <ignore />
+                              </action>
+                          </pluginExecution>
+                      </pluginExecutions>
+                  </lifecycleMappingMetadata>
+              </configuration>
+          </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -568,7 +584,7 @@
         </executions>
       </plugin>
     </plugins>
-
+ </pluginManagement>
     <finalName>unicentaopos</finalName>
 
   </build>

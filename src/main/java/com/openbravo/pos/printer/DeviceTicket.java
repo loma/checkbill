@@ -20,9 +20,6 @@ package com.openbravo.pos.printer;
 
 import com.openbravo.pos.forms.AppProperties;
 import com.openbravo.pos.printer.escpos.*;
-import com.openbravo.pos.printer.javapos.DeviceDisplayJavaPOS;
-import com.openbravo.pos.printer.javapos.DeviceFiscalPrinterJavaPOS;
-import com.openbravo.pos.printer.javapos.DevicePrinterJavaPOS;
 import com.openbravo.pos.printer.printer.DevicePrinterPrinter;
 import com.openbravo.pos.printer.screen.DeviceDisplayPanel;
 import com.openbravo.pos.printer.screen.DeviceDisplayWindow;
@@ -86,12 +83,10 @@ public class DeviceTicket {
         String sFiscalType = sf.nextToken(':');
         String sFiscalParam1 = sf.nextToken(',');
         try {
-            if ("javapos".equals(sFiscalType)) {
-                m_deviceFiscal = new DeviceFiscalPrinterJavaPOS(sFiscalParam1);
-            } else {
-                m_deviceFiscal = new DeviceFiscalPrinterNull();
-            }
-        } catch (TicketPrinterException e) {
+            
+            m_deviceFiscal = new DeviceFiscalPrinterNull();
+            
+        } catch (Exception e) {
             m_deviceFiscal = new DeviceFiscalPrinterNull(e.getMessage());
         }
 
@@ -123,9 +118,6 @@ public class DeviceTicket {
                     break;
                 case "ld200":
                     m_devicedisplay = new DeviceDisplayESCPOS(pws.getPrinterWritter(sDisplayParam1, sDisplayParam2), new UnicodeTranslatorEur());
-                    break;
-                case "javapos":
-                    m_devicedisplay = new DeviceDisplayJavaPOS(sDisplayParam1);
                     break;
                 default:
                     m_devicedisplay = new DeviceDisplayNull();
@@ -199,9 +191,6 @@ public class DeviceTicket {
                         break;
                     case "plain":
                         addPrinter(sPrinterIndex, new DevicePrinterPlain(pws.getPrinterWritter(sPrinterParam1, sPrinterParam2)));
-                        break;
-                    case "javapos":
-                        addPrinter(sPrinterIndex, new DevicePrinterJavaPOS(sPrinterParam1, sPrinterParam2));
                         break;
                 }
             } catch (TicketPrinterException e) {

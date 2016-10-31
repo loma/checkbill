@@ -788,11 +788,13 @@ public class JRootApp extends JPanel implements AppView {
         jLabel2.setPreferredSize(new java.awt.Dimension(180, 34));
         m_jPanelTitle.add(jLabel2, java.awt.BorderLayout.WEST);
 
-        m_jLblTitle.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        m_jLblTitle.setFont(new java.awt.Font("Saysettha OT", 0, 18)); // NOI18N
         m_jLblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m_jLblTitle.setText("Window.Title");
         m_jLblTitle.setName("m_jLbTitle"); // NOI18N
         m_jPanelTitle.add(m_jLblTitle, java.awt.BorderLayout.CENTER);
+
+        jPanel3.setFont(new java.awt.Font("Saysettha OT", 0, 23)); // NOI18N
         m_jPanelTitle.add(jPanel3, java.awt.BorderLayout.EAST);
 
         add(m_jPanelTitle, java.awt.BorderLayout.NORTH);
