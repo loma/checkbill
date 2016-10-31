@@ -99,7 +99,7 @@ public class JCatalog extends JPanel implements ListSelectionListener, CatalogSe
         m_jListCategories.addListSelectionListener(this);
 //        m_jListCategories.getPreferredScrollableViewportSize().setSize(400, height);
         
-        m_jscrollcat.getVerticalScrollBar().setPreferredSize(new Dimension(48, 48));
+        //m_jscrollcat.getVerticalScrollBar().setPreferredSize(new Dimension(48, 48));
         
         tnbcat = new ThumbNailBuilder(48, 48, "com/openbravo/images/category.png");  
         tnbsubcat = new ThumbNailBuilder(width, height, "com/openbravo/images/subcategory.png"); 
