@@ -30,11 +30,6 @@
 <ticket>
 	<image>Printer.Ticket.Logo</image>
 	<line></line>
-
-	<line><text align="center" length="42">uniCenta oPOS</text></line>
-	<line><text align="center" length="42">Touch Friendly Point Of Sale</text></line>
-	<line><text align="center" length="42">Copyright (c) 2009-2015 uniCenta</text></line>
-	<line><text align="center" length="42">Printer.Ticket</text></line>
 	<line></line>
 
 	#if (${ticket.ticketType} == 0)
@@ -195,7 +190,6 @@
 
 	<line></line>
 	<line><text align="center" length="42">Thank You</text></line>
-	<line><text align="center" length="42">Please Call Again</text></line>
 
 
 </ticket>
