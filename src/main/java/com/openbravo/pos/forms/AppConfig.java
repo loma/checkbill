@@ -24,6 +24,7 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.lang.SystemUtils;
 
 /**
  * Creation and Editing of stored settings
@@ -220,12 +221,16 @@ public class AppConfig implements AppProperties {
         m_propsconfig.setProperty("machine.hostname", getLocalHostName());
         
         Locale l = Locale.getDefault();
-        m_propsconfig.setProperty("user.language", l.getLanguage());
+        m_propsconfig.setProperty("user.language", "en");
         m_propsconfig.setProperty("user.country", l.getCountry());
         m_propsconfig.setProperty("user.variant", l.getVariant());     
+
+		String defaultLookAndFeel = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";	
+		if (SystemUtils.IS_OS_WINDOWS)
+			defaultLookAndFeel = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
         
-        m_propsconfig.setProperty("swing.defaultlaf", System.getProperty("swing.defaultlaf", "javax.swing.plaf.metal.MetalLookAndFeel"));
-//        m_propsconfig.setProperty("swing.defaultlaf", System.getProperty("swing.defaultlaf", "javax.swing.plaf.synth.SynthLookAndFeel"));        
+        m_propsconfig.setProperty("swing.defaultlaf", System.getProperty("swing.defaultlaf", defaultLookAndFeel));
+        m_propsconfig.setProperty("format.currency", System.getProperty("format.currency", "#,###'₭'"));
         
         m_propsconfig.setProperty("machine.printer", "screen");
         m_propsconfig.setProperty("machine.printer.2", "Not defined");
@@ -249,7 +254,6 @@ public class AppConfig implements AppProperties {
         m_propsconfig.setProperty("machine.printername", "(Default)");
 
         // Receipt printer paper set to 72mmx200mm
-
 // JG 7 May 14 Epson ESC/POS settings
         m_propsconfig.setProperty("paper.receipt.x", "10");
         m_propsconfig.setProperty("paper.receipt.y", "10");
