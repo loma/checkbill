@@ -64,7 +64,7 @@ public class JTicketLines extends javax.swing.JPanel {
     private final TicketTableModel m_jTableModel;
     private Boolean sendStatus;
     
-    /** Creates new form JLinesTicket
+    /** Creates new form JLinesTicketf
      * @param ticketline */
     public JTicketLines(String ticketline) {
         
@@ -101,7 +101,7 @@ public class JTicketLines extends javax.swing.JPanel {
             jColumns.getColumn(i).setResizable(false);
         }       
         
-        m_jScrollTableTicket.getVerticalScrollBar().setPreferredSize(new Dimension(35, 35));
+        //m_jScrollTableTicket.getVerticalScrollBar().setPreferredSize(new Dimension(35, 35));
        
         m_jTicketTable.getTableHeader().setReorderingAllowed(false);
         m_jTicketTable.setTableHeader(new JTableHeader(m_jTicketTable.getColumnModel()) {
@@ -460,7 +460,7 @@ public class JTicketLines extends javax.swing.JPanel {
 
         m_jScrollTableTicket.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         m_jScrollTableTicket.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        m_jScrollTableTicket.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jScrollTableTicket.setFont(new java.awt.Font("Saysettha OT", 0, 18)); // NOI18N
 
         m_jTicketTable.setFocusable(false);
         m_jTicketTable.setIntercellSpacing(new java.awt.Dimension(0, 1));
