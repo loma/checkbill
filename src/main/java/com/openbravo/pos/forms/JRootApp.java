@@ -600,6 +600,7 @@ public class JRootApp extends JPanel implements AppView {
                 btn.setHorizontalTextPosition(AbstractButton.CENTER);                 
                 btn.setVerticalTextPosition(AbstractButton.BOTTOM);
 		btn.setName("user"+i);
+                btn.setFont(new java.awt.Font("Saysettha OT", 0, 18)); // NOI18N
 
                 jPeople.add(btn);                    
             }
