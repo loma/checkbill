@@ -90,12 +90,6 @@ public class StartPOS {
             @Override
             public void run() {
                 
-	    	/*
-                if (!registerApp()) {
-                    System.exit(1);
-                }
-		*/
-                
                 setUIFont (new javax.swing.plaf.FontUIResource("Saysettha OT", Font.PLAIN, 16));
                 
                 AppConfig config = new AppConfig(args);
