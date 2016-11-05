@@ -54,16 +54,7 @@ public class MenuItemDefinition implements MenuElement {
         btn.setRequestFocusEnabled(false);
         btn.setHorizontalAlignment(SwingConstants.LEADING);
         btn.setPreferredSize(new Dimension(150, 40));
-        
-//        btn.setSize(220, 50);
-//        btn.setLocation(p);
-//        if (p.x >= 470) {
-//            p.x = 20;
-//            p.y += 55;
-//        } else {
-//            p.x += 225;
-//        }
-//        comp.add(btn);        
+		btn.setFont(new java.awt.Font("Saysettha OT", 0, 18)); // NOI18N
         
         menu.addEntry(btn);
     }

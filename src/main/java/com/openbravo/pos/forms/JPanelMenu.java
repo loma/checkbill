@@ -113,6 +113,7 @@ public class JPanelMenu extends JPanel implements JPanelView {
             currententrypanel = new JPanel();                    
             currententrypanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 20, 0));
             currententrypanel.setLayout(new java.awt.GridLayout(0, 3, 5, 5));
+			currententrypanel.setFont(new java.awt.Font("Saysettha OT", 0, 18)); // NOI18N
             menucontainer.add(currententrypanel);
         }
         
@@ -136,6 +137,7 @@ public class JPanelMenu extends JPanel implements JPanelView {
         setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         setLayout(new java.awt.BorderLayout());
 
+        menucontainer.setFont(new java.awt.Font("Saysettha OT", 0, 18)); // NOI18N
         menucontainer.setLayout(new javax.swing.BoxLayout(menucontainer, javax.swing.BoxLayout.Y_AXIS));
         add(menucontainer, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
