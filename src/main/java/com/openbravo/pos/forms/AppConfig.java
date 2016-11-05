@@ -220,9 +220,10 @@ public class AppConfig implements AppProperties {
   */       
         m_propsconfig.setProperty("machine.hostname", getLocalHostName());
         
+        Locale l = Locale.getDefault();
         m_propsconfig.setProperty("user.language", "en");
-        m_propsconfig.setProperty("user.country", "");
-        m_propsconfig.setProperty("user.variant", "");     
+        m_propsconfig.setProperty("user.country", l.getCountry());
+        m_propsconfig.setProperty("user.variant", l.getVariant());     
 
 		String defaultLookAndFeel = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";	
 		if (SystemUtils.IS_OS_WINDOWS)
