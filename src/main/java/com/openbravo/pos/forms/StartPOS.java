@@ -96,7 +96,7 @@ public class StartPOS {
                 }
 		*/
                 
-                setUIFont (new javax.swing.plaf.FontUIResource("Saysettha OT", Font.PLAIN, 16));
+                setUIFont (new javax.swing.plaf.FontUIResource("Saysettha OT", Font.PLAIN, 18));
                 
                 AppConfig config = new AppConfig(args);
                 config.load();

@@ -121,7 +121,6 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
             logger.log(Level.SEVERE, "Cannot read Menu.Root resource. Trying default menu.", e);
             try {
                 m_jPanelLeft.setViewportView(getScriptMenu(StringUtils.readResource("/com/openbravo/pos/templates/Menu.Root.txt")));
-// JG 6 May 2013 use multicatch
             } catch (    IOException | ScriptException ex) {
                 logger.log(Level.SEVERE, "Cannot read default menu", ex);
             }
@@ -174,7 +173,7 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
          *
          * @return
          */
-                public JXTaskPaneContainer getTaskPane() {            
+		public JXTaskPaneContainer getTaskPane() {            
             return taskPane;
         }
     }
@@ -589,6 +588,7 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.LINE_END);
 
+        m_jPanelLeft.setFont(new java.awt.Font("Saysettha OT", 0, 18)); // NOI18N
         m_jPanelLeft.setPreferredSize(new java.awt.Dimension(300, 4));
         jPanel1.add(m_jPanelLeft, java.awt.BorderLayout.CENTER);
 
