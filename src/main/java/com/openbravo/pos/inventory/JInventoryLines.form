@@ -37,6 +37,9 @@
         <Component class="javax.swing.JTable" name="m_tableinventory">
           <Properties>
             <Property name="autoCreateColumnsFromModel" type="boolean" value="false"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Saysettha OT" size="18" style="0"/>
+            </Property>
             <Property name="autoResizeMode" type="int" value="0"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="requestFocusEnabled" type="boolean" value="false"/>

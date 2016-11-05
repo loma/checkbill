@@ -66,6 +66,7 @@ public class JInventoryLines extends javax.swing.JPanel {
         m_tableinventory.setColumnModel(columns);       
         
         m_tableinventory.getTableHeader().setReorderingAllowed(false);         
+        m_tableinventory.getTableHeader().setFont(new java.awt.Font("Saysettha OT", 0, 18)); // NOI18N
         m_tableinventory.setRowHeight(40);
         m_tableinventory.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
         m_tableinventory.setIntercellSpacing(new java.awt.Dimension(0, 1));       
@@ -321,6 +322,7 @@ public class JInventoryLines extends javax.swing.JPanel {
         jScrollPane1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         m_tableinventory.setAutoCreateColumnsFromModel(false);
+        m_tableinventory.setFont(new java.awt.Font("Saysettha OT", 0, 18)); // NOI18N
         m_tableinventory.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         m_tableinventory.setFocusable(false);
         m_tableinventory.setRequestFocusEnabled(false);

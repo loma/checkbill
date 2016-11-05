@@ -253,11 +253,9 @@ public class JNumberKeys extends javax.swing.JPanel {
         m_jMinus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/btnminus.png"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("pos_messages"); // NOI18N
         m_jMinus.setText(bundle.getString("Button.Minus")); // NOI18N
-        m_jMinus.setContentAreaFilled(false);
         m_jMinus.setFocusPainted(false);
         m_jMinus.setFocusable(false);
         m_jMinus.setIconTextGap(0);
-        m_jMinus.setMargin(new java.awt.Insets(0, 0, 0, 0));
         m_jMinus.setMaximumSize(new java.awt.Dimension(42, 36));
         m_jMinus.setMinimumSize(new java.awt.Dimension(42, 36));
         m_jMinus.setPreferredSize(new java.awt.Dimension(42, 36));
@@ -278,7 +276,6 @@ public class JNumberKeys extends javax.swing.JPanel {
         m_jPlus.setFocusPainted(false);
         m_jPlus.setFocusable(false);
         m_jPlus.setIconTextGap(0);
-        m_jPlus.setMargin(new java.awt.Insets(0, 0, 0, 0));
         m_jPlus.setPreferredSize(new java.awt.Dimension(42, 36));
         m_jPlus.setRequestFocusEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -476,7 +473,6 @@ public class JNumberKeys extends javax.swing.JPanel {
         m_jEquals.setFocusPainted(false);
         m_jEquals.setFocusable(false);
         m_jEquals.setIconTextGap(0);
-        m_jEquals.setMargin(new java.awt.Insets(0, 0, 0, 0));
         m_jEquals.setPreferredSize(new java.awt.Dimension(42, 36));
         m_jEquals.setRequestFocusEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
