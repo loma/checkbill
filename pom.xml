@@ -321,266 +321,275 @@
 	</dependencies>
 
 	<build>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-failsafe-plugin</artifactId>
-					<version>2.15</version>
-					<executions>
-						<!--
-							Ensures that both integration-test and verify goals of the Failsafe Maven
-							plugin are executed.
-						-->
-						<execution>
-							<id>integration-tests</id>
-							<goals>
-								<goal>integration-test</goal>
-								<goal>verify</goal>
-							</goals>
-							<configuration>
-								<!-- Sets the VM argument line used when integration tests are run. -->
-								<argLine>${failsafeArgLine}</argLine>
-								<!--
-									Skips integration tests if the value of skip.integration.tests property
-									is true
-								-->
-								<skipTests>${skip.integration.tests}</skipTests>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.15</version>
-					<configuration>
-						<!-- Sets the VM argument line used when unit tests are run. -->
-						<argLine>${surefireArgLine}</argLine>
-						<!-- Skips unit tests if the value of skip.unit.tests property is true -->
-						<skipTests>${skip.unit.tests}</skipTests>
-						<!-- Excludes integration tests when unit tests are run. -->
-						<excludes>
-							<exclude>**/IT*.java</exclude>
-						</excludes>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.jacoco</groupId>
-					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>0.7.5.201505241946</version>
-					<executions>
-						<!--
-							Prepares the property pointing to the JaCoCo runtime agent which
-							is passed as VM argument when Maven the Surefire plugin is executed.
-						-->
-						<execution>
-							<id>pre-unit-test</id>
-							<goals>
-								<goal>prepare-agent</goal>
-							</goals>
-							<configuration>
-								<!-- Sets the path to the file which contains the execution data. -->
-								<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
-								<!--
-									Sets the name of the property containing the settings
-									for JaCoCo runtime agent.
-								-->
-								<propertyName>surefireArgLine</propertyName>
-							</configuration>
-						</execution>
-						<!--
-							Ensures that the code coverage report for unit tests is created after
-							unit tests have been run.
-						-->
-						<execution>
-							<id>post-unit-test</id>
-							<phase>test</phase>
-							<goals>
-								<goal>report</goal>
-							</goals>
-							<configuration>
-								<!-- Sets the path to the file which contains the execution data. -->
-								<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
-								<!-- Sets the output directory for the code coverage report. -->
-								<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
-							</configuration>
-						</execution>
-						<!-- The Executions required by unit tests are omitted. -->
-						<!--
-							Prepares the property pointing to the JaCoCo runtime agent which
-							is passed as VM argument when Maven the Failsafe plugin is executed.
-						-->
-						<execution>
-							<id>pre-integration-test</id>
-							<phase>pre-integration-test</phase>
-							<goals>
-								<goal>prepare-agent</goal>
-							</goals>
-							<configuration>
-								<!-- Sets the path to the file which contains the execution data. -->
-								<destFile>${project.build.directory}/coverage-reports/jacoco-it.exec</destFile>
-								<!--
-									Sets the name of the property containing the settings
-									for JaCoCo runtime agent.
-								-->
-								<propertyName>failsafeArgLine</propertyName>
-							</configuration>
-						</execution>
-						<!--
-							Ensures that the code coverage report for integration tests after
-							integration tests have been run.
-						-->
-						<execution>
-							<id>post-integration-test</id>
-							<phase>post-integration-test</phase>
-							<goals>
-								<goal>report</goal>
-							</goals>
-							<configuration>
-								<!-- Sets the path to the file which contains the execution data. -->
-								<dataFile>${project.build.directory}/coverage-reports/jacoco-it.exec</dataFile>
-								<!-- Sets the output directory for the code coverage report. -->
-								<outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.15</version>
+				<executions>
+					<!--
+						Ensures that both integration-test and verify goals of the Failsafe Maven
+						plugin are executed.
+					-->
+					<execution>
+						<id>integration-tests</id>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the VM argument line used when integration tests are run. -->
+							<argLine>${failsafeArgLine}</argLine>
+							<!--
+								Skips integration tests if the value of skip.integration.tests property
+								is true
+							-->
+							<skipTests>${skipTests}</skipTests>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.15</version>
+				<configuration>
+					<!-- Sets the VM argument line used when unit tests are run. -->
+					<argLine>${surefireArgLine}</argLine>
+					<!-- Skips unit tests if the value of skip.unit.tests property is true -->
+					<skipTests>${skipTests}</skipTests>
+					<!-- Excludes integration tests when unit tests are run. -->
+					<excludes>
+						<exclude>**/IT*.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eluder.coveralls</groupId>
+				<artifactId>coveralls-maven-plugin</artifactId>
+				<version>4.3.0</version>
+				<configuration>
+					<goalPrefix>coveralls</goalPrefix>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.5.201505241946</version>
+				<executions>
+					<!--
+						Prepares the property pointing to the JaCoCo runtime agent which
+						is passed as VM argument when Maven the Surefire plugin is executed.
+					-->
+					<execution>
+						<id>pre-unit-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the path to the file which contains the execution data. -->
+							<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
+							<!--
+								Sets the name of the property containing the settings
+								for JaCoCo runtime agent.
+							-->
+							<propertyName>surefireArgLine</propertyName>
+						</configuration>
+					</execution>
+					<!--
+						Ensures that the code coverage report for unit tests is created after
+						unit tests have been run.
+					-->
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the path to the file which contains the execution data. -->
+							<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
+							<!-- Sets the output directory for the code coverage report. -->
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
 
-				<plugin>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<executions>
-						<execution>
-							<phase>package</phase>
-							<goals>
-								<goal>copy-dependencies</goal>
-							</goals>
-							<configuration>
-								<outputDirectory>${project.build.directory}/lib</outputDirectory>
-								<overWriteReleases>false</overWriteReleases>
-								<overWriteSnapshots>false</overWriteSnapshots>
-								<overWriteIfNewer>true</overWriteIfNewer>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.0.2</version>
-					<configuration>
-						<archive>
-							<manifest>
-								<addClasspath>true</addClasspath>
-								<classpathPrefix>lib/</classpathPrefix>
-								<mainClass>com.openbravo.pos.forms.StartPOS</mainClass>
-							</manifest>
-						</archive>
-					</configuration>
-				</plugin>
+						</configuration>
+					</execution>
+					<!-- The Executions required by unit tests are omitted. -->
+					<!--
+						Prepares the property pointing to the JaCoCo runtime agent which
+						is passed as VM argument when Maven the Failsafe plugin is executed.
+					-->
+					<execution>
+						<id>pre-integration-test</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the path to the file which contains the execution data. -->
+							<destFile>${project.build.directory}/coverage-reports/jacoco-it.exec</destFile>
+							<!--
+								Sets the name of the property containing the settings
+								for JaCoCo runtime agent.
+							-->
+							<propertyName>failsafeArgLine</propertyName>
+						</configuration>
+					</execution>
+					<!--
+						Ensures that the code coverage report for integration tests after
+						integration tests have been run.
+					-->
+					<execution>
+						<id>post-integration-test</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the path to the file which contains the execution data. -->
+							<dataFile>${project.build.directory}/coverage-reports/jacoco-it.exec</dataFile>
+							<!-- Sets the output directory for the code coverage report. -->
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
-				<!-- Maven Assembly Plugin -->
-				<plugin>
-					<artifactId>maven-assembly-plugin</artifactId>
-					<configuration>
-						<!-- get all project dependencies -->
-						<descriptorRefs>
-							<descriptorRef>jar-with-dependencies</descriptorRef>
-						</descriptorRefs>
-						<!-- MainClass in mainfest make a executable jar -->
-						<archive>
-							<manifest>
-								<mainClass>com.openbravo.pos.forms.StartPOS</mainClass>
-							</manifest>
-						</archive>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>com.openbravo.pos.forms.StartPOS</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
 
-					</configuration>
-					<executions>
-						<execution>
-							<id>make-assembly</id>
-							<!-- bind to the packaging phase -->
-							<phase>package</phase>
-							<goals>
-								<goal>single</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<!--
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<executions>
-						<execution>
-							<id>attach-sources</id>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>-->
+			<!-- Maven Assembly Plugin -->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<!-- get all project dependencies -->
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<!-- MainClass in mainfest make a executable jar -->
+					<archive>
+						<manifest>
+							<mainClass>com.openbravo.pos.forms.StartPOS</mainClass>
+						</manifest>
+					</archive>
 
-				<plugin>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>2.7</version>
-					<executions>
-						<execution>
-							<id>copy-resources</id>
-							<!-- here the phase you need -->
-							<phase>validate</phase>
-							<goals>
-								<goal>copy-resources</goal>
-							</goals>
-							<configuration>
-								<outputDirectory>${project.build.directory}</outputDirectory>
-								<resources>
-									<resource>
-										<targetPath>${basedir}/target/lib/Windows</targetPath>
-										<directory>${basedir}/src/other/Windows</directory>
-										<filtering>false</filtering>
-									</resource>
-									<resource>
-										<targetPath>${basedir}/target/lib/Linux</targetPath>
-										<directory>${basedir}/src/other/Linux</directory>
-										<filtering>false</filtering>
-									</resource>
-									<resource>
-										<targetPath>${basedir}/target/lib/Mac_OS_X</targetPath>
-										<directory>${basedir}/src/other/Mac_OS_X</directory>
-										<filtering>false</filtering>
-									</resource>
-									<resource>
-										<targetPath>${basedir}/target/</targetPath>
-										<directory>${basedir}/src/scripts</directory>
-										<filtering>false</filtering>
-									</resource>
-									<resource>
-										<targetPath>${basedir}/target/licensing</targetPath>
-										<directory>${basedir}/src/installer/licensing</directory>
-										<filtering>false</filtering>
-									</resource>
-									<resource>
-										<targetPath>${basedir}/target/Bonus</targetPath>
-										<directory>${basedir}/src/other/Bonus</directory>
-										<filtering>false</filtering>
-									</resource>
-									<resource>
-										<targetPath>${basedir}/target/Reports/com</targetPath>
-										<directory>${basedir}/src/main/resources/com</directory>
-										<filtering>false</filtering>
-									</resource>
-									<resource>
-										<targetPath>${basedir}/target/locales</targetPath>
-										<directory>${basedir}/src/main/resources</directory>
-										<filtering>false</filtering>
-										<excludes>
-											<exclude>com/**</exclude>
-										</excludes>
-									</resource>
-								</resources>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<!-- bind to the packaging phase -->
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!--
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>-->
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}</outputDirectory>
+							<resources>
+								<resource>
+									<targetPath>${basedir}/target/lib/Windows</targetPath>
+									<directory>${basedir}/src/other/Windows</directory>
+									<filtering>false</filtering>
+								</resource>
+								<resource>
+									<targetPath>${basedir}/target/lib/Linux</targetPath>
+									<directory>${basedir}/src/other/Linux</directory>
+									<filtering>false</filtering>
+								</resource>
+								<resource>
+									<targetPath>${basedir}/target/lib/Mac_OS_X</targetPath>
+									<directory>${basedir}/src/other/Mac_OS_X</directory>
+									<filtering>false</filtering>
+								</resource>
+								<resource>
+									<targetPath>${basedir}/target/</targetPath>
+									<directory>${basedir}/src/scripts</directory>
+									<filtering>false</filtering>
+								</resource>
+								<resource>
+									<targetPath>${basedir}/target/licensing</targetPath>
+									<directory>${basedir}/src/installer/licensing</directory>
+									<filtering>false</filtering>
+								</resource>
+								<resource>
+									<targetPath>${basedir}/target/Bonus</targetPath>
+									<directory>${basedir}/src/other/Bonus</directory>
+									<filtering>false</filtering>
+								</resource>
+								<resource>
+									<targetPath>${basedir}/target/Reports/com</targetPath>
+									<directory>${basedir}/src/main/resources/com</directory>
+									<filtering>false</filtering>
+								</resource>
+								<resource>
+									<targetPath>${basedir}/target/locales</targetPath>
+									<directory>${basedir}/src/main/resources</directory>
+									<filtering>false</filtering>
+									<excludes>
+										<exclude>com/**</exclude>
+									</excludes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 		<finalName>unicentaopos</finalName>
 
 	</build>

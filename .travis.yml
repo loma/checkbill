@@ -3,3 +3,4 @@ jdk:
   - oraclejdk7
 install: true
 script: mvn test
+after_success: mvn coveralls:report -DjacocoReports=target/site/jacoco-ut/jacoco.xml -DrepoToken=$coverallToken
