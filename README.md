@@ -1,5 +1,5 @@
 ![](https://checkbill.info/images/check-bill-small.png)
-
+![](https://travis-ci.org/loma/checkbill.svg?branch=master)
 Checkbill is an open-source pos, developed base on [uniCenta POS](https://sourceforge.net/projects/unicentaopos/). It's a complete pos application written in JAVA
 
 ### Getting start
