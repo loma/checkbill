@@ -7,13 +7,7 @@ package integration.tests;
 
 import com.athaydes.automaton.Swinger;
 import java.awt.Component;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- * @author loma
- */
 class SafeSwinger {
 
 	private final Swinger forSwingWindow;
@@ -24,7 +18,7 @@ class SafeSwinger {
 
 	Component getAt(String name) {
 		int i = 0;
-		while (i++ < 100)
+		while (i < 100)
 			try {
 				return forSwingWindow.getAt(name);
 			} catch (Exception e) {
@@ -33,12 +27,13 @@ class SafeSwinger {
 				} catch (InterruptedException ex) {
 				}
 			}
+		System.out.println("Cant find element after 100 tries");
 		return null;
 	}
 
 	void clickOn(String name) {
 		int i = 0;
-		while (i++ < 100)
+		while (i < 100)
 			try {
 				forSwingWindow.clickOn(name);
 				return;
@@ -46,8 +41,11 @@ class SafeSwinger {
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException ex) {
+					System.out.println("Cant find element after 100 ms");
 				}
 			}
+
+		System.out.println("Cant click element after 100 tries");
 	}
 	
 	
