@@ -21,7 +21,7 @@ public class ITLogin {
 	@BeforeClass
 	public static void launchApp() throws Exception {
 		System.out.println( "Launching Java App" );
-		String[] arguments = new String[] {"/Users/loma/unicentaopos.properties"};
+		String[] arguments = new String[] {"/Users/loma/checkbill.properties"};
 		StartPOS.main(arguments);
 
 		// get a Swing-driver, or Swinger
@@ -39,7 +39,7 @@ public class ITLogin {
 	public void windowTitleTest() {
 		Component c = swinger.getAt( "m_jLbTitle" );
 		JLabel l = (JLabel)c;
-		assertEquals("uniCenta oPOS - Touch Friendly Point Of Sale", l.getText());
+		assertEquals("ເຊັກບິນ - ລະບົບການຂາຍແບບສະບາຍ", l.getText());
 	}
 
 	@Test

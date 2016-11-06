@@ -321,7 +321,6 @@
 	</dependencies>
 
 	<build>
-		<pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -466,6 +465,7 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.0.2</version>
 					<configuration>
 						<archive>
 							<manifest>
@@ -581,7 +581,6 @@
 					</executions>
 				</plugin>
 			</plugins>
-		</pluginManagement>
 		<finalName>unicentaopos</finalName>
 
 	</build>
