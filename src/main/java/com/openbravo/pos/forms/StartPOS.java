@@ -127,11 +127,22 @@ public class StartPOS {
                     } else if (laf instanceof SubstanceSkin) {                      
                         SubstanceLookAndFeel.setSkin((SubstanceSkin) laf);
                     }
-// JG 6 May 2013 to multicatch
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {                
                     logger.log(Level.WARNING, "Cannot set Look and Feel", e);
+
+					
+					try {                    
+						Object lafMetal = Class.forName("javax.swing.plaf.metal.MetalLookAndFeel").newInstance();
+						if (lafMetal instanceof LookAndFeel){
+							UIManager.setLookAndFeel((LookAndFeel) lafMetal);
+						} else if (lafMetal instanceof SubstanceSkin) {                      
+							SubstanceLookAndFeel.setSkin((SubstanceSkin) lafMetal);
+						}
+					} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e2) {                
+						Logger.getLogger(StartPOS.class.getName()).log(Level.SEVERE, null, e2);
+					}
                 }
-// JG July 2014 Hostname for Tickets
+
                 String hostname = config.getProperty("machine.hostname");
                 TicketInfo.setHostname(hostname);
                 

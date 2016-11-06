@@ -21,7 +21,7 @@ public class ITLogin {
 	@BeforeClass
 	public static void launchApp() throws Exception {
 		System.out.println( "Launching Java App" );
-		String[] arguments = new String[] {"/Users/loma/checkbill.properties"};
+		String[] arguments = new String[] {"~/checkbill.properties"};
 		StartPOS.main(arguments);
 
 		// get a Swing-driver, or Swinger
