@@ -1,6 +1,8 @@
 language: java
+sudo: required
 jdk:
   - oraclejdk7
+before_install: apt-get install xorg openbox 
 install: true
-script: mvn test
+script: mvn test -B
 after_success: mvn coveralls:report -DjacocoReports=target/site/jacoco-ut/jacoco.xml -DrepoToken=$coverallToken
