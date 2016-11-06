@@ -164,16 +164,17 @@ public class JRootApp extends JPanel implements AppView {
 
 			// Create or upgrade database
 			String sScript = sDBVersion == null
-				? m_dlSystem.getInitScript() + "-create.sql"
-				: m_dlSystem.getInitScript() + "-upgrade-" + sDBVersion + ".sql";
+					? m_dlSystem.getInitScript() + "-create.sql"
+					: m_dlSystem.getInitScript() + "-upgrade-" + sDBVersion + ".sql";
 			if (JRootApp.class.getResource(sScript) == null) {
 				JMessageDialog.showMessage(this, new MessageInf(MessageInf.SGN_DANGER, sDBVersion == null
-					? AppLocal.getIntString("message.databasenotsupported", session.DB.getName()) // Create script does not exists. Database not supported
-					: AppLocal.getIntString("message.noupdatescript"))); // Upgrade script does not exist.
+						? AppLocal.getIntString("message.databasenotsupported", session.DB.getName()) // Create script does not exists. Database not supported
+						: AppLocal.getIntString("message.noupdatescript"))); // Upgrade script does not exist.
 				session.close();
 				return false;
 			} else // Create or upgrade script exists.
-			 if (JOptionPane.showConfirmDialog(this, AppLocal.getIntString(sDBVersion == null ? "message.createdatabase" : "message.updatedatabase"), AppLocal.getIntString("message.title"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+			{
+				if (true){ //JOptionPane.showConfirmDialog(this, AppLocal.getIntString(sDBVersion == null ? "message.createdatabase" : "message.updatedatabase"), AppLocal.getIntString("message.title"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
 					try {
 						BatchSentence bsentence = new BatchSentenceResource(session, sScript);
@@ -194,6 +195,7 @@ public class JRootApp extends JPanel implements AppView {
 					session.close();
 					return false;
 				}
+			}
 		}
 
 		// Cargamos las propiedades de base de datos
@@ -203,15 +205,15 @@ public class JRootApp extends JPanel implements AppView {
 		try {
 			String sActiveCashIndex = m_propsdb.getProperty("activecash");
 			Object[] valcash = sActiveCashIndex == null
-				? null
-				: m_dlSystem.findActiveCash(sActiveCashIndex);
+					? null
+					: m_dlSystem.findActiveCash(sActiveCashIndex);
 			if (valcash == null || !m_props.getHost().equals(valcash[0])) {
 				// no la encuentro o no es de mi host por tanto creo una...
 				setActiveCash(UUID.randomUUID().toString(), m_dlSystem.getSequenceCash(m_props.getHost()) + 1, new Date(), null);
 
 				// creamos la caja activa      
 				m_dlSystem.execInsertCash(
-					new Object[]{getActiveCashIndex(), m_props.getHost(), getActiveCashSequence(), getActiveCashDateStart(), getActiveCashDateEnd()});
+						new Object[]{getActiveCashIndex(), m_props.getHost(), getActiveCashSequence(), getActiveCashDateStart(), getActiveCashDateEnd()});
 			} else {
 				setActiveCash(sActiveCashIndex, (Integer) valcash[1], (Date) valcash[2], (Date) valcash[3]);
 			}
@@ -266,12 +268,12 @@ public class JRootApp extends JPanel implements AppView {
 
 		jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/check-bill-small.png")));
 		jLabel1.setText("<html><center>ເຊັກບິນ - ລະບົບການຂາຍແບບສະບາຍ<br>"
-			+ "<br>"
-			+ "ເຊັກບິນ is free software and developed from <a href=\"http://www.uniCenta.com/\">uniCenta oPOS</a> You can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>"
-			+ "<br>"
-			+ "ເຊັກບິນ is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details - "
-			+ "<a href='http://www.gnu.org/licenses/'>http://www.gnu.org/licenses/</a><br>"
-			+ "</center>");
+				+ "<br>"
+				+ "ເຊັກບິນ is free software and developed from <a href=\"http://www.uniCenta.com/\">uniCenta oPOS</a> You can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>"
+				+ "<br>"
+				+ "ເຊັກບິນ is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details - "
+				+ "<a href='http://www.gnu.org/licenses/'>http://www.gnu.org/licenses/</a><br>"
+				+ "</center>");
 
 		showLogin();
 
@@ -467,8 +469,8 @@ public class JRootApp extends JPanel implements AppView {
 	private static String mapNewClass(String classname) {
 		String newclass = m_oldclasses.get(classname);
 		return newclass == null
-			? classname
-			: newclass;
+				? classname
+				: newclass;
 	}
 
 	private static void initOldClasses() {
@@ -596,9 +598,9 @@ public class JRootApp extends JPanel implements AppView {
 			} else {
 				// comprobemos la clave antes de entrar...
 				String sPassword = JPasswordDialog.showEditPassword(JRootApp.this,
-					AppLocal.getIntString("Label.Password"),
-					m_actionuser.getName(),
-					m_actionuser.getIcon());
+						AppLocal.getIntString("Label.Password"),
+						m_actionuser.getName(),
+						m_actionuser.getIcon());
 				if (sPassword != null) {
 					if (m_actionuser.authenticate(sPassword)) {
 						openAppView(m_actionuser);
@@ -714,9 +716,9 @@ public class JRootApp extends JPanel implements AppView {
 	}
 
 	/**
-	 * This method is called from within the constructor to initialize the
-	 * form. WARNING: Do NOT modify this code. The content of this method is
-	 * always regenerated by the FormEditor.
+	 * This method is called from within the constructor to initialize the form.
+	 * WARNING: Do NOT modify this code. The content of this method is always
+	 * regenerated by the FormEditor.
 	 */
         // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
         private void initComponents() {
@@ -888,15 +890,15 @@ public class JRootApp extends JPanel implements AppView {
 
     private void m_jCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jCloseActionPerformed
 
-	    tryToClose();
+		tryToClose();
 
     }//GEN-LAST:event_m_jCloseActionPerformed
 
     private void m_txtKeysKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_m_txtKeysKeyTyped
 
-	    m_txtKeys.setText("0");
+		m_txtKeys.setText("0");
 
-	    processKey(evt.getKeyChar());
+		processKey(evt.getKeyChar());
 
     }//GEN-LAST:event_m_txtKeysKeyTyped
 

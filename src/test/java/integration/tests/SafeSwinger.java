@@ -7,6 +7,8 @@ package integration.tests;
 
 import com.athaydes.automaton.Swinger;
 import java.awt.Component;
+import javax.swing.JOptionPane;
+import static org.omg.CORBA.DefinitionKindHelper.type;
 
 class SafeSwinger {
 
