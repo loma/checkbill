@@ -230,7 +230,7 @@ public class AppConfig implements AppProperties {
 			defaultLookAndFeel = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
         
         m_propsconfig.setProperty("swing.defaultlaf", System.getProperty("swing.defaultlaf", defaultLookAndFeel));
-        m_propsconfig.setProperty("format.currency", System.getProperty("format.currency", "#,###'₭'"));
+        m_propsconfig.setProperty("format.currency", System.getProperty("format.currency", "#,###'kip'"));
         
         m_propsconfig.setProperty("machine.printer", "screen");
         m_propsconfig.setProperty("machine.printer.2", "Not defined");
