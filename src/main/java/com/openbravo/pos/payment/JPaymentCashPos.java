@@ -16,8 +16,8 @@
 //
 //    You should have received a copy of the GNU General Public License
 //    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
-
 package com.openbravo.pos.payment;
+
 import com.openbravo.data.gui.MessageInf;
 import com.openbravo.format.Formats;
 import com.openbravo.pos.customers.CustomerInfoExt;
@@ -46,198 +46,201 @@ import javax.swing.SwingConstants;
  * @author adrianromero
  */
 public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInterface {
-    
-    private final JPaymentNotifier m_notifier;
 
-    private double m_dPaid;
-    private double m_dTotal;  
-    private final Boolean priceWith00;
-    
-    /** Creates new form JPaymentCash
-     * @param notifier
-     * @param dlSystem */
-    public JPaymentCashPos(JPaymentNotifier notifier, DataLogicSystem dlSystem) {
-        
-        m_notifier = notifier;
-        
-        initComponents();  
-        
-        m_jTendered.addPropertyChangeListener("Edition", new RecalculateState());
-        m_jTendered.addEditorKeys(m_jKeys);
-        
+	private final JPaymentNotifier m_notifier;
+
+	private double m_dPaid;
+	private double m_dTotal;
+	private final Boolean priceWith00;
+
+	/**
+	 * Creates new form JPaymentCash
+	 *
+	 * @param notifier
+	 * @param dlSystem
+	 */
+	public JPaymentCashPos(JPaymentNotifier notifier, DataLogicSystem dlSystem) {
+
+		m_notifier = notifier;
+
+		initComponents();
+
+		m_jTendered.addPropertyChangeListener("Edition", new RecalculateState());
+		m_jTendered.addEditorKeys(m_jKeys);
+
 // added JDL 11.05.13        
-        AppConfig m_config =  new AppConfig(new File((System.getProperty("user.home")), AppLocal.APP_ID + ".properties"));        
-        m_config.load();        
-        priceWith00 =("true".equals(m_config.getProperty("till.pricewith00")));
-        if (priceWith00) {
-            // use '00' instead of '.'
-            m_jKeys.dotIs00(true);
-        }
+		AppConfig m_config = new AppConfig(new File((System.getProperty("user.home")), AppLocal.APP_ID + ".properties"));
+		m_config.load();
+		priceWith00 = ("true".equals(m_config.getProperty("till.pricewith00")));
+		if (priceWith00) {
+			// use '00' instead of '.'
+			m_jKeys.dotIs00(true);
+		}
 //        m_config=null;
-       
-        String code = dlSystem.getResourceAsXML("payment.cash");
-        if (code != null) {
-            try {
-                ScriptEngine script = ScriptFactory.getScriptEngine(ScriptFactory.BEANSHELL);
-                script.put("payment", new ScriptPaymentCash(dlSystem));    
-                script.eval(code);
-            } catch (ScriptException e) {
-                MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, AppLocal.getIntString("message.cannotexecute"), e);
-                msg.show(this);
-            }
-        }
-        
-    }
-    
-    /**
-     *
-     * @param customerext
-     * @param dTotal
-     * @param transID
-     */
-    @Override
-    public void activate(CustomerInfoExt customerext, double dTotal, String transID) {
-               
-               
-        m_dTotal = dTotal;
-        
-        m_jTendered.reset();
-        m_jTendered.activate();
-        
-        printState();        
-    }
 
-    /**
-     *
-     * @return
-     */
-    @Override
-    public PaymentInfo executePayment() {
-        if (m_dPaid - m_dTotal >= 0.0) {
-            // pago completo
-            return new PaymentInfoCash_original(m_dTotal, m_dPaid);
-        } else {
-            // pago parcial
-            return new PaymentInfoCash_original(m_dPaid, m_dPaid);
-        }        
-    }
+		String code = dlSystem.getResourceAsXML("payment.cash");
+		if (code != null) {
+			try {
+				ScriptEngine script = ScriptFactory.getScriptEngine(ScriptFactory.BEANSHELL);
+				script.put("payment", new ScriptPaymentCash(dlSystem));
+				script.eval(code);
+			} catch (ScriptException e) {
+				MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, AppLocal.getIntString("message.cannotexecute"), e);
+				msg.show(this);
+			}
+		}
 
-    /**
-     *
-     * @return
-     */
-    @Override
-    public Component getComponent() {
-        return this;
-    }
-    
-    private void printState() {
+	}
 
-        Double value = m_jTendered.getDoubleValue();
-        if (value == null || value == 0.0) {
-            m_dPaid = 0;
-        } else {            
-            m_dPaid = value;
+	/**
+	 *
+	 * @param customerext
+	 * @param dTotal
+	 * @param transID
+	 */
+	@Override
+	public void activate(CustomerInfoExt customerext, double dTotal, String transID) {
 
-        }   
+		m_dTotal = dTotal;
 
-        int iCompare = RoundUtils.compare(m_dPaid, m_dTotal);
-        
-        m_jMoneyEuros.setText(Formats.CURRENCY.formatValue(m_dPaid));
-        m_jChangeEuros.setText(iCompare >= 0 
-                ? Formats.CURRENCY.formatValue(m_dPaid - m_dTotal)
-                : null); 
-        
-        m_notifier.setStatus(m_dPaid > 0.0, iCompare >= 0);
-    }
-    
-    private class RecalculateState implements PropertyChangeListener {
-        @Override
-        public void propertyChange(PropertyChangeEvent evt) {
-            printState();
-        }
-    }
+		m_jTendered.reset();
+		m_jTendered.activate();
 
-    /**
-     *
-     */
-    public class ScriptPaymentCash {
-        
-        private final DataLogicSystem dlSystem;
-        private final ThumbNailBuilder tnbbutton;
-        private final AppConfig m_config;
-        
-        /**
-         *
-         * @param dlSystem
-         */
-        public ScriptPaymentCash(DataLogicSystem dlSystem) {
+		printState();
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	@Override
+	public PaymentInfo executePayment() {
+		if (m_dPaid - m_dTotal >= 0.0) {
+			// pago completo
+			return new PaymentInfoCash_original(m_dTotal, m_dPaid);
+		} else {
+			// pago parcial
+			return new PaymentInfoCash_original(m_dPaid, m_dPaid);
+		}
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	@Override
+	public Component getComponent() {
+		return this;
+	}
+
+	private void printState() {
+
+		Double value = m_jTendered.getDoubleValue();
+		if (value == null || value == 0.0) {
+			m_dPaid = 0;
+		} else {
+			m_dPaid = value;
+
+		}
+
+		int iCompare = RoundUtils.compare(m_dPaid, m_dTotal);
+
+		m_jMoneyEuros.setText(Formats.CURRENCY.formatValue(m_dPaid));
+		m_jChangeEuros.setText(iCompare >= 0
+				? Formats.CURRENCY.formatValue(m_dPaid - m_dTotal)
+				: null);
+
+		m_notifier.setStatus(m_dPaid > 0.0, iCompare >= 0);
+	}
+
+	private class RecalculateState implements PropertyChangeListener {
+
+		@Override
+		public void propertyChange(PropertyChangeEvent evt) {
+			printState();
+		}
+	}
+
+	/**
+	 *
+	 */
+	public class ScriptPaymentCash {
+
+		private final DataLogicSystem dlSystem;
+		private final ThumbNailBuilder tnbbutton;
+		private final AppConfig m_config;
+
+		/**
+		 *
+		 * @param dlSystem
+		 */
+		public ScriptPaymentCash(DataLogicSystem dlSystem) {
 //added 19.04.13 JDL        
-            AppConfig m_config =  new AppConfig(new File((System.getProperty("user.home")), AppLocal.APP_ID + ".properties"));        
-            m_config.load();
-            this.m_config = m_config;
-        
-            this.dlSystem = dlSystem;
-            tnbbutton = new ThumbNailBuilder(150, 80, "com/openbravo/images/cash.png");
-        }
-        
-        /**
-         *
-         * @param image
-         * @param amount
-         */
-        public void addButton(String image, double amount) {
-            JButton btn = new JButton();
-//added 19.04.13 JDL removal of text on payment buttons if required.   
-            try {
-                if ((m_config.getProperty("payments.textoverlay")).equals("true")){
-                         btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image),"")));  
-                } else {
-                         btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image), Formats.CURRENCY.formatValue(amount)))); 
-                }
-            } catch (Exception e){
-                btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image), Formats.CURRENCY.formatValue(amount))));        
-            }   
-            
-            btn.setFocusPainted(false);
-            btn.setFocusable(false);
-            btn.setRequestFocusEnabled(false);
-            btn.setHorizontalTextPosition(SwingConstants.CENTER);
-            btn.setVerticalTextPosition(SwingConstants.BOTTOM);
-            btn.setMargin(new Insets(2, 2, 2, 2));
-            btn.addActionListener(new AddAmount(amount));
-            //btn.setPreferredSize(new Dimension(200,100));
-            jPanel6.add(btn);  
-        }
-    }
-    
-    
-    
-    private class AddAmount implements ActionListener {        
-        private final double amount;
-        public AddAmount(double amount) {
-            this.amount = amount;
-        }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Double tendered = m_jTendered.getDoubleValue();
- 
-            if (tendered == null) {
-                 m_jTendered.setDoubleValue(amount);
-            } else {
-              m_jTendered.setDoubleValue(tendered + amount);    
-              
-            }
+			AppConfig m_config = new AppConfig(new File((System.getProperty("user.home")), AppLocal.APP_ID + ".properties"));
+			m_config.load();
+			this.m_config = m_config;
 
-            printState();
-        }
-    }
-    
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
-     */
+			this.dlSystem = dlSystem;
+			tnbbutton = new ThumbNailBuilder(150, 80, "com/openbravo/images/cash.png");
+		}
+
+		/**
+		 *
+		 * @param image
+		 * @param amount
+		 */
+		public void addButton(String image, double amount) {
+			JButton btn = new JButton();
+			try {
+				if ((m_config.getProperty("payments.textoverlay")).equals("true")) {
+					btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image), "")));
+				} else {
+					btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image), Formats.CURRENCY.formatValue(amount))));
+				}
+			} catch (Exception e) {
+				btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image), Formats.CURRENCY.formatValue(amount))));
+			}
+
+			btn.setFocusPainted(false);
+			btn.setFocusable(false);
+			btn.setRequestFocusEnabled(false);
+			btn.setHorizontalTextPosition(SwingConstants.CENTER);
+			btn.setVerticalTextPosition(SwingConstants.BOTTOM);
+			btn.setMargin(new Insets(2, 2, 2, 2));
+			btn.addActionListener(new AddAmount(amount));
+			btn.setName("cash_" + amount);
+			jPanel6.add(btn);
+		}
+	}
+
+	private class AddAmount implements ActionListener {
+
+		private final double amount;
+
+		public AddAmount(double amount) {
+			this.amount = amount;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Double tendered = m_jTendered.getDoubleValue();
+
+			if (tendered == null) {
+				m_jTendered.setDoubleValue(amount);
+			} else {
+				m_jTendered.setDoubleValue(tendered + amount);
+
+			}
+
+			printState();
+		}
+	}
+
+	/**
+	 * This method is called from within the constructor to initialize the form.
+	 * WARNING: Do NOT modify this code. The content of this method is always
+	 * regenerated by the Form Editor.
+	 */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -314,8 +317,8 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
 
         add(jPanel2, java.awt.BorderLayout.LINE_END);
     }// </editor-fold>//GEN-END:initComponents
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
@@ -330,5 +333,5 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
     private javax.swing.JLabel m_jMoneyEuros;
     private com.openbravo.editor.JEditorCurrencyPositive m_jTendered;
     // End of variables declaration//GEN-END:variables
-    
+
 }

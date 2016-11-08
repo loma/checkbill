@@ -125,6 +125,7 @@ public class JSaver extends JPanel implements StateListener {
         jbtnSave.setFocusPainted(false);
         jbtnSave.setFocusable(false);
         jbtnSave.setMargin(new java.awt.Insets(2, 8, 2, 8));
+        jbtnSave.setName("save_button"); // NOI18N
         jbtnSave.setRequestFocusEnabled(false);
         jbtnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -31,12 +31,12 @@ class SafeSwinger {
 		return null;
 	}
 
-	void clickOn(String name) {
+	SafeSwinger clickOn(String name) {
 		int i = 0;
 		while (i++ < 100)
 			try {
 				forSwingWindow.clickOn(name);
-				return;
+				return this;
 			} catch (Exception e) {
 				try {
 					Thread.sleep(100);
@@ -45,6 +45,24 @@ class SafeSwinger {
 			}
 
 		System.out.println("Cant click element after 10 seconds");
+		return null;
+	}
+
+	SafeSwinger type(String text) {
+		int i = 0;
+		while (i++ < 100)
+			try {
+				forSwingWindow.type(text);
+				return this;
+			} catch (Exception e) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException ex) {
+				}
+			}
+
+		System.out.println("Cant click element after 10 seconds");
+		return null;
 	}
 	
 	

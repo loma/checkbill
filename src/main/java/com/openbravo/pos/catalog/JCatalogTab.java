@@ -60,7 +60,7 @@ public class JCatalogTab extends javax.swing.JPanel {
      * @param al
      * @param textTip
      */
-    public void addButton(Icon ico, ActionListener al, String textTip) {
+    public void addButton(Icon ico, ActionListener al, String textTip, String name) {
         JButton btn = new JButton();
         btn.applyComponentOrientation(getComponentOrientation());
         btn.setIcon(ico);
@@ -74,6 +74,7 @@ public class JCatalogTab extends javax.swing.JPanel {
         btn.setVerticalTextPosition(SwingConstants.BOTTOM);
         btn.setMargin(new Insets(2, 2, 2, 2));
         btn.addActionListener(al);
+		btn.setName(name);
         flowpanel.add(btn);        
     }
     
