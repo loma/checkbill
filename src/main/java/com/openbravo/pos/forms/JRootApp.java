@@ -51,6 +51,9 @@ import java.sql.Statement;
 import java.util.*;
 import java.util.regex.Matcher;
 import javax.swing.*;
+import com.athaydes.automaton.Swinger;
+import static com.athaydes.automaton.selector.SwingerSelectors.byText;
+import java.awt.Component;
 
 /**
  *
@@ -174,7 +177,14 @@ public class JRootApp extends JPanel implements AppView {
 				return false;
 			} else // Create or upgrade script exists.
 			{
-				if (true){ //JOptionPane.showConfirmDialog(this, AppLocal.getIntString(sDBVersion == null ? "message.createdatabase" : "message.updatedatabase"), AppLocal.getIntString("message.title"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+
+				if (JOptionPane.showConfirmDialog(
+						this,
+						AppLocal.getIntString("message.createdatabase"),
+						AppLocal.getIntString("message.title"),
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE
+				) == JOptionPane.YES_OPTION) {
 
 					try {
 						BatchSentence bsentence = new BatchSentenceResource(session, sScript);

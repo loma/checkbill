@@ -16,9 +16,9 @@
 //
 //    You should have received a copy of the GNU General Public License
 //    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>
-
 package com.openbravo.pos.forms;
 
+import com.athaydes.automaton.Swinger;
 import com.openbravo.format.Formats;
 import com.openbravo.pos.instance.InstanceQuery;
 import java.rmi.NotBoundException;
@@ -34,127 +34,128 @@ import org.pushingpixels.substance.api.SubstanceSkin;
 import com.openbravo.pos.ticket.TicketInfo;
 import java.awt.Font;
 
-
 // JG 16 May 2013 deprecated for pushingpixels
 // import org.jvnet.substance.SubstanceLookAndFeel;
 // import org.jvnet.substance.api.SubstanceSkin;
-
 /**
  *
  * @author adrianromero
  */
 public class StartPOS {
 
-    private static final Logger logger = Logger.getLogger("com.openbravo.pos.forms.StartPOS");
-    
-    
-    /** Creates a new instance of StartPOS */
-    public StartPOS() {
-    }
+	private static final Logger logger = Logger.getLogger("com.openbravo.pos.forms.StartPOS");
 
-    /**
-     *
-     * @return
-     */
-    public static boolean registerApp() {
-                       
-        // vemos si existe alguna instancia        
-        InstanceQuery i = null;
-        try {
-            i = new InstanceQuery();
-            i.getAppMessage().restoreWindow();
-            return false;
+	/**
+	 * Creates a new instance of StartPOS
+	 */
+	public StartPOS() {
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public static boolean registerApp() {
+
+		// vemos si existe alguna instancia        
+		InstanceQuery i = null;
+		try {
+			i = new InstanceQuery();
+			i.getAppMessage().restoreWindow();
+			return false;
 // JG 6 May 2013 to Multicatch
-        } catch (RemoteException | NotBoundException e) {
-            return true;
-        }  
-    }
-    
-    public static void setUIFont (javax.swing.plaf.FontUIResource f) {
-        java.util.Enumeration keys = UIManager.getDefaults().keys();
-        while (keys.hasMoreElements()) {
-            Object key = keys.nextElement();
-            Object value = UIManager.get (key);
-            if (value != null && value instanceof javax.swing.plaf.FontUIResource)
-            UIManager.put (key, f);
-        }
-    } 
-    
-    /**
-     *
-     * @param args
-     */
-    public static void main (final String args[]) {
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                
-	    	/*
+		} catch (RemoteException | NotBoundException e) {
+			return true;
+		}
+	}
+
+	public static void setUIFont(javax.swing.plaf.FontUIResource f) {
+		java.util.Enumeration keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+			if (value != null && value instanceof javax.swing.plaf.FontUIResource) {
+				UIManager.put(key, f);
+			}
+		}
+	}
+
+	public static JRootFrame root;
+
+	/**
+	 *
+	 * @param args
+	 */
+	public static void main(final String args[]) throws InterruptedException {
+
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+
+				/*
                 if (!registerApp()) {
                     System.exit(1);
                 }
-		*/
-                
-                setUIFont (new javax.swing.plaf.FontUIResource("Saysettha OT", Font.PLAIN, 18));
-                
-                AppConfig config = new AppConfig(args);
-                config.load();
-                
-                // set Locale.
-                String slang = config.getProperty("user.language");
-                String scountry = config.getProperty("user.country");
-                String svariant = config.getProperty("user.variant");
-                if (slang != null && !slang.equals("") && scountry != null && svariant != null) {                                        
-                    Locale.setDefault(new Locale(slang, scountry, svariant));
-                }
-                
-                // Set the format patterns
-                Formats.setIntegerPattern(config.getProperty("format.integer"));
-                Formats.setDoublePattern(config.getProperty("format.double"));
-                Formats.setCurrencyPattern(config.getProperty("format.currency"));
-                Formats.setPercentPattern(config.getProperty("format.percent"));
-                Formats.setDatePattern(config.getProperty("format.date"));
-                Formats.setTimePattern(config.getProperty("format.time"));
-                Formats.setDateTimePattern(config.getProperty("format.datetime"));               
-                
-                // Set the look and feel.
-                try {             
-                    
-                    Object laf = Class.forName(config.getProperty("swing.defaultlaf")).newInstance();                    
-                    if (laf instanceof LookAndFeel){
-                        UIManager.setLookAndFeel((LookAndFeel) laf);
-                    } else if (laf instanceof SubstanceSkin) {                      
-                        SubstanceLookAndFeel.setSkin((SubstanceSkin) laf);
-                    }
-                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {                
-                    logger.log(Level.WARNING, "Cannot set Look and Feel", e);
+				 */
+				setUIFont(new javax.swing.plaf.FontUIResource("Saysettha OT", Font.PLAIN, 18));
 
-					
-					try {                    
+				AppConfig config = new AppConfig(args);
+				config.load();
+
+				// set Locale.
+				String slang = config.getProperty("user.language");
+				String scountry = config.getProperty("user.country");
+				String svariant = config.getProperty("user.variant");
+				if (slang != null && !slang.equals("") && scountry != null && svariant != null) {
+					Locale.setDefault(new Locale(slang, scountry, svariant));
+				}
+
+				// Set the format patterns
+				Formats.setIntegerPattern(config.getProperty("format.integer"));
+				Formats.setDoublePattern(config.getProperty("format.double"));
+				Formats.setCurrencyPattern(config.getProperty("format.currency"));
+				Formats.setPercentPattern(config.getProperty("format.percent"));
+				Formats.setDatePattern(config.getProperty("format.date"));
+				Formats.setTimePattern(config.getProperty("format.time"));
+				Formats.setDateTimePattern(config.getProperty("format.datetime"));
+
+				// Set the look and feel.
+				try {
+
+					Object laf = Class.forName(config.getProperty("swing.defaultlaf")).newInstance();
+					if (laf instanceof LookAndFeel) {
+						UIManager.setLookAndFeel((LookAndFeel) laf);
+					} else if (laf instanceof SubstanceSkin) {
+						SubstanceLookAndFeel.setSkin((SubstanceSkin) laf);
+					}
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+					logger.log(Level.WARNING, "Cannot set Look and Feel", e);
+
+					try {
 						Object lafMetal = Class.forName("javax.swing.plaf.metal.MetalLookAndFeel").newInstance();
-						if (lafMetal instanceof LookAndFeel){
+						if (lafMetal instanceof LookAndFeel) {
 							UIManager.setLookAndFeel((LookAndFeel) lafMetal);
-						} else if (lafMetal instanceof SubstanceSkin) {                      
+						} else if (lafMetal instanceof SubstanceSkin) {
 							SubstanceLookAndFeel.setSkin((SubstanceSkin) lafMetal);
 						}
-					} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e2) {                
+					} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e2) {
 						Logger.getLogger(StartPOS.class.getName()).log(Level.SEVERE, null, e2);
 					}
-                }
+				}
 
-                String hostname = config.getProperty("machine.hostname");
-                TicketInfo.setHostname(hostname);
-                
-                String screenmode = config.getProperty("machine.screenmode");
-                if ("fullscreen".equals(screenmode)) {
-                    JRootKiosk rootkiosk = new JRootKiosk();
-                    rootkiosk.initFrame(config);
-                } else {
-                    JRootFrame rootframe = new JRootFrame(); 
-                    rootframe.initFrame(config);
-                }
-            }
-        });    
-    }    
+				String hostname = config.getProperty("machine.hostname");
+				TicketInfo.setHostname(hostname);
+
+				String screenmode = config.getProperty("machine.screenmode");
+				if ("fullscreen".equals(screenmode)) {
+					JRootKiosk rootkiosk = new JRootKiosk();
+					rootkiosk.initFrame(config);
+				} else {
+					JRootFrame rootframe = new JRootFrame();
+					rootframe.initFrame(config);
+					root = rootframe;
+				}
+			}
+		});
+	}
 }

@@ -29,6 +29,7 @@ import java.rmi.RemoteException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import com.openbravo.pos.util.OSValidator;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -49,6 +50,10 @@ public class JRootFrame extends javax.swing.JFrame implements AppMessage {
         
         initComponents();    
     }
+
+	public JRootApp getJRootApp(){
+		return m_rootapp;
+	}
     
     /**
      *
@@ -60,6 +65,8 @@ public class JRootFrame extends javax.swing.JFrame implements AppMessage {
         m_props = props;
         
         m_rootapp = new JRootApp();
+		add(m_rootapp, BorderLayout.CENTER);            
+		setVisible(true);                        
         
         if (m_rootapp.initApp(m_props)) {
 
@@ -68,7 +75,6 @@ public class JRootFrame extends javax.swing.JFrame implements AppMessage {
                 // Register the running application
                 try {
                     m_instmanager = new InstanceManager(this);
-// JG 16 May use multicatch
                 } catch (RemoteException | AlreadyBoundException e) {
                 }
             }
