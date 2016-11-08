@@ -27,7 +27,7 @@ class SafeSwinger {
 				} catch (InterruptedException ex) {
 				}
 			}
-		System.out.println("Cant find element after 10 seconds");
+		System.out.println("Cant find element " +name+ " after 10 seconds");
 		return null;
 	}
 
@@ -44,7 +44,7 @@ class SafeSwinger {
 				}
 			}
 
-		System.out.println("Cant click element after 10 seconds");
+		System.out.println("Cant click element "+ name +" after 10 seconds");
 		return null;
 	}
 
@@ -61,7 +61,7 @@ class SafeSwinger {
 				}
 			}
 
-		System.out.println("Cant click element after 10 seconds");
+		System.out.println("Cant type element "+ text +" after 10 seconds");
 		return null;
 	}
 	
