@@ -1,28 +1,6 @@
-//    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2013 Openbravo, S.L.
-//    http://www.unicenta.com
-//
-//    This file is part of uniCenta oPOS
-//
-//    uniCenta oPOS is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation, either version 3 of the License, or
-//    (at your option) any later version.
-//
-//   uniCenta oPOS is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>
 package com.openbravo.pos.forms;
 
-import com.athaydes.automaton.Swinger;
 import com.openbravo.format.Formats;
-import com.openbravo.pos.instance.InstanceQuery;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,39 +12,11 @@ import org.pushingpixels.substance.api.SubstanceSkin;
 import com.openbravo.pos.ticket.TicketInfo;
 import java.awt.Font;
 
-// JG 16 May 2013 deprecated for pushingpixels
-// import org.jvnet.substance.SubstanceLookAndFeel;
-// import org.jvnet.substance.api.SubstanceSkin;
-/**
- *
- * @author adrianromero
- */
 public class StartPOS {
 
 	private static final Logger logger = Logger.getLogger("com.openbravo.pos.forms.StartPOS");
 
-	/**
-	 * Creates a new instance of StartPOS
-	 */
 	public StartPOS() {
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public static boolean registerApp() {
-
-		// vemos si existe alguna instancia        
-		InstanceQuery i = null;
-		try {
-			i = new InstanceQuery();
-			i.getAppMessage().restoreWindow();
-			return false;
-// JG 6 May 2013 to Multicatch
-		} catch (RemoteException | NotBoundException e) {
-			return true;
-		}
 	}
 
 	public static void setUIFont(javax.swing.plaf.FontUIResource f) {
@@ -82,35 +32,35 @@ public class StartPOS {
 
 	public static JRootFrame root;
 
-	/**
-	 *
-	 * @param args
-	 */
 	public static void main(final String args[]) throws InterruptedException {
-
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-
-				/*
-                if (!registerApp()) {
-                    System.exit(1);
-                }
-				 */
-				setUIFont(new javax.swing.plaf.FontUIResource("Saysettha OT", Font.PLAIN, 18));
-
 				AppConfig config = new AppConfig(args);
 				config.load();
 
-				// set Locale.
+				setFont();
+				setLocale(config);
+				setFormatPatterns(config);
+				setLookAndFeel(config);
+				setHostName(config);
+				initScreenMode(config);
+			}
+
+			private void setHostName(AppConfig config) {
+				TicketInfo.setHostname(config.getProperty("machine.hostname"));
+			}
+
+			private void setLocale(AppConfig config) {
 				String slang = config.getProperty("user.language");
 				String scountry = config.getProperty("user.country");
 				String svariant = config.getProperty("user.variant");
 				if (slang != null && !slang.equals("") && scountry != null && svariant != null) {
 					Locale.setDefault(new Locale(slang, scountry, svariant));
 				}
+			}
 
-				// Set the format patterns
+			private void setFormatPatterns(AppConfig config) {
 				Formats.setIntegerPattern(config.getProperty("format.integer"));
 				Formats.setDoublePattern(config.getProperty("format.double"));
 				Formats.setCurrencyPattern(config.getProperty("format.currency"));
@@ -118,36 +68,10 @@ public class StartPOS {
 				Formats.setDatePattern(config.getProperty("format.date"));
 				Formats.setTimePattern(config.getProperty("format.time"));
 				Formats.setDateTimePattern(config.getProperty("format.datetime"));
+			}
 
-				// Set the look and feel.
-				try {
-
-					Object laf = Class.forName(config.getProperty("swing.defaultlaf")).newInstance();
-					if (laf instanceof LookAndFeel) {
-						UIManager.setLookAndFeel((LookAndFeel) laf);
-					} else if (laf instanceof SubstanceSkin) {
-						SubstanceLookAndFeel.setSkin((SubstanceSkin) laf);
-					}
-				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-					logger.log(Level.WARNING, "Cannot set Look and Feel", e);
-
-					try {
-						Object lafMetal = Class.forName("javax.swing.plaf.metal.MetalLookAndFeel").newInstance();
-						if (lafMetal instanceof LookAndFeel) {
-							UIManager.setLookAndFeel((LookAndFeel) lafMetal);
-						} else if (lafMetal instanceof SubstanceSkin) {
-							SubstanceLookAndFeel.setSkin((SubstanceSkin) lafMetal);
-						}
-					} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e2) {
-						Logger.getLogger(StartPOS.class.getName()).log(Level.SEVERE, null, e2);
-					}
-				}
-
-				String hostname = config.getProperty("machine.hostname");
-				TicketInfo.setHostname(hostname);
-
-				String screenmode = config.getProperty("machine.screenmode");
-				if ("fullscreen".equals(screenmode)) {
+			private void initScreenMode(AppConfig config) {
+				if ("fullscreen".equals(config.getProperty("machine.screenmode"))) {
 					JRootKiosk rootkiosk = new JRootKiosk();
 					rootkiosk.initFrame(config);
 				} else {
@@ -156,6 +80,32 @@ public class StartPOS {
 					root = rootframe;
 				}
 			}
+
+			private void setLookAndFeel(AppConfig config) {
+				try {
+					setLookAndFeel(config.getProperty("swing.defaultlaf"));
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+					logger.log(Level.WARNING, "Cannot set Look and Feel", e);
+					try {
+						setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+					} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e2) {
+						Logger.getLogger(StartPOS.class.getName()).log(Level.SEVERE, null, e2);
+					}
+				}
+			}
+
+			private void setLookAndFeel(final String lookAndFeelClassName) throws UnsupportedLookAndFeelException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+				Object lafMetal = Class.forName(lookAndFeelClassName).newInstance();
+				if (lafMetal instanceof LookAndFeel) {
+					UIManager.setLookAndFeel((LookAndFeel) lafMetal);
+				} else if (lafMetal instanceof SubstanceSkin) {
+					SubstanceLookAndFeel.setSkin((SubstanceSkin) lafMetal);
+				}
+			}
 		});
+	}
+
+	private static void setFont() {
+		setUIFont(new javax.swing.plaf.FontUIResource("Saysettha OT", Font.PLAIN, 18));
 	}
 }
