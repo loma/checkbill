@@ -9,6 +9,6 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
 script: 
-  - mvn verify -B -q
-after_success: mvn coveralls:report -DrepoToken=$coverallToken
+  - mvn test -B -q
+after_success: mvn coveralls:report -DjacocoReports=target/site/jacoco-ut/jacoco.xml -DrepoToken=$coverallToken
 
