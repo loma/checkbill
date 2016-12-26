@@ -16,7 +16,6 @@
 //
 //    You should have received a copy of the GNU General Public License
 //    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
-
 package com.openbravo.pos.reports;
 
 import com.openbravo.basic.BasicException;
@@ -47,12 +46,12 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
  *
  * @author JG uniCenta
  */
-public abstract class JPanelReport extends JPanel implements JPanelView, BeanFactoryApp   {
-    
-    private JRViewer300 reportviewer = null;   
+public abstract class JPanelReport extends JPanel implements JPanelView, BeanFactoryApp {
+
+    private JRViewer300 reportviewer = null;
     private JasperReport jr = null;
     private EditorCreator editor = null;
-            
+
     /**
      *
      */
@@ -64,47 +63,49 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
      *
      */
     protected SentenceList taxsent;
-  
+
     /**
      *
      */
     protected TaxesLogic taxeslogic;
 
-    /** Creates new form JPanelReport */
+    /**
+     * Creates new form JPanelReport
+     */
     public JPanelReport() {
-        
-        initComponents();      
+
+        initComponents();
     }
-    
+
     /**
      *
      * @param app
      * @throws BeanFactoryException
      */
     @Override
-    public void init(AppView app) throws BeanFactoryException {   
-        
+    public void init(AppView app) throws BeanFactoryException {
+
         m_App = app;
-        
+
         DataLogicSales dlSales = (DataLogicSales) app.getBean("com.openbravo.pos.forms.DataLogicSales");
         taxsent = dlSales.getTaxList();
-        
+
         editor = getEditorCreator();
         if (editor instanceof ReportEditorCreator) {
             jPanelFilter.add(((ReportEditorCreator) editor).getComponent(), BorderLayout.CENTER);
         }
-                  
-        reportviewer = new JRViewer300(null);                        
-        
+
+        reportviewer = new JRViewer300(null);
+
         add(reportviewer, BorderLayout.CENTER);
-        
-        try {     
-            
+
+        try {
+
             InputStream in = getClass().getResourceAsStream(getReport() + ".ser");
-            if (in == null) {      
+            if (in == null) {
                 // read and compile the report
-                JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream(getReport() + ".jrxml"));            
-                jr = JasperCompileManager.compileReport(jd);    
+                JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream(getReport() + ".jrxml"));
+                jr = JasperCompileManager.compileReport(jd);
             } else {
 // JG 16 May 12 use try-with-resources
                 try (ObjectInputStream oin = new ObjectInputStream(in)) {
@@ -116,9 +117,9 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
             MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotloadreport"), e);
             msg.show(this);
             jr = null;
-        }  
+        }
     }
-    
+
     /**
      *
      * @return
@@ -127,7 +128,7 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
     public Object getBean() {
         return this;
     }
-    
+
     /**
      *
      * @return
@@ -159,7 +160,7 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
     protected EditorCreator getEditorCreator() {
         return null;
     }
-    
+
     /**
      *
      * @return
@@ -168,7 +169,7 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
     public JComponent getComponent() {
         return this;
     }
-    
+
     /**
      *
      * @throws BasicException
@@ -177,7 +178,7 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
     public void activate() throws BasicException {
 
         setVisibleFilter(true);
-        taxeslogic = new TaxesLogic(taxsent.list()); 
+        taxeslogic = new TaxesLogic(taxsent.list());
     }
 
     /**
@@ -185,12 +186,12 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
      * @return
      */
     @Override
-    public boolean deactivate() {    
-        
+    public boolean deactivate() {
+
         reportviewer.loadJasperPrint(null);
         return true;
     }
-    
+
     /**
      *
      * @param value
@@ -198,7 +199,7 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
     protected void setVisibleButtonFilter(boolean value) {
         jToggleFilter.setVisible(value);
     }
-    
+
     /**
      *
      * @param value
@@ -207,36 +208,36 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
         jToggleFilter.setSelected(value);
         jToggleFilterActionPerformed(null);
     }
-    
-    private void launchreport() {     
-        
+
+    private void launchreport() {
+
         m_App.waitCursorBegin();
-        
+
         if (jr != null) {
-            try {     
-                
+            try {
+
                 // Archivo de recursos
-                String res = getResourceBundle();  
-                
+                String res = getResourceBundle();
+
                 // Parametros y los datos
-                Object params = (editor == null) ? null : editor.createValue();                
+                Object params = (editor == null) ? null : editor.createValue();
                 JRDataSource data = new JRDataSourceBasic(getSentence(), getReportFields(), params);
-                
+
                 // Construyo el mapa de los parametros.
                 Map reportparams = new HashMap();
                 reportparams.put("ARG", params);
                 if (res != null) {
-                      reportparams.put("REPORT_RESOURCE_BUNDLE", ResourceBundle.getBundle(res));
-                }                
-                reportparams.put("TAXESLOGIC", taxeslogic); 
-                
-                JasperPrint jp = JasperFillManager.fillReport(jr, reportparams, data);    
-            
-                reportviewer.loadJasperPrint(jp);     
-                
+                    reportparams.put("REPORT_RESOURCE_BUNDLE", ResourceBundle.getBundle(res));
+                }
+                reportparams.put("TAXESLOGIC", taxeslogic);
+
+                JasperPrint jp = JasperFillManager.fillReport(jr, reportparams, data);
+
+                reportviewer.loadJasperPrint(jp);
+
                 setVisibleFilter(false);
-                
-            } catch (MissingResourceException e) {    
+
+            } catch (MissingResourceException e) {
                 MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotloadresourcedata"), e);
                 msg.show(this);
             } catch (JRException e) {
@@ -247,14 +248,14 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
                 msg.show(this);
             }
         }
-        
+
         m_App.waitCursorEnd();
     }
-    
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -309,17 +310,15 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         launchreport();
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jToggleFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleFilterActionPerformed
 
         jPanelFilter.setVisible(jToggleFilter.isSelected());
-    
+
     }//GEN-LAST:event_jToggleFilterActionPerformed
 
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
@@ -327,5 +326,5 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
     private javax.swing.JPanel jPanelHeader;
     private javax.swing.JToggleButton jToggleFilter;
     // End of variables declaration//GEN-END:variables
-    
+
 }
