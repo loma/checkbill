@@ -10,60 +10,62 @@ import java.awt.Component;
 
 class SafeSwinger {
 
-	private final Swinger forSwingWindow;
+    private final Swinger forSwingWindow;
 
-	public SafeSwinger(Swinger forSwingWindow) {
-		this.forSwingWindow = forSwingWindow;
-	}
+    public SafeSwinger(Swinger forSwingWindow) {
+        this.forSwingWindow = forSwingWindow;
+    }
 
-	Component getAt(String name) {
-		int i = 0;
-		while (i++ < 100)
-			try {
-				return forSwingWindow.getAt(name);
-			} catch (Exception e) {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException ex) {
-				}
-			}
-		System.out.println("Cant find element " +name+ " after 10 seconds");
-		return null;
-	}
+    Component getAt(String name) {
+        int i = 0;
+        while (i++ < 60) {
+            try {
+                return forSwingWindow.getAt(name);
+            } catch (Exception e) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                }
+            }
+        }
+        System.out.println("Cant find element " + name + " after 10 seconds");
+        return null;
+    }
 
-	SafeSwinger clickOn(String name) {
-		int i = 0;
-		while (i++ < 100)
-			try {
-				forSwingWindow.clickOn(name);
-				return this;
-			} catch (Exception e) {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException ex) {
-				}
-			}
+    SafeSwinger clickOn(String name) {
+        int i = 0;
+        while (i++ < 60) {
+            try {
+                forSwingWindow.clickOn(name);
+                return this;
+            } catch (Exception e) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                }
+            }
+        }
 
-		System.out.println("Cant click element "+ name +" after 10 seconds");
-		return null;
-	}
+        System.out.println("Cant click element " + name + " after 10 seconds");
+        return null;
+    }
 
-	SafeSwinger type(String text) {
-		int i = 0;
-		while (i++ < 100)
-			try {
-				forSwingWindow.type(text);
-				return this;
-			} catch (Exception e) {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException ex) {
-				}
-			}
+    SafeSwinger type(String text) {
+        int i = 0;
+        while (i++ < 100) {
+            try {
+                forSwingWindow.type(text);
+                return this;
+            } catch (Exception e) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                }
+            }
+        }
 
-		System.out.println("Cant type element "+ text +" after 10 seconds");
-		return null;
-	}
-	
-	
+        System.out.println("Cant type element " + text + " after 10 seconds");
+        return null;
+    }
+
 }

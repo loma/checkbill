@@ -14,10 +14,11 @@ public class AppConfig implements AppProperties {
 	private File configfile;
 
 	public AppConfig(String[] args) {
-		if (args.length == 0)
+		if (args.length == 0) {
 			init(getDefaultConfig());
-		else 
+		} else {
 			init(new File(args[0]));
+		}
 	}
 
 	public AppConfig(File configfile) {
@@ -50,10 +51,11 @@ public class AppConfig implements AppProperties {
 	}
 
 	public void setProperty(String sKey, String sValue) {
-		if (sValue == null)
+		if (sValue == null) {
 			m_propsconfig.remove(sKey);
-		else
+		} else {
 			m_propsconfig.setProperty(sKey, sValue);
+		}
 	}
 
 	private String getLocalHostName() {
@@ -82,8 +84,9 @@ public class AppConfig implements AppProperties {
 
 	public Boolean isPriceWith00() {
 		String prop = getProperty("pricewith00");
-		if (prop == null)
+		if (prop == null) {
 			return false;
+		}
 
 		return prop.equals("true");
 	}
