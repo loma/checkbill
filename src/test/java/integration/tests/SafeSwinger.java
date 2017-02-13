@@ -18,7 +18,7 @@ class SafeSwinger {
 
     Component getAt(String name) {
         int i = 0;
-        while (i++ < 60) {
+        while (i++ < 10) {
             try {
                 return forSwingWindow.getAt(name);
             } catch (Exception e) {
@@ -34,7 +34,7 @@ class SafeSwinger {
 
     SafeSwinger clickOn(String name) {
         int i = 0;
-        while (i++ < 60) {
+        while (i++ < 10) {
             try {
                 forSwingWindow.clickOn(name);
                 return this;

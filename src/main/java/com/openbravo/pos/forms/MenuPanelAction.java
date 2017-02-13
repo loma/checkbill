@@ -16,7 +16,6 @@
 //
 //    You should have received a copy of the GNU General Public License
 //    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
-
 package com.openbravo.pos.forms;
 
 import java.awt.event.ActionEvent;
@@ -33,11 +32,14 @@ public class MenuPanelAction extends AbstractAction {
     private final AppView m_App;
     private final String m_sMyView;
 
-    /** Creates a new instance of MenuPanelAction
+    /**
+     * Creates a new instance of MenuPanelAction
+     *
      * @param app
      * @param icon
      * @param keytext
-     * @param sMyView */
+     * @param sMyView
+     */
     public MenuPanelAction(AppView app, String icon, String keytext, String sMyView) {
         putValue(Action.SMALL_ICON, new ImageIcon(JPrincipalApp.class.getResource(icon)));
         putValue(Action.NAME, AppLocal.getIntString(keytext));
@@ -45,9 +47,10 @@ public class MenuPanelAction extends AbstractAction {
         m_App = app;
         m_sMyView = sMyView;
     }
+
     @Override
     public void actionPerformed(ActionEvent evt) {
 
-        m_App.getAppUserView().showTask(m_sMyView);            
-    }    
+        m_App.getAppUserView().showTask(m_sMyView);
+    }
 }

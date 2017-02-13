@@ -16,7 +16,6 @@
 //
 //    You should have received a copy of the GNU General Public License
 //    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
-
 package com.openbravo.pos.forms;
 
 import java.awt.Dimension;
@@ -29,33 +28,36 @@ import javax.swing.SwingConstants;
  * @author adrianromero
  */
 public class MenuItemDefinition implements MenuElement {
-    
+
     private Action act;
-    
+    private String key;
+
     /**
      *
      * @param act
      */
-    public MenuItemDefinition(Action act) {
+    public MenuItemDefinition(Action act, String key) {
         this.act = act;
+        this.key = key;
     }
-    
+
     /**
      *
      * @param menu
      */
     @Override
     public void addComponent(JPanelMenu menu) {
-        
-        JButton btn = new JButton(act); 
-        
+
+        JButton btn = new JButton(act);
+
         btn.setFocusPainted(false);
         btn.setFocusable(false);
         btn.setRequestFocusEnabled(false);
         btn.setHorizontalAlignment(SwingConstants.LEADING);
         btn.setPreferredSize(new Dimension(150, 40));
-		btn.setFont(new java.awt.Font("Saysettha OT", 0, 18)); // NOI18N
-        
+        btn.setFont(new java.awt.Font("Saysettha OT", 0, 18)); // NOI18N
+        btn.setName(this.key);
+
         menu.addEntry(btn);
     }
 }

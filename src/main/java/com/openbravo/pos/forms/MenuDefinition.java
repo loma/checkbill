@@ -16,7 +16,6 @@
 //
 //    You should have received a copy of the GNU General Public License
 //    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
-
 package com.openbravo.pos.forms;
 
 import java.util.ArrayList;
@@ -27,18 +26,21 @@ import javax.swing.Action;
  * @author adrianromero
  */
 public class MenuDefinition {
-    
+
     private String m_sKey;
-    
+
     private ArrayList m_aMenuElements;
-    
-    /** Creates a new instance of MenuDefinition
-     * @param skey */
+
+    /**
+     * Creates a new instance of MenuDefinition
+     *
+     * @param skey
+     */
     public MenuDefinition(String skey) {
         m_sKey = skey;
         m_aMenuElements = new ArrayList();
     }
-    
+
     /**
      *
      * @return
@@ -46,7 +48,7 @@ public class MenuDefinition {
     public String getKey() {
         return m_sKey;
     }
-    
+
     /**
      *
      * @return
@@ -59,11 +61,11 @@ public class MenuDefinition {
      *
      * @param act
      */
-    public void addMenuItem(Action act) {
-        MenuItemDefinition menuitem = new MenuItemDefinition(act);
+    public void addMenuItem(Action act, String key) {
+        MenuItemDefinition menuitem = new MenuItemDefinition(act, key);
         m_aMenuElements.add(menuitem);
     }
-    
+
     /**
      *
      * @param keytext
@@ -73,7 +75,7 @@ public class MenuDefinition {
         menutitle.KeyText = keytext;
         m_aMenuElements.add(menutitle);
     }
-    
+
     /**
      *
      * @param i
