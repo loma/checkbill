@@ -33,7 +33,7 @@ public class ITCoreFunctions {
         System.out.println("Cleaning up");
     }
 
-    @Test
+    //@Test
     public void addNewProduct() {
         swinger.clickOn("user0");
         swinger.clickOn("toggle-menu");
@@ -63,7 +63,7 @@ public class ITCoreFunctions {
         swinger.clickOn("logout");
     }
 
-    @Test
+    //@Test
     public void addNewCategory() {
         swinger.clickOn("user0");
         swinger.clickOn("toggle-menu");
@@ -74,5 +74,16 @@ public class ITCoreFunctions {
         swinger.clickOn("save_button");
 
         swinger.clickOn("logout");
+    }
+
+    @Test
+    public void changePassword() {
+        swinger.clickOn("user0");
+        swinger.clickOn("toggle-menu");
+        swinger.clickOn("text:ປ່ຽນ​ລະ​ຫັດ​ຜ່ານ");
+
+        //swinger.clickOn("category_name").type("new category");
+        //swinger.clickOn("save_button");
+        //swinger.clickOn("logout");
     }
 }

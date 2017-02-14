@@ -1,21 +1,3 @@
-//    uniCenta oPOS Touch Friendly Point of Sale
-//    Copyright (c) 2009-2015 uniCenta & previous Openbravo POS works
-//    http://www.unicenta.net/product
-//
-//    This file is part of uniCenta oPOS.
-//
-//    uniCenta oPOS is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation, either version 3 of the License, or
-//    (at your option) any later version.
-//
-//    uniCenta oPOS is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with Openbravo POS.  If not, see <http://www.gnu.org/licenses/>.
 package com.openbravo.pos.forms;
 
 import com.openbravo.basic.BasicException;
@@ -23,24 +5,17 @@ import com.openbravo.data.gui.JMessageDialog;
 import com.openbravo.data.gui.MessageInf;
 import com.openbravo.pos.customers.CustomerInfo;
 import com.openbravo.pos.scripting.ScriptException;
-import com.openbravo.pos.util.Hashcypher;
-import com.openbravo.pos.util.StringUtils;
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import org.jdesktop.swingx.JXTaskPane;
-import org.jdesktop.swingx.JXTaskPaneContainer;
+import leftmenu.ScriptGroup;
+import leftmenu.ScriptMenu;
+import leftmenu.ScriptSubmenu;
 
-/**
- *
- * @author adrianromero
- */
 public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
 
     private static final Logger logger = Logger.getLogger("com.openbravo.pos.forms.JPrincipalApp");
@@ -48,7 +23,11 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
     private final JRootApp m_appview;
     private final AppUser m_appuser;
 
-    private DataLogicSystem m_dlSystem;
+    private DataLogicSystem data_logic_system;
+
+    public DataLogicSystem getDataLogicSystem() {
+        return data_logic_system;
+    }
 
     private JLabel m_principalnotificator;
 
@@ -61,28 +40,20 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
     private Icon menu_open;
     private Icon menu_close;
 
-    //HS Updates
     private CustomerInfo customerInfo;
 
-    /**
-     * Creates new form JPrincipalApp
-     *
-     * @param appview
-     * @param appuser
-     */
     public JPrincipalApp(JRootApp appview, AppUser appuser) {
 
         m_appview = appview;
         m_appuser = appuser;
 
-        m_dlSystem = (DataLogicSystem) m_appview.getBean("com.openbravo.pos.forms.DataLogicSystem");
+        data_logic_system = (DataLogicSystem) m_appview.getBean("com.openbravo.pos.forms.DataLogicSystem");
 
-        m_appuser.fillPermissions(m_dlSystem);
+        m_appuser.fillPermissions(data_logic_system);
 
         m_actionfirst = null;
         m_jLastView = null;
 
-// JG 6 May 2013 use diamond inference
         m_aPreparedViews = new HashMap<>();
         m_aCreatedViews = new HashMap<>();
 
@@ -114,20 +85,15 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
         showView("<NULL>");
 
         try {
-            m_jPanelLeft.setViewportView(getScriptMenu(m_dlSystem.getResourceAsText("Menu.Root")));
+            m_jPanelLeft.setViewportView(getScriptMenu(data_logic_system.getResourceAsText("Menu.Root")));
         } catch (ScriptException e) {
-            logger.log(Level.SEVERE, "Cannot read Menu.Root resource. Trying default menu.", e);
-            try {
-                m_jPanelLeft.setViewportView(getScriptMenu(StringUtils.readResource("/com/openbravo/pos/templates/Menu.Root.txt")));
-            } catch (IOException | ScriptException ex) {
-                logger.log(Level.SEVERE, "Cannot read default menu", ex);
-            }
+            logger.log(Level.SEVERE, "Cannot read default menu", e);
         }
     }
 
     private Component getScriptMenu(String menutext) throws ScriptException {
 
-        ScriptMenu menu = new ScriptMenu();
+        ScriptMenu menu = new ScriptMenu(this);
         ScriptGroup group;
 
         group = menu.addGroup("Menu.Main");
@@ -268,212 +234,6 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
             : menu_open);
     }
 
-    /**
-     *
-     */
-    public class ScriptMenu {
-//        private JTaskPane taskPane = new JTaskPane();
-
-        private final JXTaskPaneContainer taskPane;
-
-        private ScriptMenu() {
-            taskPane = new JXTaskPaneContainer();
-            taskPane.applyComponentOrientation(getComponentOrientation());
-        }
-
-        /**
-         *
-         * @param key
-         * @return
-         */
-        public ScriptGroup addGroup(String key) {
-
-            ScriptGroup group = new ScriptGroup(key);
-            taskPane.add(group.getTaskGroup());
-            return group;
-        }
-
-//        public JTaskPane getTaskPane() {
-        /**
-         *
-         * @return
-         */
-        public JXTaskPaneContainer getTaskPane() {
-            return taskPane;
-        }
-    }
-
-    /**
-     *
-     */
-    public class ScriptGroup {
-//        private JTaskPaneGroup taskGroup;
-
-        private final JXTaskPane taskGroup;
-
-        private ScriptGroup(String key) {
-//            taskGroup = new JTaskPaneGroup();
-            taskGroup = new JXTaskPane();
-            taskGroup.applyComponentOrientation(getComponentOrientation());
-            taskGroup.setFocusable(false);
-            taskGroup.setRequestFocusEnabled(false);
-            taskGroup.setTitle(AppLocal.getIntString(key));
-            taskGroup.setVisible(false); // Only groups with sons are visible.
-        }
-
-        /**
-         *
-         * @param icon
-         * @param key
-         * @param classname
-         */
-        public void addPanel(String icon, String key, String classname) {
-            addAction(new MenuPanelAction(m_appview, icon, key, classname));
-        }
-
-        /**
-         *
-         * @param icon
-         * @param key
-         * @param classname
-         */
-        public void addExecution(String icon, String key, String classname) {
-            addAction(new MenuExecAction(m_appview, icon, key, classname));
-        }
-
-        /**
-         *
-         * @param icon
-         * @param key
-         * @param classname
-         * @return
-         */
-        public ScriptSubmenu addSubmenu(String icon, String key, String classname) {
-            ScriptSubmenu submenu = new ScriptSubmenu(key);
-            final JPanelMenu jPanelMenu = new JPanelMenu(submenu.getMenuDefinition());
-            jPanelMenu.setName(key);
-            m_aPreparedViews.put(classname, jPanelMenu);
-            addAction(new MenuPanelAction(m_appview, icon, key, classname));
-            return submenu;
-        }
-
-        /**
-         *
-         */
-        public void addChangePasswordAction() {
-            addAction(new ChangePasswordAction("/com/openbravo/images/password.png", "Menu.ChangePassword"));
-        }
-
-        /**
-         *
-         */
-        public void addExitAction() {
-            addAction(new ExitAction("/com/openbravo/images/logout.png", "Menu.Exit"));
-        }
-
-        private void addAction(Action act) {
-
-            if (m_appuser.hasPermission((String) act.getValue(AppUserView.ACTION_TASKNAME))) {
-                // add the action
-                Component c = taskGroup.add(act);
-                c.applyComponentOrientation(getComponentOrientation());
-                c.setFocusable(false);
-                //c.setRequestFocusEnabled(false);
-
-                taskGroup.setVisible(true);
-
-                if (m_actionfirst == null) {
-                    m_actionfirst = act;
-                }
-            }
-        }
-
-//        public JTaskPaneGroup getTaskGroup() {
-        /**
-         *
-         * @return
-         */
-        public JXTaskPane getTaskGroup() {
-            return taskGroup;
-        }
-    }
-
-    /**
-     *
-     */
-    public class ScriptSubmenu {
-
-        private final MenuDefinition menudef;
-
-        private ScriptSubmenu(String key) {
-            menudef = new MenuDefinition(key);
-        }
-
-        /**
-         *
-         * @param key
-         */
-        public void addTitle(String key) {
-            menudef.addMenuTitle(key);
-        }
-
-        /**
-         *
-         * @param icon
-         * @param key
-         * @param classname
-         */
-        public void addPanel(String icon, String key, String classname) {
-            menudef.addMenuItem(new MenuPanelAction(m_appview, icon, key, classname), key);
-        }
-
-        /**
-         *
-         * @param icon
-         * @param key
-         * @param classname
-         */
-        public void addExecution(String icon, String key, String classname) {
-            menudef.addMenuItem(new MenuExecAction(m_appview, icon, key, classname), key);
-        }
-
-        /**
-         *
-         * @param icon
-         * @param key
-         * @param classname
-         * @return
-         */
-        public ScriptSubmenu addSubmenu(String icon, String key, String classname) {
-            ScriptSubmenu submenu = new ScriptSubmenu(key);
-            m_aPreparedViews.put(classname, new JPanelMenu(submenu.getMenuDefinition()));
-            menudef.addMenuItem(new MenuPanelAction(m_appview, icon, key, classname), key);
-            return submenu;
-        }
-
-        /**
-         *
-         */
-        public void addChangePasswordAction() {
-            menudef.addMenuItem(new ChangePasswordAction("/com/openbravo/images/password.png", "Menu.ChangePassword"), "menu.change_password");
-        }
-
-        /**
-         *
-         */
-        public void addExitAction() {
-            menudef.addMenuItem(new ExitAction("/com/openbravo/images/logout.png", "Menu.Exit"), "menu.exit");
-        }
-
-        /**
-         *
-         * @return
-         */
-        public MenuDefinition getMenuDefinition() {
-            return menudef;
-        }
-    }
-
     private void setMenuVisible(boolean value) {
 
         m_jPanelLeft.setVisible(value);
@@ -520,51 +280,15 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
 
     }
 
-    private class ExitAction extends AbstractAction {
-
-        public ExitAction(String icon, String keytext) {
-            putValue(Action.SMALL_ICON, new ImageIcon(JPrincipalApp.class.getResource(icon)));
-            putValue(Action.NAME, AppLocal.getIntString(keytext));
-            putValue(AppUserView.ACTION_TASKNAME, keytext);
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent evt) {
-            m_appview.closeAppView();
+    public void setFirstAction(Action act) {
+        if (m_actionfirst == null) {
+            m_actionfirst = act;
         }
     }
 
-    /**
-     *
-     */
     public void exitToLogin() {
         m_appview.closeAppView();
         //m_appview.showLogin();
-    }
-
-    private class ChangePasswordAction extends AbstractAction {
-
-        public ChangePasswordAction(String icon, String keytext) {
-            putValue(Action.SMALL_ICON, new ImageIcon(JPrincipalApp.class.getResource(icon)));
-            putValue(Action.NAME, AppLocal.getIntString(keytext));
-            putValue(AppUserView.ACTION_TASKNAME, keytext);
-
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent evt) {
-
-            String sNewPassword = Hashcypher.changePassword(JPrincipalApp.this, m_appuser.getPassword());
-            if (sNewPassword != null) {
-                try {
-
-                    m_dlSystem.execChangePassword(new Object[]{sNewPassword, m_appuser.getId()});
-                    m_appuser.setPassword(sNewPassword);
-                } catch (BasicException e) {
-                    JMessageDialog.showMessage(JPrincipalApp.this, new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotchangepassword")));
-                }
-            }
-        }
     }
 
     private void showView(String sView) {
@@ -579,6 +303,14 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
     @Override
     public AppUser getUser() {
         return m_appuser;
+    }
+
+    public JRootApp getAppView() {
+        return m_appview;
+    }
+
+    public void addPreparedView(String classname, JPanelMenu jPanelMenu) {
+        m_aPreparedViews.put(classname, jPanelMenu);
     }
 
     /**
