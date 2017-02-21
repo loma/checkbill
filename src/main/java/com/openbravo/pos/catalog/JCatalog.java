@@ -1,21 +1,3 @@
-//    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2015 uniCenta & previous Openbravo POS works
-//    http://www.unicenta.com
-//
-//    This file is part of uniCenta oPOS
-//
-//    uniCenta oPOS is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation, either version 3 of the License, or
-//    (at your option) any later version.
-//
-//   uniCenta oPOS is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
 package com.openbravo.pos.catalog;
 
 import com.openbravo.basic.BasicException;
@@ -30,7 +12,6 @@ import com.openbravo.pos.ticket.TaxInfo;
 import com.openbravo.pos.util.ThumbNailBuilder;
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,424 +21,328 @@ import javax.swing.event.EventListenerList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-/**
- *
- * @author adrianromero
- */
 public class JCatalog extends JPanel implements ListSelectionListener, CatalogSelector {
 
-	/**
-	 *
-	 */
-	protected EventListenerList listeners = new EventListenerList();
-	private DataLogicSales m_dlSales;
-	private TaxesLogic taxeslogic;
-
-	private boolean pricevisible;
-	private boolean taxesincluded;
-
-	// Set of Products panels
-	// JG Aug 2013 switched to diamond inference
-	private final Map<String, ProductInfoExt> m_productsset = new HashMap<>();
-
-	// Set of Categoriespanels
-	// JG Aug 2013 switched to diamond inference    
-	private final Set<String> m_categoriesset = new HashSet<>();
-
-	private ThumbNailBuilder tnbbutton;
-	private ThumbNailBuilder tnbcat;
-	private ThumbNailBuilder tnbsubcat;
-
-	private CategoryInfo showingcategory = null;
-
-	private boolean b;
-
-	/**
-	 * Creates new form JCatalog
-	 *
-	 * @param dlSales
-	 */
-	public JCatalog(DataLogicSales dlSales) {
-		this(dlSales, false, false, 64, 54);
-		// this(dlSales, false, false, 32, 32);
-	}
-
-	/**
-	 *
-	 * @param dlSales
-	 * @param pricevisible
-	 * @param taxesincluded
-	 * @param width
-	 * @param height
-	 */
-	public JCatalog(DataLogicSales dlSales, boolean pricevisible, boolean taxesincluded, int width, int height) {
-
-		m_dlSales = dlSales;
-		this.pricevisible = pricevisible;
-		this.taxesincluded = taxesincluded;
-
-		initComponents();
-
-		m_jListCategories.addListSelectionListener(this);
-
-		tnbcat = new ThumbNailBuilder(48, 48, "com/openbravo/images/category.png");
-		tnbsubcat = new ThumbNailBuilder(width, height, "com/openbravo/images/subcategory.png");
-		tnbbutton = new ThumbNailBuilder(width, height, "com/openbravo/images/package.png");
-
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	@Override
-	public Component getComponent() {
-		return this;
-	}
-
-	/**
-	 *
-	 * @param id
-	 */
-	@Override
-	public void showCatalogPanel(String id) {
-
-		if (id == null) {
-// if the product selected is a sub category then display the products under that category  other wise show the root catagory products         
-			showRootCategoriesPanel();
-		} else {
-// this is the sub catergory view            
-			showProductPanel(id);
-		}
-	}
-
-	/**
-	 *
-	 * @throws BasicException
-	 */
-	@Override
-	public void loadCatalog() throws BasicException {
-
-		// delete all categories panel
-		m_jProducts.removeAll();
-
-		m_productsset.clear();
-		m_categoriesset.clear();
-
-		showingcategory = null;
-
-		// Load the taxes logic
-		taxeslogic = new TaxesLogic(m_dlSales.getTaxList().list());
-
-		// Load all categories.
-		java.util.List<CategoryInfo> categories = m_dlSales.getRootCategories();
-
-		// Select the first category
-		m_jListCategories.setCellRenderer(new SmallCategoryRenderer());
-		m_jListCategories.setModel(new CategoriesListModel(categories)); // aCatList
-		if (m_jListCategories.getModel().getSize() == 0) {
-			m_jscrollcat.setVisible(false);
-			jPanel2.setVisible(false);
-		} else {
-			m_jscrollcat.setVisible(true);
-			jPanel2.setVisible(true);
-			m_jListCategories.setSelectedIndex(0);
-		}
-
-		// Display catalog panel
-		showRootCategoriesPanel();
-	}
-
-	/**
-	 *
-	 * @param value
-	 */
-	@Override
-	public void setComponentEnabled(boolean value) {
-
-		m_jListCategories.setEnabled(value);
-		m_jscrollcat.setEnabled(value);
-		m_jUp.setEnabled(value);
-		m_jDown.setEnabled(value);
-		m_lblIndicator.setEnabled(value);
-		m_btnBack1.setEnabled(value);
-		m_jProducts.setEnabled(value);
-		synchronized (m_jProducts.getTreeLock()) {
-			int compCount = m_jProducts.getComponentCount();
-			for (int i = 0; i < compCount; i++) {
-				m_jProducts.getComponent(i).setEnabled(value);
-			}
-		}
-
-		this.setEnabled(value);
-	}
-
-	/**
-	 *
-	 * @param l
-	 */
-	@Override
-	public void addActionListener(ActionListener l) {
-		listeners.add(ActionListener.class, l);
-	}
-
-	/**
-	 *
-	 * @param l
-	 */
-	@Override
-	public void removeActionListener(ActionListener l) {
-		listeners.remove(ActionListener.class, l);
-	}
-
-	@Override
-	public void valueChanged(ListSelectionEvent evt) {
-
-		if (!evt.getValueIsAdjusting()) {
-			int i = m_jListCategories.getSelectedIndex();
-			if (i >= 0) {
-				// Lo hago visible...
-				Rectangle oRect = m_jListCategories.getCellBounds(i, i);
-				m_jListCategories.scrollRectToVisible(oRect);
-			}
-		}
-	}
-
-	/**
-	 *
-	 * @param prod
-	 */
-	protected void fireSelectedProduct(ProductInfoExt prod) {
-		EventListener[] l = listeners.getListeners(ActionListener.class);
-		ActionEvent e = null;
-		for (EventListener l1 : l) {
-			if (e == null) {
-				e = new ActionEvent(prod, ActionEvent.ACTION_PERFORMED, prod.getID());
-			}
-			((ActionListener) l1).actionPerformed(e);
-		}
-	}
-
-	private void selectCategoryPanel(String catid) {
-		try {
-			// Load categories panel if not exists
-			if (!m_categoriesset.contains(catid)) {
-
-				JCatalogTab jcurrTab = new JCatalogTab();
-				jcurrTab.applyComponentOrientation(getComponentOrientation());
-				m_jProducts.add(jcurrTab, catid);
-				m_categoriesset.add(catid);
-
-// Add subcategories
-				java.util.List<CategoryInfo> categories = m_dlSales.getSubcategories(catid);
-				for (CategoryInfo cat : categories) {
-// these the sub categories displayed in the main products Panel    
-
-					if (cat.getCatShowName()) {
-						jcurrTab.addButton(new ImageIcon(tnbsubcat.getThumbNailText(cat.getImage(), cat.getName())), new SelectedCategory(cat), cat.getTextTip(), cat.getName());
-					} else {
-						jcurrTab.addButton(new ImageIcon(tnbsubcat.getThumbNailText(cat.getImage(), "")), new SelectedCategory(cat), cat.getTextTip(), cat.getName());
-					}
-				}
-
-// Add products
-				java.util.List<ProductInfoExt> products = m_dlSales.getProductCatalog(catid);
-				for (ProductInfoExt prod : products) {
-// These are the products selection panel                   
-					jcurrTab.addButton(new ImageIcon(tnbbutton.getThumbNailText(prod.getImage(), getProductLabel(prod))), new SelectedAction(prod), prod.getTextTip(), prod.getName());
-				}
-			}
-
-			// Show categories panel
-			CardLayout cl = (CardLayout) (m_jProducts.getLayout());
-			cl.show(m_jProducts, catid);
-		} catch (BasicException e) {
-			JMessageDialog.showMessage(this, new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.notactive"), e));
-		}
-	}
-
-	private String getProductLabel(ProductInfoExt product) {
-
-		if (pricevisible) {
-			if (taxesincluded) {
-				TaxInfo tax = taxeslogic.getTaxInfo(product.getTaxCategoryID());
-				return "<html><center>" + product.getName() + "<br>" + product.printPriceSellTax(tax);
-			} else {
-//                return "<html><center>" + product.getName() + "<br>" + product.printPriceSell();
-				return "<html><center>" + product.getDisplay() + "<br>" + product.printPriceSell();
-			}
-		} else {
-			return product.getDisplay();
-		}
-	}
-
-	private void selectIndicatorPanel(Icon icon, String label, String texttip) {
-
-		m_lblIndicator.setText(label);
-		m_lblIndicator.setIcon(icon);
-
-		// Show subcategories panel
-		CardLayout cl = (CardLayout) (m_jCategories.getLayout());
-		cl.show(m_jCategories, "subcategories");
-	}
-
-	private void selectIndicatorCategories() {
-		// Show root categories panel
-		CardLayout cl = (CardLayout) (m_jCategories.getLayout());
-		cl.show(m_jCategories, "rootcategories");
-	}
-
-	private void showRootCategoriesPanel() {
-
-		selectIndicatorCategories();
-		// Show selected root category
-		CategoryInfo cat = (CategoryInfo) m_jListCategories.getSelectedValue();
-
-		if (cat != null) {
-			selectCategoryPanel(cat.getID());
-		}
-		showingcategory = null;
-	}
-
-	private void showSubcategoryPanel(CategoryInfo category) {
-// Modified JDL 13.04.13
-// this is the new panel that displays when a sub catergory is selected mouse does not work here        
-		selectIndicatorPanel(new ImageIcon(tnbsubcat.getThumbNail(category.getImage())), category.getName(), category.getTextTip());
-		selectCategoryPanel(category.getID());
-		showingcategory = category;
-	}
-
-	private void showProductPanel(String id) {
-
-		ProductInfoExt product = m_productsset.get(id);
-// ProductInfoExt product = "c435bf73-e38a-45a3-82e4-7dff0d1eb718";
-
-		if (product == null) {
-			if (m_productsset.containsKey(id)) {
-				// It is an empty panel
-				if (showingcategory == null) {
-					showRootCategoriesPanel();
-				} else {
-					showSubcategoryPanel(showingcategory);
-				}
-			} else {
-				try {
-					// Create  products panel
-					java.util.List<ProductInfoExt> products = m_dlSales.getProductComments(id);
-
-					if (products.isEmpty()) {
-						// no hay productos por tanto lo anado a la de vacios y muestro el panel principal.
-						m_productsset.put(id, null);
-						if (showingcategory == null) {
-							showRootCategoriesPanel();
-						} else {
-							showSubcategoryPanel(showingcategory);
-						}
-					} else {
-
-						// Load product panel
-						product = m_dlSales.getProductInfo(id);
-						m_productsset.put(id, product);
-
-						JCatalogTab jcurrTab = new JCatalogTab();
-						jcurrTab.applyComponentOrientation(getComponentOrientation());
-						m_jProducts.add(jcurrTab, "PRODUCT." + id);
-
-						// Add products
-						for (ProductInfoExt prod : products) {
-							jcurrTab.addButton(new ImageIcon(tnbbutton.getThumbNailText(prod.getImage(), getProductLabel(prod))), new SelectedAction(prod), prod.getTextTip(), prod.getName());
-
-						}
-						selectIndicatorPanel(new ImageIcon(tnbbutton.getThumbNail(product.getImage())), product.getDisplay(), product.getTextTip());
-
-						CardLayout cl = (CardLayout) (m_jProducts.getLayout());
-						cl.show(m_jProducts, "PRODUCT." + id);
-					}
-				} catch (BasicException eb) {
-					m_productsset.put(id, null);
-					if (showingcategory == null) {
-						showRootCategoriesPanel();
-					} else {
-						showSubcategoryPanel(showingcategory);
-					}
-				}
-			}
-		} else {
-			// already exists
-			//selectIndicatorPanel(new ImageIcon(tnbbutton.getThumbNail(product.getImage())), product.getName());
-			selectIndicatorPanel(new ImageIcon(tnbbutton.getThumbNail(product.getImage())), product.getName(), product.getTextTip());
-
-			CardLayout cl = (CardLayout) (m_jProducts.getLayout());
-			cl.show(m_jProducts, "PRODUCT." + id);
-		}
-	}
-
-	private class SelectedAction implements ActionListener {
-
-		private final ProductInfoExt prod;
-
-		public SelectedAction(ProductInfoExt prod) {
-			this.prod = prod;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			fireSelectedProduct(prod);
-		}
-	}
-
-	private class SelectedCategory implements ActionListener {
-
-		private final CategoryInfo category;
-
-		public SelectedCategory(CategoryInfo category) {
-			this.category = category;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			showSubcategoryPanel(category);
-		}
-	}
-
-	private class CategoriesListModel extends AbstractListModel {
-
-		private final java.util.List m_aCategories;
-
-		public CategoriesListModel(java.util.List aCategories) {
-			m_aCategories = aCategories;
-		}
-
-		@Override
-		public int getSize() {
-			return m_aCategories.size();
-		}
-
-		@Override
-		public Object getElementAt(int i) {
-			return m_aCategories.get(i);
-		}
-	}
-
-	private class SmallCategoryRenderer extends DefaultListCellRenderer {
-
-		@Override
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-			super.getListCellRendererComponent(list, null, index, isSelected, cellHasFocus);
-			CategoryInfo cat = (CategoryInfo) value;
-			setText(cat.getName());
-			setName("category_"+cat.getKey());
-			setIcon(new ImageIcon(tnbcat.getThumbNail(cat.getImage())));
-			return this;
-		}
-	}
-
-	/**
-	 * This method is called from within the constructor to initialize the form.
-	 * WARNING: Do NOT modify this code. The content of this method is always
-	 * regenerated by the Form Editor.
-	 */
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    protected EventListenerList listeners = new EventListenerList();
+    private DataLogicSales m_dlSales;
+    private TaxesLogic taxeslogic;
+
+    private boolean pricevisible;
+    private boolean taxesincluded;
+
+    private final Map<String, ProductInfoExt> m_productsset = new HashMap<>();
+
+    private final Set<String> m_categoriesset = new HashSet<>();
+
+    private ThumbNailBuilder tnbbutton;
+    ThumbNailBuilder tnbcat;
+    private ThumbNailBuilder tnbsubcat;
+
+    private CategoryInfo showingcategory = null;
+
+    public JCatalog(DataLogicSales dlSales) {
+        this(dlSales, false, false, 64, 54);
+    }
+
+    public JCatalog(DataLogicSales dlSales, boolean pricevisible, boolean taxesincluded, int width, int height) {
+
+        m_dlSales = dlSales;
+        this.pricevisible = pricevisible;
+        this.taxesincluded = taxesincluded;
+
+        initComponents();
+
+        m_jListCategories.addListSelectionListener(this);
+
+        tnbcat = new ThumbNailBuilder(48, 48, "com/openbravo/images/category.png");
+        tnbsubcat = new ThumbNailBuilder(width, height, "com/openbravo/images/subcategory.png");
+        tnbbutton = new ThumbNailBuilder(width, height, "com/openbravo/images/package.png");
+
+    }
+
+    @Override
+    public Component getComponent() {
+        return this;
+    }
+
+    @Override
+    public void showCatalogPanel(String id) {
+
+        if (id == null) {
+            // if the product selected is a sub category then display the
+            // products under that category other wise show the root catagory
+            // products
+            showRootCategoriesPanel();
+        } else {
+            // this is the sub catergory view
+            showProductPanel(id);
+        }
+    }
+
+    @Override
+    public void loadCatalog() throws BasicException {
+
+        // delete all categories panel
+        m_jProducts.removeAll();
+
+        m_productsset.clear();
+        m_categoriesset.clear();
+
+        showingcategory = null;
+
+        // Load the taxes logic
+        taxeslogic = new TaxesLogic(m_dlSales.getTaxList().list());
+
+        // Load all categories.
+        java.util.List<CategoryInfo> categories = m_dlSales.getRootCategories();
+
+        // Select the first category
+        m_jListCategories.setCellRenderer(new SmallCategoryRenderer(this));
+        m_jListCategories.setModel(new CategoriesListModel(categories)); // aCatList
+        if (m_jListCategories.getModel().getSize() == 0) {
+            m_jscrollcat.setVisible(false);
+            jPanel2.setVisible(false);
+        } else {
+            m_jscrollcat.setVisible(true);
+            jPanel2.setVisible(true);
+            m_jListCategories.setSelectedIndex(0);
+        }
+
+        // Display catalog panel
+        showRootCategoriesPanel();
+    }
+
+    @Override
+    public void setComponentEnabled(boolean value) {
+
+        m_jListCategories.setEnabled(value);
+        m_jscrollcat.setEnabled(value);
+        m_jUp.setEnabled(value);
+        m_jDown.setEnabled(value);
+        m_lblIndicator.setEnabled(value);
+        m_btnBack1.setEnabled(value);
+        m_jProducts.setEnabled(value);
+        synchronized (m_jProducts.getTreeLock()) {
+            int compCount = m_jProducts.getComponentCount();
+            for (int i = 0; i < compCount; i++) {
+                m_jProducts.getComponent(i).setEnabled(value);
+            }
+        }
+
+        this.setEnabled(value);
+    }
+
+    @Override
+    public void addActionListener(ActionListener l) {
+        listeners.add(ActionListener.class, l);
+    }
+
+    @Override
+    public void removeActionListener(ActionListener l) {
+        listeners.remove(ActionListener.class, l);
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent evt) {
+
+        if (!evt.getValueIsAdjusting()) {
+            int i = m_jListCategories.getSelectedIndex();
+            if (i >= 0) {
+                // Lo hago visible...
+                Rectangle oRect = m_jListCategories.getCellBounds(i, i);
+                m_jListCategories.scrollRectToVisible(oRect);
+            }
+        }
+    }
+
+    protected void fireSelectedProduct(ProductInfoExt prod) {
+        EventListener[] l = listeners.getListeners(ActionListener.class);
+        ActionEvent e = null;
+        for (EventListener l1 : l) {
+            if (e == null) {
+                e = new ActionEvent(prod, ActionEvent.ACTION_PERFORMED, prod.getID());
+            }
+            ((ActionListener) l1).actionPerformed(e);
+        }
+    }
+
+    private void selectCategoryPanel(String catid) {
+        try {
+            // Load categories panel if not exists
+            if (!m_categoriesset.contains(catid)) {
+
+                JCatalogTab jcurrTab = new JCatalogTab();
+                jcurrTab.applyComponentOrientation(getComponentOrientation());
+                m_jProducts.add(jcurrTab, catid);
+                m_categoriesset.add(catid);
+
+                // Add subcategories
+                List<CategoryInfo> categories = m_dlSales.getSubcategories(catid);
+                for (CategoryInfo cat : categories) {
+                    // these the sub categories displayed in the main products
+                    // Panel
+
+                    if (cat.getCatShowName()) {
+                        jcurrTab.addButton(new ImageIcon(tnbsubcat.getThumbNailText(cat.getImage(), cat.getName())),
+                                new SelectedCategory(this, cat), cat.getTextTip(), cat.getName());
+                    } else {
+                        jcurrTab.addButton(new ImageIcon(tnbsubcat.getThumbNailText(cat.getImage(), "")),
+                                new SelectedCategory(this, cat), cat.getTextTip(), cat.getName());
+                    }
+                }
+
+                // Add products
+                List<ProductInfoExt> products = m_dlSales.getProductCatalog(catid);
+                for (ProductInfoExt prod : products) {
+                    // These are the products selection panel
+                    jcurrTab.addButton(
+                            new ImageIcon(tnbbutton.getThumbNailText(prod.getImage(), getProductLabel(prod))),
+                            new SelectedAction(this, prod), prod.getTextTip(), prod.getName());
+                }
+            }
+
+            // Show categories panel
+            CardLayout cl = (CardLayout) (m_jProducts.getLayout());
+            cl.show(m_jProducts, catid);
+        } catch (BasicException e) {
+            JMessageDialog.showMessage(this,
+                    new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.notactive"), e));
+        }
+    }
+
+    private String getProductLabel(ProductInfoExt product) {
+
+        if (pricevisible) {
+            if (taxesincluded) {
+                TaxInfo tax = taxeslogic.getTaxInfo(product.getTaxCategoryID());
+                return "<html><center>" + product.getName() + "<br>" + product.printPriceSellTax(tax);
+            } else {
+                // return "<html><center>" + product.getName() + "<br>" +
+                // product.printPriceSell();
+                return "<html><center>" + product.getDisplay() + "<br>" + product.printPriceSell();
+            }
+        } else {
+            return product.getDisplay();
+        }
+    }
+
+    private void selectIndicatorPanel(Icon icon, String label, String texttip) {
+
+        m_lblIndicator.setText(label);
+        m_lblIndicator.setIcon(icon);
+
+        // Show subcategories panel
+        CardLayout cl = (CardLayout) (m_jCategories.getLayout());
+        cl.show(m_jCategories, "subcategories");
+    }
+
+    private void selectIndicatorCategories() {
+        // Show root categories panel
+        CardLayout cl = (CardLayout) (m_jCategories.getLayout());
+        cl.show(m_jCategories, "rootcategories");
+    }
+
+    private void showRootCategoriesPanel() {
+
+        selectIndicatorCategories();
+        // Show selected root category
+        CategoryInfo cat = (CategoryInfo) m_jListCategories.getSelectedValue();
+
+        if (cat != null) {
+            selectCategoryPanel(cat.getID());
+        }
+        showingcategory = null;
+    }
+
+    public void showSubcategoryPanel(CategoryInfo category) {
+        // Modified JDL 13.04.13
+        // this is the new panel that displays when a sub catergory is selected
+        // mouse does not work here
+        selectIndicatorPanel(new ImageIcon(tnbsubcat.getThumbNail(category.getImage())), category.getName(),
+                category.getTextTip());
+        selectCategoryPanel(category.getID());
+        showingcategory = category;
+    }
+
+    private void showProductPanel(String id) {
+
+        ProductInfoExt product = m_productsset.get(id);
+        // ProductInfoExt product = "c435bf73-e38a-45a3-82e4-7dff0d1eb718";
+
+        if (product == null) {
+            if (m_productsset.containsKey(id)) {
+                // It is an empty panel
+                if (showingcategory == null) {
+                    showRootCategoriesPanel();
+                } else {
+                    showSubcategoryPanel(showingcategory);
+                }
+            } else {
+                try {
+                    // Create products panel
+                    java.util.List<ProductInfoExt> products = m_dlSales.getProductComments(id);
+
+                    if (products.isEmpty()) {
+                        // no hay productos por tanto lo anado a la de vacios y
+                        // muestro el panel principal.
+                        m_productsset.put(id, null);
+                        if (showingcategory == null) {
+                            showRootCategoriesPanel();
+                        } else {
+                            showSubcategoryPanel(showingcategory);
+                        }
+                    } else {
+
+                        // Load product panel
+                        product = m_dlSales.getProductInfo(id);
+                        m_productsset.put(id, product);
+
+                        JCatalogTab jcurrTab = new JCatalogTab();
+                        jcurrTab.applyComponentOrientation(getComponentOrientation());
+                        m_jProducts.add(jcurrTab, "PRODUCT." + id);
+
+                        // Add products
+                        for (ProductInfoExt prod : products) {
+                            jcurrTab.addButton(
+                                    new ImageIcon(tnbbutton.getThumbNailText(prod.getImage(), getProductLabel(prod))),
+                                    new SelectedAction(this, prod), prod.getTextTip(), prod.getName());
+
+                        }
+                        selectIndicatorPanel(new ImageIcon(tnbbutton.getThumbNail(product.getImage())),
+                                product.getDisplay(), product.getTextTip());
+
+                        CardLayout cl = (CardLayout) (m_jProducts.getLayout());
+                        cl.show(m_jProducts, "PRODUCT." + id);
+                    }
+                } catch (BasicException eb) {
+                    m_productsset.put(id, null);
+                    if (showingcategory == null) {
+                        showRootCategoriesPanel();
+                    } else {
+                        showSubcategoryPanel(showingcategory);
+                    }
+                }
+            }
+        } else {
+            // already exists
+            // selectIndicatorPanel(new
+            // ImageIcon(tnbbutton.getThumbNail(product.getImage())),
+            // product.getName());
+            selectIndicatorPanel(new ImageIcon(tnbbutton.getThumbNail(product.getImage())), product.getName(),
+                    product.getTextTip());
+
+            CardLayout cl = (CardLayout) (m_jProducts.getLayout());
+            cl.show(m_jProducts, "PRODUCT." + id);
+        }
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         m_jCategories = new javax.swing.JPanel();
@@ -580,62 +465,61 @@ public class JCatalog extends JPanel implements ListSelectionListener, CatalogSe
         add(m_jProducts, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void m_jDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jDownActionPerformed
+    private void m_jDownActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_m_jDownActionPerformed
 
-		int i = m_jListCategories.getSelectionModel().getMaxSelectionIndex();
-		if (i < 0) {
-			i = 0; // No hay ninguna seleccionada
-		} else {
-			i++;
-			if (i >= m_jListCategories.getModel().getSize()) {
-				i = m_jListCategories.getModel().getSize() - 1;
-			}
-		}
+        int i = m_jListCategories.getSelectionModel().getMaxSelectionIndex();
+        if (i < 0) {
+            i = 0; // No hay ninguna seleccionada
+        } else {
+            i++;
+            if (i >= m_jListCategories.getModel().getSize()) {
+                i = m_jListCategories.getModel().getSize() - 1;
+            }
+        }
 
-		if ((i >= 0) && (i < m_jListCategories.getModel().getSize())) {
-			// Solo seleccionamos si podemos.
-			m_jListCategories.getSelectionModel().setSelectionInterval(i, i);
-		}
+        if ((i >= 0) && (i < m_jListCategories.getModel().getSize())) {
+            // Solo seleccionamos si podemos.
+            m_jListCategories.getSelectionModel().setSelectionInterval(i, i);
+        }
 
-    }//GEN-LAST:event_m_jDownActionPerformed
+    }// GEN-LAST:event_m_jDownActionPerformed
 
-    private void m_jUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jUpActionPerformed
+    private void m_jUpActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_m_jUpActionPerformed
 
-		int i = m_jListCategories.getSelectionModel().getMinSelectionIndex();
-		if (i < 0) {
-			i = m_jListCategories.getModel().getSize() - 1; // No hay ninguna seleccionada
-		} else {
-			i--;
-			if (i < 0) {
-				i = 0;
-			}
-		}
+        int i = m_jListCategories.getSelectionModel().getMinSelectionIndex();
+        if (i < 0) {
+            i = m_jListCategories.getModel().getSize() - 1; // No hay ninguna
+                                                            // seleccionada
+        } else {
+            i--;
+            if (i < 0) {
+                i = 0;
+            }
+        }
 
-		if ((i >= 0) && (i < m_jListCategories.getModel().getSize())) {
-			// Solo seleccionamos si podemos.
-			m_jListCategories.getSelectionModel().setSelectionInterval(i, i);
-		}
+        if ((i >= 0) && (i < m_jListCategories.getModel().getSize())) {
+            // Solo seleccionamos si podemos.
+            m_jListCategories.getSelectionModel().setSelectionInterval(i, i);
+        }
 
+    }// GEN-LAST:event_m_jUpActionPerformed
 
-    }//GEN-LAST:event_m_jUpActionPerformed
+    private void m_jListCategoriesValueChanged(javax.swing.event.ListSelectionEvent evt) {// GEN-FIRST:event_m_jListCategoriesValueChanged
 
-    private void m_jListCategoriesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_m_jListCategoriesValueChanged
+        if (!evt.getValueIsAdjusting()) {
+            CategoryInfo cat = (CategoryInfo) m_jListCategories.getSelectedValue();
+            if (cat != null) {
+                selectCategoryPanel(cat.getID());
+            }
+        }
 
-		if (!evt.getValueIsAdjusting()) {
-			CategoryInfo cat = (CategoryInfo) m_jListCategories.getSelectedValue();
-			if (cat != null) {
-				selectCategoryPanel(cat.getID());
-			}
-		}
+    }// GEN-LAST:event_m_jListCategoriesValueChanged
 
-    }//GEN-LAST:event_m_jListCategoriesValueChanged
+    private void m_btnBack1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_m_btnBack1ActionPerformed
 
-    private void m_btnBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_btnBack1ActionPerformed
+        showRootCategoriesPanel();
 
-		showRootCategoriesPanel();
-
-    }//GEN-LAST:event_m_btnBack1ActionPerformed
-
+    }// GEN-LAST:event_m_btnBack1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;

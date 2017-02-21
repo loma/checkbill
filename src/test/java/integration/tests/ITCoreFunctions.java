@@ -33,7 +33,7 @@ public class ITCoreFunctions {
         System.out.println("Cleaning up");
     }
 
-    //@Test
+    @Test
     public void addNewProduct() {
         swinger.clickOn("user0");
         swinger.clickOn("toggle-menu");
@@ -63,7 +63,7 @@ public class ITCoreFunctions {
         swinger.clickOn("logout");
     }
 
-    //@Test
+    @Test
     public void addNewCategory() {
         swinger.clickOn("user0");
         swinger.clickOn("toggle-menu");
