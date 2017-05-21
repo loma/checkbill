@@ -10,8 +10,20 @@ Checkbill is an open-source pos, developed base on [uniCenta POS](https://source
 * netbean
 * mysql
 
-### Installation
+### Unit Tests
+```
+mvn clean compile test
+```
 
+### System Tests
+```
+mvn clean compile verify
+```
+
+### Single Execute JAR
+```
+mvn clean compile assembly:single
+```
 
 ### Contributing
 * bug report
