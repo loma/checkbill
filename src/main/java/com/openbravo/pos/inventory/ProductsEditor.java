@@ -1,21 +1,3 @@
-//    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2010-2015 uniCenta & previous Openbravo POS works
-//    http://www.unicenta.com
-//
-//    This file is part of uniCenta oPOS
-//
-//    uniCenta oPOS is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation, either version 3 of the License, or
-//    (at your option) any later version.
-//
-//   uniCenta oPOS is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
 package com.openbravo.pos.inventory;
 
 import com.openbravo.basic.BasicException;
@@ -37,10 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-/**
- *
- * @author adrianromero
- */
 public final class ProductsEditor extends JPanel implements EditorRecord {
 
 	private final SentenceList m_sentcat;
@@ -61,31 +39,17 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
 	private boolean reportlock = false;
 
-// JG Mar 14 - Preparing for direct Printer assign rather than script
-//    private Object m_Printkb; - use this for printernumber
-//    private Object m_Sendstatus; - use this for sent y/n or resend
-//    private Object m_Lineorder; - shuffle ticketlines into group (starters, mains etc)
-	/**
-	 * Creates new form JEditProduct
-	 *
-	 * @param dlSales
-	 * @param dirty
-	 */
 	public ProductsEditor(DataLogicSales dlSales, DirtyManager dirty) {
 		initComponents();
-
-		// Taxes sentence
+		
 		taxsent = dlSales.getTaxList();
 
-		// Categories model
 		m_sentcat = dlSales.getCategoriesList();
 		m_CategoryModel = new ComboBoxValModel();
 
-		// Taxes model
 		taxcatsent = dlSales.getTaxCategoriesList();
 		taxcatmodel = new ComboBoxValModel();
 
-		// Attributes model
 		attsent = dlSales.getAttributeSetList();
 		attmodel = new ComboBoxValModel();
 
@@ -118,7 +82,6 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 		m_jInCatalog.addActionListener(dirty);
 		m_jCatalogOrder.getDocument().addDocumentListener(dirty);
 
-// Auto-calc fields listeners 
 		FieldsManager fm = new FieldsManager();
 		m_jPriceBuy.getDocument().addDocumentListener(fm);
 		m_jPriceSell.getDocument().addDocumentListener(new PriceSellManager());
@@ -366,9 +329,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
 		reportlock = true;
 		Object[] myprod = (Object[]) value;
-		m_jTitle.setText(Formats.STRING.formatValue(myprod[1])
-				+ " - "
-				+ Formats.STRING.formatValue(myprod[4]));
+		m_jTitle.setText(Formats.STRING.formatValue(myprod[1]) + " - " + Formats.STRING.formatValue(myprod[4]));
 		m_id = myprod[0];
 		m_jRef.setText(Formats.STRING.formatValue(myprod[1]));
 		m_jCode.setText(Formats.STRING.formatValue(myprod[2]));
@@ -450,9 +411,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
 		reportlock = true;
 		Object[] myprod = (Object[]) value;
-		m_jTitle.setText(Formats.STRING.formatValue(myprod[1])
-				+ " - " + Formats.STRING.formatValue(myprod[4])
-				+ " " + AppLocal.getIntString("label.recorddeleted"));
+		m_jTitle.setText(Formats.STRING.formatValue(myprod[1]) + " - " + Formats.STRING.formatValue(myprod[4]) + " " + AppLocal.getIntString("label.recorddeleted"));
 		m_id = myprod[0];
 		m_jRef.setText(Formats.STRING.formatValue(myprod[1]));
 		m_jCode.setText(Formats.STRING.formatValue(myprod[2]));
@@ -534,14 +493,10 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 	}
 
 	private void setCode() {
-
 		Long lDateTime = new Date().getTime(); // USED FOR RANDOM CODE DETAILS
-
 		if (!reportlock) {
 			reportlock = true;
-
 			if (m_jRef == null) {
-				//m_jCode.setText("0123456789012");
 				m_jCode.setText(Long.toString(lDateTime));
 			} else if (m_jCode.getText() == null || "".equals(m_jCode.getText())) {
 				m_jCode.setText(m_jRef.getText());
@@ -1489,5 +1444,10 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
     private javax.swing.JTextField m_jstockvolume;
     private javax.swing.JTextArea txtAttributes;
     // End of variables declaration//GEN-END:variables
+
+    public void setDefaultTaxAndCategory() {
+        m_jTax.setSelectedIndex(0);
+        m_jCategory.setSelectedIndex(1);
+    }
 
 }

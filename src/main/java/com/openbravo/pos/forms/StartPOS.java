@@ -31,6 +31,8 @@ public class StartPOS {
 	}
 
 	public static JRootFrame root;
+	
+	public static String TempProductCode = null;
 
 	public static void main(final String args[]) throws InterruptedException {
 		java.awt.EventQueue.invokeLater(new Runnable() {

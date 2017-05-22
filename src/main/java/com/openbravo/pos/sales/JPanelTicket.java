@@ -662,12 +662,16 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
             ProductInfoExt oProduct = dlSales.getProductInfoByCode(sCode);
             if (oProduct == null) {
                 Toolkit.getDefaultToolkit().beep();
-                JOptionPane.showMessageDialog(
-                        null,
-                        sCode + " - "
-                                + AppLocal.getIntString("message.noproduct"),
-                        "Check", JOptionPane.WARNING_MESSAGE);
-                stateToZero();
+                String message = sCode + " - " + AppLocal.getIntString("message.noproduct") + "\n" + "Do you want to create a new product?";
+                String title = "Product No Found";
+                int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+                if (reply == JOptionPane.YES_OPTION) {
+                    StartPOS.TempProductCode = sCode;
+                    stateToZero();
+                    m_App.getAppUserView().showTask("com.openbravo.pos.inventory.ProductsPanel");
+                } else {
+                    stateToZero();
+                }
             } else {
                 incProduct(oProduct);
             }
