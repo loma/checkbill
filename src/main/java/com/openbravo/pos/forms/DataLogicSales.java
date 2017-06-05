@@ -725,19 +725,6 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                         "UPDATE STOCKCURRENT SET UNITS = (UNITS + ?) WHERE LOCATION = ? AND PRODUCT = ? AND ATTRIBUTESETINSTANCE_ID = ?",
                         new SerializerWriteBasicExt(stockdiaryDatas, new int[]{6, 3, 4, 5})).exec(params);
 
-                if (objectParams.length > 14 && objectParams[14] != null) {
-                    Datas[] temp = new Datas[]{
-                        Datas.STRING, Datas.TIMESTAMP, Datas.INT, Datas.STRING, Datas.STRING, Datas.STRING, Datas.DOUBLE, Datas.DOUBLE, Datas.STRING,
-                        Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP
-                    };
-                    int addExpiredDate = new PreparedSentence(s, "UPDATE STOCKEXPIRED SET EXPIRED_DATE = ? WHERE LOCATION = ? AND PRODUCT = ?",
-                        new SerializerWriteBasicExt(temp, new int[]{14, 3, 4})).exec(params);
-                    if (addExpiredDate == 0) {
-                        new PreparedSentence(s, "INSERT INTO STOCKEXPIRED (LOCATION, PRODUCT, EXPIRED_DATE) VALUES (?, ?, ?)",
-                            new SerializerWriteBasicExt(temp, new int[]{3, 4, 14})).exec(params);
-                    }
-                }
-
                 if (updateresult == 0) {
                     new PreparedSentence(
                         s,
@@ -745,11 +732,23 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                         new SerializerWriteBasicExt(stockdiaryDatas, new int[]{3, 4, 5, 6})).exec(params);
                 }
 
-                return new PreparedSentence(
-                    s,
-                    "INSERT INTO STOCKDIARY (ID, DATENEW, REASON, LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, AppUser) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                    new SerializerWriteBasicExt(stockdiaryDatas, new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8}))
-                    .exec(params);
+                if (objectParams.length > 14 && objectParams[14] != null) {
+                    Datas[] temp = new Datas[]{
+                        Datas.STRING, Datas.TIMESTAMP, Datas.INT, Datas.STRING, Datas.STRING, Datas.STRING, Datas.DOUBLE, Datas.DOUBLE, Datas.STRING,
+                        Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP
+                    };
+                    return new PreparedSentence(
+                        s,
+                        "INSERT INTO STOCKDIARY (ID, DATENEW, REASON, LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, AppUser, EXPIRED_DATE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        new SerializerWriteBasicExt(temp, new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 14}))
+                        .exec(params);
+                } else {
+                    return new PreparedSentence(
+                        s,
+                        "INSERT INTO STOCKDIARY (ID, DATENEW, REASON, LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, AppUser) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        new SerializerWriteBasicExt(stockdiaryDatas, new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8}))
+                        .exec(params);
+                }
             }
         };
     }

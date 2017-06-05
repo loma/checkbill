@@ -468,6 +468,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
         jLabel7.setPreferredSize(new java.awt.Dimension(80, 25));
 
         m_jcodebar.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        m_jcodebar.setName("barcode"); // NOI18N
         m_jcodebar.setPreferredSize(new java.awt.Dimension(200, 25));
         m_jcodebar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -544,6 +545,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
 
         m_junits.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         m_junits.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        m_junits.setName("units"); // NOI18N
         m_junits.setPreferredSize(new java.awt.Dimension(60, 25));
 
         jLabel5.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
@@ -562,6 +564,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
 
         expired_date.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         expired_date.setMinimumSize(new java.awt.Dimension(40, 20));
+        expired_date.setName("expired_date"); // NOI18N
         expired_date.setPreferredSize(new java.awt.Dimension(200, 25));
         expired_date.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -700,6 +703,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
         catcontainer.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         catcontainer.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         catcontainer.setMinimumSize(new java.awt.Dimension(0, 250));
+        catcontainer.setName("catcontainer"); // NOI18N
         catcontainer.setPreferredSize(new java.awt.Dimension(0, 250));
         catcontainer.setLayout(new java.awt.BorderLayout());
         add(catcontainer, java.awt.BorderLayout.CENTER);

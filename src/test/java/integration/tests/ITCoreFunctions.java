@@ -34,7 +34,17 @@ public class ITCoreFunctions {
     }
 
     @Test
-    public void addNewProduct() {
+    public void addNewCategory() throws InterruptedException {
+        swinger.clickOn("user0");
+        swinger.clickOn("toggle-menu");
+        swinger.clickOn("text:ສາງສິນຄ້າ");
+        swinger.clickOn("name:Menu.Categories");
+        swinger.clickOn("category_name").type("new category");
+        swinger.clickOn("save_button");
+        swinger.clickOn("toggle-menu");
+        swinger.clickOn("text:ການຂາຍ");
+        swinger.clickOn("logout");
+
         swinger.clickOn("user0");
         swinger.clickOn("toggle-menu");
         swinger.clickOn("text:ສາງສິນຄ້າ");
@@ -42,7 +52,7 @@ public class ITCoreFunctions {
 
         swinger.clickOn("product_code").type("1234");
         swinger.clickOn("product_name").type("test item 1234");
-        swinger.clickOn("product_category").clickOn("text:Category Standard");
+        swinger.clickOn("product_category").clickOn("text:new category");
         swinger.clickOn("product_tax").clickOn("text:Tax Exempt");
         swinger.clickOn("sell_price_plus_tax").type("10000");
         swinger.clickOn("buy_price").type("8000");
@@ -50,40 +60,36 @@ public class ITCoreFunctions {
 
         swinger.clickOn("toggle-menu");
         swinger.clickOn("text:ການຂາຍ");
+        swinger.clickOn("logout");
 
-        SafeSwinger catalogSwinger = new SafeSwinger(Swinger.getUserWith(swinger.getAt("product_catalog")));
-        catalogSwinger.clickOn("text:Category Standard");
+        swinger.clickOn("user0");
+        swinger.clickOn("toggle-menu");
+        swinger.clickOn("text:ສາງສິນຄ້າ");
+        swinger.clickOn("text:Stock Diary");
+        SafeSwinger catalogSwinger = new SafeSwinger(Swinger.getUserWith(swinger.getAt("catcontainer")));
+        catalogSwinger.clickOn("text:new category");
+        swinger.clickOn("test item 1234");
+        swinger.clickOn("units").type("100");
+        swinger.clickOn("expired_date").type("May 27, 2018 2:19:00 PM");
+        swinger.clickOn("save_button");
+
+        swinger.clickOn("toggle-menu");
+        swinger.clickOn("text:ການຂາຍ");
+        swinger.clickOn("logout");
+
+        swinger.clickOn("user0");
+        catalogSwinger = new SafeSwinger(Swinger.getUserWith(swinger.getAt("product_catalog")));
+        catalogSwinger.clickOn("text:new category");
 
         swinger.clickOn("test item 1234");
         swinger.clickOn("text:ຈ່າຍ");
         swinger.clickOn("cash_100000.0");
+
+        Thread.sleep(200);
         swinger.type("\n");
+        Thread.sleep(200);
         swinger.type("\n");
 
         swinger.clickOn("logout");
-    }
-
-    @Test
-    public void addNewCategory() {
-        swinger.clickOn("user0");
-        swinger.clickOn("toggle-menu");
-        swinger.clickOn("text:ສາງສິນຄ້າ");
-        swinger.clickOn("name:Menu.Categories");
-
-        swinger.clickOn("category_name").type("new category");
-        swinger.clickOn("save_button");
-
-        swinger.clickOn("logout");
-    }
-
-    @Test
-    public void changePassword() {
-        swinger.clickOn("user0");
-        swinger.clickOn("toggle-menu");
-        swinger.clickOn("text:ປ່ຽນ​ລະ​ຫັດ​ຜ່ານ");
-
-        //swinger.clickOn("category_name").type("new category");
-        //swinger.clickOn("save_button");
-        //swinger.clickOn("logout");
     }
 }
