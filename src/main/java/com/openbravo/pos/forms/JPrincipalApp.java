@@ -99,12 +99,14 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
         group = menu.addGroup("Menu.Main");
         group.addPanel("/com/openbravo/images/sale.png", "Menu.Ticket", "com.openbravo.pos.sales.JPanelTicketSales");
         group.addPanel("/com/openbravo/images/saleedit.png", "Menu.TicketEdit", "com.openbravo.pos.sales.JPanelTicketEdits");
-        group.addPanel("/com/openbravo/images/customerpay.png", "Menu.CustomersPayment", "com.openbravo.pos.customers.CustomersPayment");
+        //group.addPanel("/com/openbravo/images/customerpay.png", "Menu.CustomersPayment", "com.openbravo.pos.customers.CustomersPayment");
         group.addPanel("/com/openbravo/images/payments.png", "Menu.Payments", "com.openbravo.pos.panels.JPanelPayments");
         group.addPanel("/com/openbravo/images/calculator.png", "Menu.CloseTPV", "com.openbravo.pos.panels.JPanelCloseMoney");
 
         group = menu.addGroup("Menu.Backoffice");
-        ScriptSubmenu submenu = group.addSubmenu("/com/openbravo/images/customer.png", "Menu.Customers", "com.openbravo.pos.forms.MenuCustomers");
+        ScriptSubmenu submenu = null;
+        /*
+        submenu = group.addSubmenu("/com/openbravo/images/customer.png", "Menu.Customers", "com.openbravo.pos.forms.MenuCustomers");
         submenu.addTitle("Menu.Customers");
         submenu.addPanel("/com/openbravo/images/customer.png", "Menu.CustomersManagement", "com.openbravo.pos.customers.CustomersPanel");
 
@@ -115,17 +117,20 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.CustomersDiary", "/com/openbravo/reports/customersdiary.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.CustomersList", "/com/openbravo/reports/customers_list.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.SalesByCustomer", "/com/openbravo/reports/salebycustomer.bs");
+         */
 
         submenu = group.addSubmenu("/com/openbravo/images/products.png", "Menu.StockManagement", "com.openbravo.pos.forms.MenuStockManagement");
         submenu.addTitle("Menu.StockManagement.Edit");
         submenu.addPanel("/com/openbravo/images/products.png", "Menu.Products", "com.openbravo.pos.inventory.ProductsPanel");
         submenu.addPanel("/com/openbravo/images/category.png", "Menu.Categories", "com.openbravo.pos.inventory.CategoriesPanel");
         submenu.addPanel("/com/openbravo/images/location.png", "Menu.ProductsWarehouse", "com.openbravo.pos.inventory.ProductsWarehousePanel");
+        /*
         submenu.addPanel("/com/openbravo/images/auxiliary.png", "Menu.Auxiliar", "com.openbravo.pos.inventory.AuxiliarPanel");
         submenu.addPanel("/com/openbravo/images/attributes.png", "Menu.Attributes", "com.openbravo.pos.inventory.AttributesPanel");
         submenu.addPanel("/com/openbravo/images/attributes.png", "Menu.AttributeValues", "com.openbravo.pos.inventory.AttributeValuesPanel");
         submenu.addPanel("/com/openbravo/images/attributes.png", "Menu.AttributeSets", "com.openbravo.pos.inventory.AttributeSetsPanel");
         submenu.addPanel("/com/openbravo/images/attributes.png", "Menu.AttributeUse", "com.openbravo.pos.inventory.AttributeUsePanel");
+         */
         submenu.addPanel("/com/openbravo/images/stockdiary.png", "Menu.StockDiary", "com.openbravo.pos.inventory.StockDiaryPanel");
         submenu.addPanel("/com/openbravo/images/stockmaint.png", "Menu.StockMovement", "com.openbravo.pos.inventory.StockManagement");
 
