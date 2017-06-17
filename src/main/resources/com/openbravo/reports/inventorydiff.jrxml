@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inventorydiff" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="29" rightMargin="30" topMargin="20" bottomMargin="20">
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-06-17T20:50:41 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inventorydiff" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="29" rightMargin="30" topMargin="20" bottomMargin="20" uuid="f3edeb72-04ae-4a59-8c69-f9c567e2019a">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.5"/>
@@ -68,7 +70,7 @@ ORDER BY LOCATIONS.ID, CATEGORIES.NAME, PRODUCTS.NAME]]>
 		<groupHeader>
 			<band height="17">
 				<textField pattern="" isBlankWhenNull="true">
-					<reportElement key="textField-4" mode="Transparent" x="0" y="2" width="310" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-4" mode="Transparent" x="0" y="2" width="310" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="5bce46eb-28e8-4261-9468-2abd4f30b2fe"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -86,7 +88,7 @@ ORDER BY LOCATIONS.ID, CATEGORIES.NAME, PRODUCTS.NAME]]>
 		<groupFooter>
 			<band height="30">
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement key="textField-16" mode="Opaque" x="225" y="2" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-16" mode="Opaque" x="225" y="2" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="0b6a7cc6-331e-4825-b5e8-1a09f4e85d65"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -100,7 +102,7 @@ ORDER BY LOCATIONS.ID, CATEGORIES.NAME, PRODUCTS.NAME]]>
 					<textFieldExpression><![CDATA[$R{label.sumin}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement key="textField-5" mode="Opaque" x="225" y="15" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-5" mode="Opaque" x="225" y="15" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="d8762f51-6268-43cf-8963-7513b114165c"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -114,7 +116,7 @@ ORDER BY LOCATIONS.ID, CATEGORIES.NAME, PRODUCTS.NAME]]>
 					<textFieldExpression><![CDATA[com.openbravo.format.Formats.CURRENCY.formatValue($V{SUMIN})]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement key="textField-16" mode="Opaque" x="331" y="2" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-16" mode="Opaque" x="331" y="2" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="2a1879d5-e952-40fa-8d6c-e6391e8b5e55"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -128,7 +130,7 @@ ORDER BY LOCATIONS.ID, CATEGORIES.NAME, PRODUCTS.NAME]]>
 					<textFieldExpression><![CDATA[$R{label.sumout}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement key="textField-16" mode="Opaque" x="436" y="2" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-16" mode="Opaque" x="436" y="2" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="6ef8e90e-d04f-462e-9be4-cbd2ff673deb"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -142,7 +144,7 @@ ORDER BY LOCATIONS.ID, CATEGORIES.NAME, PRODUCTS.NAME]]>
 					<textFieldExpression><![CDATA[$R{label.sumdiff}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement key="textField-5" mode="Opaque" x="331" y="15" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-5" mode="Opaque" x="331" y="15" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="a038814c-a80f-4084-a165-68cf4b2ff8ce"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -157,7 +159,7 @@ ORDER BY LOCATIONS.ID, CATEGORIES.NAME, PRODUCTS.NAME]]>
 new Double(-1.0 * ((Double)$V{SUMOUT}).doubleValue()))]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement key="textField-5" mode="Opaque" x="436" y="15" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-5" mode="Opaque" x="436" y="15" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="0a5623a6-0424-4882-9e68-3c1e078e49bc"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -171,7 +173,7 @@ new Double(-1.0 * ((Double)$V{SUMOUT}).doubleValue()))]]></textFieldExpression>
 					<textFieldExpression><![CDATA[com.openbravo.format.Formats.CURRENCY.formatValue($V{SUMDIFF})]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement key="line-3" mode="Opaque" x="220" y="2" width="315" height="1" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="line-3" mode="Opaque" x="220" y="2" width="315" height="1" forecolor="#000000" backcolor="#FFFFFF" uuid="6534c640-60ef-4aaf-960d-9f22d545df29"/>
 					<graphicElement fill="Solid">
 						<pen lineWidth="0.25" lineStyle="Solid"/>
 					</graphicElement>
@@ -184,7 +186,7 @@ new Double(-1.0 * ((Double)$V{SUMOUT}).doubleValue()))]]></textFieldExpression>
 		<groupHeader>
 			<band height="35">
 				<textField pattern="" isBlankWhenNull="true">
-					<reportElement key="textField-4" mode="Transparent" x="0" y="2" width="297" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-4" mode="Transparent" x="0" y="2" width="297" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="1c5183e3-785e-47a9-84d3-175eb09676cb"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -198,7 +200,7 @@ new Double(-1.0 * ((Double)$V{SUMOUT}).doubleValue()))]]></textFieldExpression>
 					<textFieldExpression><![CDATA[$F{CATEGORYNAME}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement key="textField-9" mode="Opaque" x="1" y="17" width="70" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-9" mode="Opaque" x="1" y="17" width="70" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="a9b971b4-ecde-4af1-a257-e7d44c089fb9"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -212,7 +214,7 @@ new Double(-1.0 * ((Double)$V{SUMOUT}).doubleValue()))]]></textFieldExpression>
 					<textFieldExpression><![CDATA[$R{label.ref}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement key="textField-10" mode="Opaque" x="71" y="17" width="149" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-10" mode="Opaque" x="71" y="17" width="149" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="4658b38e-9c7b-4bb1-91d5-1b968bdc26ec"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -226,7 +228,7 @@ new Double(-1.0 * ((Double)$V{SUMOUT}).doubleValue()))]]></textFieldExpression>
 					<textFieldExpression><![CDATA[$R{label.name}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement key="textField-9" mode="Opaque" x="225" y="17" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-9" mode="Opaque" x="225" y="17" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="124615e6-6366-4a49-81ad-f2313baf6d08"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -240,7 +242,7 @@ new Double(-1.0 * ((Double)$V{SUMOUT}).doubleValue()))]]></textFieldExpression>
 					<textFieldExpression><![CDATA[$R{label.in}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement key="textField-9" mode="Opaque" x="331" y="17" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-9" mode="Opaque" x="331" y="17" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="820efb82-5f20-49cc-a5e5-4cde1380013b"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -254,7 +256,7 @@ new Double(-1.0 * ((Double)$V{SUMOUT}).doubleValue()))]]></textFieldExpression>
 					<textFieldExpression><![CDATA[$R{label.out}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement key="textField-9" mode="Opaque" x="436" y="17" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-9" mode="Opaque" x="436" y="17" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="4d0f24d5-7528-4bea-9f04-8a19d233ae4e"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -268,7 +270,7 @@ new Double(-1.0 * ((Double)$V{SUMOUT}).doubleValue()))]]></textFieldExpression>
 					<textFieldExpression><![CDATA[$R{label.diff}]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement key="line-1" mode="Opaque" x="0" y="33" width="535" height="1" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="line-1" mode="Opaque" x="0" y="33" width="535" height="1" forecolor="#000000" backcolor="#FFFFFF" uuid="5d81cc53-d160-412b-ab47-20d23a157db4"/>
 					<graphicElement fill="Solid">
 						<pen lineWidth="0.25" lineStyle="Solid"/>
 					</graphicElement>
@@ -278,7 +280,7 @@ new Double(-1.0 * ((Double)$V{SUMOUT}).doubleValue()))]]></textFieldExpression>
 		<groupFooter>
 			<band height="17">
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement key="textField-5" mode="Opaque" x="225" y="2" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-5" mode="Opaque" x="225" y="2" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="deadce9b-ffa1-4f8e-8af5-743f65b1aa21"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -292,7 +294,7 @@ new Double(-1.0 * ((Double)$V{SUMOUT}).doubleValue()))]]></textFieldExpression>
 					<textFieldExpression><![CDATA[com.openbravo.format.Formats.CURRENCY.formatValue($V{PARTIALIN})]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement key="textField-5" mode="Opaque" x="331" y="2" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-5" mode="Opaque" x="331" y="2" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="ee11bb64-8045-4f64-b7de-81c369c5dfe7"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -307,7 +309,7 @@ new Double(-1.0 * ((Double)$V{SUMOUT}).doubleValue()))]]></textFieldExpression>
 new Double(-1.0 * ((Double)$V{PARTIALOUT}).doubleValue()))]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement key="textField-5" mode="Opaque" x="436" y="2" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-5" mode="Opaque" x="436" y="2" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="cdc9a22f-62d0-4bdd-97fc-886330890f13"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -321,7 +323,7 @@ new Double(-1.0 * ((Double)$V{PARTIALOUT}).doubleValue()))]]></textFieldExpressi
 					<textFieldExpression><![CDATA[com.openbravo.format.Formats.CURRENCY.formatValue($V{PARTIALDIFF})]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement key="line-3" mode="Opaque" x="220" y="1" width="315" height="1" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="line-3" mode="Opaque" x="220" y="1" width="315" height="1" forecolor="#000000" backcolor="#FFFFFF" uuid="9f2661af-7247-4521-b2ba-2a1e1b16b0df"/>
 					<graphicElement fill="Solid">
 						<pen lineWidth="0.25" lineStyle="Solid"/>
 					</graphicElement>
@@ -338,7 +340,7 @@ new Double(-1.0 * ((Double)$V{PARTIALOUT}).doubleValue()))]]></textFieldExpressi
 	<pageHeader>
 		<band height="52">
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement key="textField-8" mode="Transparent" x="50" y="33" width="110" height="15"/>
+				<reportElement key="textField-8" mode="Transparent" x="50" y="33" width="110" height="15" uuid="f6591b7e-bde2-4dda-babd-4bb52c4a371b"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -352,7 +354,7 @@ new Double(-1.0 * ((Double)$V{PARTIALOUT}).doubleValue()))]]></textFieldExpressi
 				<textFieldExpression><![CDATA[com.openbravo.format.Formats.DATE.formatValue((java.util.Date)  ((Object[])((Object[])$P{ARG})[0])[1])]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement key="textField-9" mode="Transparent" x="170" y="33" width="110" height="15"/>
+				<reportElement key="textField-9" mode="Transparent" x="170" y="33" width="110" height="15" uuid="1a8a5394-1257-4caa-afe7-1ad6200c2569"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -366,7 +368,7 @@ new Double(-1.0 * ((Double)$V{PARTIALOUT}).doubleValue()))]]></textFieldExpressi
 				<textFieldExpression><![CDATA[com.openbravo.format.Formats.DATE.formatValue((java.util.Date)((Object[])((Object[])$P{ARG})[0])[3])]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="staticText-6" mode="Transparent" x="160" y="33" width="10" height="15"/>
+				<reportElement key="staticText-6" mode="Transparent" x="160" y="33" width="10" height="15" uuid="bf4ede01-c132-4db4-84c2-040ab88adb98"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -381,13 +383,13 @@ new Double(-1.0 * ((Double)$V{PARTIALOUT}).doubleValue()))]]></textFieldExpressi
 ]]></text>
 			</staticText>
 			<rectangle radius="5">
-				<reportElement key="rectangle-4" mode="Opaque" x="0" y="50" width="535" height="2" forecolor="#33CCFF" backcolor="#33CCFF"/>
+				<reportElement key="rectangle-4" mode="Opaque" x="0" y="50" width="535" height="2" forecolor="#33CCFF" backcolor="#33CCFF" uuid="8021becd-707b-4737-a8b4-ce02a3407ec5"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.25" lineStyle="Solid"/>
 				</graphicElement>
 			</rectangle>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-17" mode="Transparent" x="0" y="0" width="375" height="30" forecolor="#33CCFF" backcolor="#FFFFFF"/>
+				<reportElement key="textField-17" mode="Transparent" x="0" y="0" width="375" height="30" forecolor="#33CCFF" backcolor="#FFFFFF" uuid="8e9bd7bf-8ff0-4d7f-8329-194e5eef7143"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -401,7 +403,7 @@ new Double(-1.0 * ((Double)$V{PARTIALOUT}).doubleValue()))]]></textFieldExpressi
 				<textFieldExpression><![CDATA[$R{label.title}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-10" mode="Opaque" x="400" y="0" width="135" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField-10" mode="Opaque" x="400" y="0" width="135" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="7ba80ec7-64b2-46c0-979d-3c5f00bf4a60"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -415,14 +417,14 @@ new Double(-1.0 * ((Double)$V{PARTIALOUT}).doubleValue()))]]></textFieldExpressi
 				<textFieldExpression><![CDATA[$R{label.printed}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="false">
-				<reportElement key="textField" x="400" y="15" width="135" height="15"/>
+				<reportElement key="textField" x="400" y="15" width="135" height="15" uuid="8d24050f-e4d1-4e0a-b749-d34ada51a192"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-19" mode="Opaque" x="0" y="33" width="50" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField-19" mode="Opaque" x="0" y="33" width="50" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="1259f4db-a5de-41cd-a8c9-166ab98f6f61"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -443,7 +445,9 @@ new Double(-1.0 * ((Double)$V{PARTIALOUT}).doubleValue()))]]></textFieldExpressi
 	<detail>
 		<band height="30">
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement key="textField-1" mode="Transparent" x="0" y="0" width="70" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField-1" mode="Transparent" x="0" y="0" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="c569daa7-5a5b-4fb2-a9ee-1e6ba2b77350">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -457,7 +461,7 @@ new Double(-1.0 * ((Double)$V{PARTIALOUT}).doubleValue()))]]></textFieldExpressi
 				<textFieldExpression><![CDATA[$F{REFERENCE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement key="textField-2" mode="Transparent" x="71" y="0" width="149" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField-2" mode="Transparent" x="108" y="0" width="149" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="d9039cdb-e6b2-46fe-90db-cd74dd932dda"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -465,13 +469,13 @@ new Double(-1.0 * ((Double)$V{PARTIALOUT}).doubleValue()))]]></textFieldExpressi
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#FFFFFF"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
-					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Saysettha OT" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement key="textField-5" mode="Transparent" x="225" y="0" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField-5" mode="Transparent" x="225" y="0" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="b853b6db-1f48-47f8-af54-6e1da1295eba"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -485,7 +489,7 @@ new Double(-1.0 * ((Double)$V{PARTIALOUT}).doubleValue()))]]></textFieldExpressi
 				<textFieldExpression><![CDATA[com.openbravo.format.Formats.DOUBLE.formatValue($F{UNITSIN})]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement key="textField-5" mode="Transparent" x="331" y="0" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField-5" mode="Transparent" x="331" y="0" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="6e1da4fc-5d34-4377-9d35-bb3ca0b88559"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -500,7 +504,7 @@ new Double(-1.0 * ((Double)$V{PARTIALOUT}).doubleValue()))]]></textFieldExpressi
 new Double(-1.0 * ((Double)$F{UNITSOUT}).doubleValue()))]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement key="textField-5" mode="Transparent" x="436" y="0" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField-5" mode="Transparent" x="436" y="0" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="43fac48e-e69c-45b5-a47f-bef962f6769a"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -514,7 +518,7 @@ new Double(-1.0 * ((Double)$F{UNITSOUT}).doubleValue()))]]></textFieldExpression
 				<textFieldExpression><![CDATA[com.openbravo.format.Formats.DOUBLE.formatValue($F{UNITSDIFF})]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement key="textField-5" mode="Transparent" x="225" y="15" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField-5" mode="Transparent" x="225" y="15" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="e0912a97-1f4b-4272-83fc-49ea52f9b8da"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -529,7 +533,7 @@ new Double(-1.0 * ((Double)$F{UNITSOUT}).doubleValue()))]]></textFieldExpression
 $F{TOTALIN})]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement key="textField-5" mode="Transparent" x="331" y="15" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField-5" mode="Transparent" x="331" y="15" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="b1987d5b-d3cc-4629-ab13-70463ca2995a"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -544,7 +548,7 @@ $F{TOTALIN})]]></textFieldExpression>
 new Double(-1.0 * ((Double)$F{TOTALOUT}).doubleValue()))]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement key="textField-5" mode="Transparent" x="436" y="15" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField-5" mode="Transparent" x="436" y="15" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="3d6ca783-07b9-490d-bbe7-feb863b9dea2"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -566,7 +570,7 @@ $F{TOTALDIFF})]]></textFieldExpression>
 	<pageFooter>
 		<band height="30">
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-6" mode="Opaque" x="484" y="10" width="20" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField-6" mode="Opaque" x="484" y="10" width="20" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="5affc3f2-ac16-41d6-b3d9-30d87181c21b"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -580,7 +584,7 @@ $F{TOTALDIFF})]]></textFieldExpression>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-7" mode="Opaque" x="514" y="10" width="20" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField-7" mode="Opaque" x="514" y="10" width="20" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="ad17f041-8214-487f-9de4-98dbe87c0e66"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -594,7 +598,7 @@ $F{TOTALDIFF})]]></textFieldExpression>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="staticText-5" mode="Opaque" x="504" y="10" width="10" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="staticText-5" mode="Opaque" x="504" y="10" width="10" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="a38c8e1a-1656-435b-8287-44c0ecae9e15"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -608,13 +612,13 @@ $F{TOTALDIFF})]]></textFieldExpression>
 				<text><![CDATA[/]]></text>
 			</staticText>
 			<line>
-				<reportElement key="line-3" mode="Opaque" x="1" y="3" width="535" height="1" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="line-3" mode="Opaque" x="1" y="3" width="535" height="1" forecolor="#000000" backcolor="#FFFFFF" uuid="92fcd2f2-1171-4581-a7dc-d307149e4cdd"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.25" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="0" y="10" width="100" height="15"/>
+				<reportElement x="0" y="10" width="100" height="15" uuid="636f3610-be5c-47db-9689-932b923dc8b4"/>
 				<textElement>
 					<font fontName="SansSerif" size="8"/>
 				</textElement>

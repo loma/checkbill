@@ -135,18 +135,18 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
         submenu.addPanel("/com/openbravo/images/stockmaint.png", "Menu.StockMovement", "com.openbravo.pos.inventory.StockManagement");
 
         submenu.addTitle("Menu.StockManagement.Reports");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.BarcodeSheet", "/com/openbravo/reports/barcodesheet.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.BarcodeSheet", "/com/openbravo/reports/barcodesheet.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.Inventory", "/com/openbravo/reports/inventory.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.Inventory2", "/com/openbravo/reports/inventoryb.bs");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.InventoryBroken", "/com/openbravo/reports/inventorybroken.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.InventoryBroken", "/com/openbravo/reports/inventorybroken.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.InventoryDiff", "/com/openbravo/reports/inventorydiff.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.InventoryDiffDetail", "/com/openbravo/reports/inventorydiffdetail.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.InventoryListDetail", "/com/openbravo/reports/inventorylistdetail.bs");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.ProductCatalog", "/com/openbravo/reports/productscatalog.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.ProductCatalog", "/com/openbravo/reports/productscatalog.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.Products", "/com/openbravo/reports/products.bs");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.ProductLabels", "/com/openbravo/reports/productlabels.bs");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.SaleCatalog", "/com/openbravo/reports/salecatalog.bs");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.ShelfEdgeLabels", "/com/openbravo/reports/shelfedgelabels.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.ProductLabels", "/com/openbravo/reports/productlabels.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.SaleCatalog", "/com/openbravo/reports/salecatalog.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.ShelfEdgeLabels", "/com/openbravo/reports/shelfedgelabels.bs");
 
         submenu = group.addSubmenu("/com/openbravo/images/sales.png", "Menu.SalesManagement", "com.openbravo.pos.forms.MenuSalesManagement");
         submenu.addTitle("Menu.SalesManagement.Reports");
@@ -198,9 +198,9 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
         submenu.addPanel("/com/openbravo/images/coffee.png", "Menu.Breaks", "com.openbravo.pos.epm.BreaksPanel");
         submenu.addPanel("/com/openbravo/images/leaves.png", "Menu.Leaves", "com.openbravo.pos.epm.LeavesPanel");
         submenu.addTitle("Menu.Employees.Reports");
-// Not Derby        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.DailyPresenceReport", "/com/openbravo/reports/dailypresencereport.bs");
-// Not Derby        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.DailyScheduleReport", "/com/openbravo/reports/dailyschedulereport.bs");
-//        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.PerformanceReport", "/com/openbravo/reports/performancereport.bs");
+        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.DailyPresenceReport", "/com/openbravo/reports/dailypresencereport.bs");
+        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.DailyScheduleReport", "/com/openbravo/reports/dailyschedulereport.bs");
+        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.PerformanceReport", "/com/openbravo/reports/performancereport.bs");
 
         group = menu.addGroup("Menu.Utilities");
         submenu = group.addSubmenu("/com/openbravo/images/utilities.png", "Menu.Tools", "com.openbravo.pos.imports.JPanelCSV");
