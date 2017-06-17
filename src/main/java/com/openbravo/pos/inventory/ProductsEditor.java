@@ -15,771 +15,783 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 public final class ProductsEditor extends JPanel implements EditorRecord {
 
-	private final SentenceList m_sentcat;
-	private ComboBoxValModel m_CategoryModel;
-
-	private final SentenceList taxcatsent;
-	private ComboBoxValModel taxcatmodel;
-
-	private final SentenceList attsent;
-	private ComboBoxValModel attmodel;
-
-	private final SentenceList taxsent;
-	private TaxesLogic taxeslogic;
-
-	private Object m_id;
-	private Object pricesell;
-	private boolean priceselllock = false;
-
-	private boolean reportlock = false;
-
-	public ProductsEditor(DataLogicSales dlSales, DirtyManager dirty) {
-		initComponents();
-		
-		taxsent = dlSales.getTaxList();
-
-		m_sentcat = dlSales.getCategoriesList();
-		m_CategoryModel = new ComboBoxValModel();
-
-		taxcatsent = dlSales.getTaxCategoriesList();
-		taxcatmodel = new ComboBoxValModel();
-
-		attsent = dlSales.getAttributeSetList();
-		attmodel = new ComboBoxValModel();
-
-		m_jRef.getDocument().addDocumentListener(dirty);
-		m_jCode.getDocument().addDocumentListener(dirty);
-		m_jCodetype.addActionListener(dirty);
-		m_jName.getDocument().addDocumentListener(dirty);
-		m_jPriceBuy.getDocument().addDocumentListener(dirty);
-		m_jPriceSell.getDocument().addDocumentListener(dirty);
-		m_jCategory.addActionListener(dirty);
-		m_jTax.addActionListener(dirty);
-		m_jAtt.addActionListener(dirty);
-		m_jstockcost.getDocument().addDocumentListener(dirty);
-		m_jstockvolume.getDocument().addDocumentListener(dirty);
-		m_jImage.addPropertyChangeListener("image", dirty);
-		m_jComment.addActionListener(dirty);
-		m_jScale.addActionListener(dirty);
-		m_jKitchen.addActionListener(dirty);
-		m_jPrintKB.addActionListener(dirty);
-		m_jSendStatus.addActionListener(dirty);
-		m_jService.addActionListener(dirty);
-		txtAttributes.getDocument().addDocumentListener(dirty);
-		m_jDisplay.getDocument().addDocumentListener(dirty);
-		m_jVprice.addActionListener(dirty);
-		m_jVerpatrib.addActionListener(dirty);
-		m_jTextTip.getDocument().addDocumentListener(dirty);
-		m_jCheckWarrantyReceipt.addActionListener(dirty);
-		m_jStockUnits.getDocument().putProperty(dlSales, 26);
-
-		m_jInCatalog.addActionListener(dirty);
-		m_jCatalogOrder.getDocument().addDocumentListener(dirty);
-
-		FieldsManager fm = new FieldsManager();
-		m_jPriceBuy.getDocument().addDocumentListener(fm);
-		m_jPriceSell.getDocument().addDocumentListener(new PriceSellManager());
-		m_jTax.addActionListener(fm);
-		m_jPriceSellTax.getDocument().addDocumentListener(new PriceTaxManager());
-		m_jmargin.getDocument().addDocumentListener(new MarginManager());
-		m_jGrossProfit.getDocument().addDocumentListener(new MarginManager());
-
-		writeValueEOF();
-	}
-
-	/**
-	 *
-	 * @throws BasicException
-	 */
-	public void activate() throws BasicException {
-
-		// Load the taxes logic
-		taxeslogic = new TaxesLogic(taxsent.list());
-
-		m_CategoryModel = new ComboBoxValModel(m_sentcat.list());
-		m_jCategory.setModel(m_CategoryModel);
-
-		taxcatmodel = new ComboBoxValModel(taxcatsent.list());
-		m_jTax.setModel(taxcatmodel);
-
-		attmodel = new ComboBoxValModel(attsent.list());
-		attmodel.add(0, null);
-		m_jAtt.setModel(attmodel);
-	}
-
-	/**
-	 *
-	 */
-	@Override
-	public void refresh() {
-	}
-
-	/**
-	 *
-	 */
-	@Override
-	public void writeValueEOF() {
-
-		reportlock = true;
-
-		m_jTitle.setText(AppLocal.getIntString("label.recordeof"));
-		m_id = null;
-		m_jRef.setText(null);
-		m_jCode.setText(null);
-		m_jCodetype.setSelectedIndex(0);
-		m_jName.setText(null);
-		m_jPriceBuy.setText(null);
-		setPriceSell(null);
-		m_CategoryModel.setSelectedKey(null);
-		taxcatmodel.setSelectedKey(null);
-		attmodel.setSelectedKey(null);
-		m_jstockcost.setText("0.0");
-		m_jstockvolume.setText("0.0");
-		m_jImage.setImage(null);
-		m_jComment.setSelected(false);
-		m_jScale.setSelected(false);
-		m_jKitchen.setSelected(false);
-		m_jPrintKB.setSelected(false);
-		m_jSendStatus.setSelected(false);
-		m_jService.setSelected(false);
-		txtAttributes.setText(null);
-		m_jDisplay.setText(null);
-		m_jVprice.setSelected(false);
-		m_jVerpatrib.setSelected(false);
-		m_jTextTip.setText(null);
-		m_jCheckWarrantyReceipt.setSelected(false);
-		m_jStockUnits.setVisible(false);
-
-		m_jInCatalog.setSelected(false);
-		m_jCatalogOrder.setText(null);
-
-		reportlock = false;
-
-		m_jRef.setEnabled(false);
-		m_jCode.setEnabled(false);
-		m_jCodetype.setEnabled(false);
-		m_jName.setEnabled(false);
-		m_jPriceBuy.setEnabled(false);
-		m_jPriceSell.setEnabled(false);
-		m_jCategory.setEnabled(false);
-		m_jTax.setEnabled(false);
-		m_jAtt.setEnabled(false);
-		m_jstockcost.setEnabled(false);
-		m_jstockvolume.setEnabled(false);
-		m_jImage.setEnabled(false);
-		m_jComment.setEnabled(false);
-		m_jScale.setEnabled(false);
-		m_jKitchen.setEnabled(false);
-		m_jPrintKB.setVisible(false);
-		m_jSendStatus.setVisible(false);
-		m_jService.setEnabled(false);
-		txtAttributes.setEnabled(false);
-		m_jDisplay.setEnabled(false);
-		m_jVprice.setEnabled(false);
-		m_jVerpatrib.setEnabled(false);
-		m_jTextTip.setEnabled(false);
-		m_jCheckWarrantyReceipt.setEnabled(false);
-		m_jStockUnits.setVisible(false);
-
-		m_jInCatalog.setEnabled(false);
-		m_jCatalogOrder.setEnabled(false);
-
-		m_jPriceSellTax.setEnabled(false);
-		m_jmargin.setEnabled(false);
-
-		calculateMargin();
-		calculatePriceSellTax();
-		calculateGP();
-	}
-
-	/**
-	 *
-	 */
-	@Override
-	public void writeValueInsert() {
-
-		reportlock = true;
-
-		m_jTitle.setText(AppLocal.getIntString("label.recordnew"));
-
-		m_id = UUID.randomUUID().toString();
-		m_jRef.setText(null);
-		m_jCode.setText(null);
-		m_jCodetype.setSelectedIndex(0);
-		m_jName.setText(null);
-		m_jPriceBuy.setText(null);
-		setPriceSell(null);
-		m_CategoryModel.setSelectedKey(null);
-		taxcatmodel.setSelectedKey(null);
-		attmodel.setSelectedKey(null);
-		m_jstockcost.setText("0.0");
-		m_jstockvolume.setText("0.0");
-		m_jImage.setImage(null);
-		m_jComment.setSelected(false);
-		m_jScale.setSelected(false);
-		m_jKitchen.setSelected(false);
-		m_jPrintKB.setSelected(false);
-		m_jSendStatus.setSelected(false);
-		m_jService.setSelected(false);
-		txtAttributes.setText(null);
-		m_jDisplay.setText(null);
-		m_jVprice.setSelected(false);
-		m_jVerpatrib.setSelected(false);
-		m_jTextTip.setText(null);
-		m_jCheckWarrantyReceipt.setSelected(false);
-		m_jStockUnits.setVisible(false);
-
-		m_jInCatalog.setSelected(true);
-		m_jCatalogOrder.setText(null);
-
-		reportlock = false;
-
-		m_jRef.setEnabled(true);
-		m_jCode.setEnabled(true);
-		m_jCodetype.setEnabled(true);
-		m_jName.setEnabled(true);
-		m_jPriceBuy.setEnabled(true);
-		m_jPriceSell.setEnabled(true);
-		m_jCategory.setEnabled(true);
-		m_jTax.setEnabled(true);
-		m_jAtt.setEnabled(true);
-		m_jstockcost.setEnabled(true);
-		m_jstockvolume.setEnabled(true);
-		m_jImage.setEnabled(true);
-		m_jComment.setEnabled(true);
-		m_jScale.setEnabled(true);
-		m_jKitchen.setEnabled(true);
-		m_jPrintKB.setVisible(false);
-		m_jSendStatus.setVisible(false);
-		m_jService.setEnabled(true);
-		txtAttributes.setEnabled(true);
-		m_jDisplay.setEnabled(true);
-		m_jVprice.setEnabled(true);
-		m_jVerpatrib.setEnabled(true);
-		m_jTextTip.setEnabled(true);
-		m_jCheckWarrantyReceipt.setEnabled(true);
-		m_jStockUnits.setVisible(false);
-
-		m_jPriceSellTax.setEnabled(true);
-		m_jmargin.setEnabled(true);
-
-		m_jInCatalog.setEnabled(true);
-		m_jCatalogOrder.setEnabled(false);
-
-		calculateMargin();
-		calculatePriceSellTax();
-		calculateGP();
-	}
-
-	/**
-	 *
-	 * @return myprod
-	 * @throws BasicException
-	 */
-	@Override
-	public Object createValue() throws BasicException {
-
-		Object[] myprod = new Object[28];
-		myprod[0] = m_id;
-		myprod[1] = m_jRef.getText();
-		myprod[2] = m_jCode.getText();
-		myprod[3] = m_jCodetype.getSelectedItem();
-		myprod[4] = m_jName.getText();
-		myprod[5] = Formats.CURRENCY.parseValue(m_jPriceBuy.getText());
-		myprod[6] = pricesell;
-		myprod[7] = m_CategoryModel.getSelectedKey();
-		myprod[8] = taxcatmodel.getSelectedKey();
-		myprod[9] = attmodel.getSelectedKey();
-		myprod[10] = Formats.CURRENCY.parseValue(m_jstockcost.getText());
-		myprod[11] = Formats.DOUBLE.parseValue(m_jstockvolume.getText());
-		myprod[12] = m_jImage.getImage();
-		myprod[13] = m_jComment.isSelected();
-		myprod[14] = m_jScale.isSelected();
-		myprod[15] = m_jKitchen.isSelected();
-		myprod[16] = m_jPrintKB.isSelected();
-		myprod[17] = m_jSendStatus.isSelected();
-		myprod[18] = m_jService.isSelected();
-		myprod[19] = Formats.BYTEA.parseValue(txtAttributes.getText());
-		myprod[20] = m_jDisplay.getText();
-		myprod[21] = m_jVprice.isSelected();
-		myprod[22] = m_jVerpatrib.isSelected();
-		myprod[23] = m_jTextTip.getText();
-		myprod[24] = m_jCheckWarrantyReceipt.isSelected();
-		myprod[25] = Formats.DOUBLE.parseValue(m_jStockUnits.getText());
-
-		myprod[26] = m_jInCatalog.isSelected();
-		myprod[27] = Formats.INT.parseValue(m_jCatalogOrder.getText());
-
-		return myprod;
-
-	}
-
-	/**
-	 *
-	 * @param value
-	 */
-	@Override
-	public void writeValueEdit(Object value) {
-
-		reportlock = true;
-		Object[] myprod = (Object[]) value;
-		m_jTitle.setText(Formats.STRING.formatValue(myprod[1]) + " - " + Formats.STRING.formatValue(myprod[4]));
-		m_id = myprod[0];
-		m_jRef.setText(Formats.STRING.formatValue(myprod[1]));
-		m_jCode.setText(Formats.STRING.formatValue(myprod[2]));
-		m_jCodetype.setSelectedItem(myprod[3]);
-		m_jName.setText(Formats.STRING.formatValue(myprod[4]));
-		m_jPriceBuy.setText(Formats.CURRENCY.formatValue(myprod[5]));
-		setPriceSell(myprod[6]);
-		m_CategoryModel.setSelectedKey(myprod[7]);
-		taxcatmodel.setSelectedKey(myprod[8]);
-		attmodel.setSelectedKey(myprod[9]);
-		m_jstockcost.setText(Formats.CURRENCY.formatValue(myprod[10]));
-		m_jstockvolume.setText(Formats.DOUBLE.formatValue(myprod[11]));
-		m_jImage.setImage((BufferedImage) myprod[12]);
-		m_jComment.setSelected(((Boolean) myprod[13]));
-		m_jScale.setSelected(((Boolean) myprod[14]));
-		m_jKitchen.setSelected(((Boolean) myprod[15]));
-		m_jPrintKB.setSelected(((Boolean) myprod[16]));
-		m_jSendStatus.setSelected(((Boolean) myprod[17]));
-		m_jService.setSelected(((Boolean) myprod[18]));
-		txtAttributes.setText(Formats.BYTEA.formatValue(myprod[19]));
-		m_jDisplay.setText(Formats.STRING.formatValue(myprod[20]));
-		m_jVprice.setSelected(((Boolean) myprod[21]));
-		m_jVerpatrib.setSelected(((Boolean) myprod[22]));
-		m_jTextTip.setText(Formats.STRING.formatValue(myprod[23]));
-		m_jCheckWarrantyReceipt.setSelected(((Boolean) myprod[24]));
-		m_jStockUnits.setText(Formats.DOUBLE.formatValue(0.0));
-
-		m_jInCatalog.setSelected(((Boolean) myprod[26]));
-		m_jCatalogOrder.setText(Formats.INT.formatValue(myprod[27]));
-
-		txtAttributes.setCaretPosition(0);
-
-		reportlock = false;
-
-		m_jRef.setEnabled(true);
-		m_jCode.setEnabled(true);
-		m_jCodetype.setEnabled(true);
-		m_jName.setEnabled(true);
-		m_jPriceBuy.setEnabled(true);
-		m_jPriceSell.setEnabled(true);
-		m_jCategory.setEnabled(true);
-		m_jTax.setEnabled(true);
-		m_jAtt.setEnabled(true);
-		m_jstockcost.setEnabled(true);
-		m_jstockvolume.setEnabled(true);
-		m_jImage.setEnabled(true);
-		m_jComment.setEnabled(true);
-		m_jScale.setEnabled(true);
-		m_jKitchen.setEnabled(true);
-		m_jPrintKB.setVisible(false);
-		m_jSendStatus.setVisible(false);
-		m_jService.setEnabled(true);
-		txtAttributes.setEnabled(true);
-		m_jDisplay.setEnabled(true);
-		m_jSendStatus.setEnabled(true);
-		m_jVerpatrib.setEnabled(true);
-		m_jTextTip.setEnabled(true);
-		m_jCheckWarrantyReceipt.setEnabled(true);
-		m_jStockUnits.setVisible(false);
-
-		m_jInCatalog.setEnabled(true);
-		m_jCatalogOrder.setEnabled(m_jInCatalog.isSelected());
-
-		m_jPriceSellTax.setEnabled(true);
-		m_jmargin.setEnabled(true);
-
-		setButtonHTML();
-		calculateMargin();
-		calculatePriceSellTax();
-		calculateGP();
-	}
-
-	/**
-	 *
-	 * @param value
-	 */
-	@Override
-	public void writeValueDelete(Object value) {
-
-		reportlock = true;
-		Object[] myprod = (Object[]) value;
-		m_jTitle.setText(Formats.STRING.formatValue(myprod[1]) + " - " + Formats.STRING.formatValue(myprod[4]) + " " + AppLocal.getIntString("label.recorddeleted"));
-		m_id = myprod[0];
-		m_jRef.setText(Formats.STRING.formatValue(myprod[1]));
-		m_jCode.setText(Formats.STRING.formatValue(myprod[2]));
-		m_jCodetype.setSelectedItem(myprod[3]);
-		m_jName.setText(Formats.STRING.formatValue(myprod[4]));
-		m_jPriceBuy.setText(Formats.CURRENCY.formatValue(myprod[5]));
-		setPriceSell(myprod[6]);
-		m_CategoryModel.setSelectedKey(myprod[7]);
-		taxcatmodel.setSelectedKey(myprod[8]);
-		attmodel.setSelectedKey(myprod[9]);
-		m_jstockcost.setText(Formats.CURRENCY.formatValue(myprod[10]));
-		m_jstockvolume.setText(Formats.DOUBLE.formatValue(myprod[11]));
-		m_jImage.setImage((BufferedImage) myprod[12]);
-		m_jComment.setSelected(((Boolean) myprod[13]));
-		m_jScale.setSelected(((Boolean) myprod[14]));
-		m_jKitchen.setSelected(((Boolean) myprod[15]));
-		m_jPrintKB.setSelected(((Boolean) myprod[16]));
-		m_jSendStatus.setSelected(((Boolean) myprod[17]));
-		m_jService.setSelected(((Boolean) myprod[18]));
-		txtAttributes.setText(Formats.BYTEA.formatValue(myprod[19]));
-		m_jDisplay.setText(Formats.STRING.formatValue(myprod[20]));
-		m_jVprice.setSelected(((Boolean) myprod[21]));
-		m_jVerpatrib.setSelected(((Boolean) myprod[22]));
-		m_jTextTip.setText(Formats.STRING.formatValue(myprod[23]));
-		m_jCheckWarrantyReceipt.setSelected(((Boolean) myprod[24]));
-		m_jStockUnits.setText(Formats.DOUBLE.formatValue(myprod[25]));
-
-		m_jInCatalog.setSelected(((Boolean) myprod[26]));
-		m_jCatalogOrder.setText(Formats.INT.formatValue(myprod[27]));
-
-		txtAttributes.setCaretPosition(0);
-
-		reportlock = false;
-
-		m_jRef.setEnabled(false);
-		m_jCode.setEnabled(false);
-		m_jCodetype.setEnabled(false);
-		m_jName.setEnabled(false);
-		m_jPriceBuy.setEnabled(false);
-		m_jPriceSell.setEnabled(false);
-		m_jCategory.setEnabled(false);
-		m_jTax.setEnabled(false);
-		m_jAtt.setEnabled(false);
-		m_jstockcost.setEnabled(false);
-		m_jstockvolume.setEnabled(false);
-		m_jImage.setEnabled(false);
-		m_jComment.setEnabled(false);
-		m_jScale.setEnabled(false);
-		m_jKitchen.setEnabled(false);
-		m_jPrintKB.setVisible(false);
-		m_jSendStatus.setVisible(false);
-		m_jService.setEnabled(true);
-		txtAttributes.setEnabled(false);
-		m_jDisplay.setEnabled(false);
-		m_jVprice.setEnabled(false);
-		m_jVerpatrib.setEnabled(false);
-		m_jTextTip.setEnabled(false);
-		m_jCheckWarrantyReceipt.setEnabled(false);
-		m_jStockUnits.setVisible(false);
-
-		m_jInCatalog.setEnabled(false);
-		m_jCatalogOrder.setEnabled(false);
-
-		m_jPriceSellTax.setEnabled(false);
-		m_jmargin.setEnabled(false);
-
-		calculateMargin();
-		calculatePriceSellTax();
-		calculateGP();
-	}
-
-	/**
-	 *
-	 * @return this
-	 */
-	@Override
-	public Component getComponent() {
-		return this;
-	}
-
-	private void setCode() {
-		Long lDateTime = new Date().getTime(); // USED FOR RANDOM CODE DETAILS
-		if (!reportlock) {
-			reportlock = true;
-			if (m_jRef == null) {
-				m_jCode.setText(Long.toString(lDateTime));
-			} else if (m_jCode.getText() == null || "".equals(m_jCode.getText())) {
-				m_jCode.setText(m_jRef.getText());
-			}
-			reportlock = false;
-		}
-	}
-
-// ADDED JG 19 NOV 12 - AUTOFILL BUTTON 
-// AMENDED JDL 11 MAY 12 - STOP AUTOFILL IF FIELD ALREADY EXSISTS   
-	private void setDisplay() {
-
-		String str = (m_jName.getText());
-		int length = str.length();
-
-		if (!reportlock) {
-			reportlock = true;
-
-			if (length == 0) {
-				m_jDisplay.setText(m_jName.getText());
-			} else if (m_jDisplay.getText() == null || "".equals(m_jDisplay.getText())) {
-				m_jDisplay.setText("<html>" + m_jName.getText());
-			}
-			reportlock = false;
-		}
-	}
-// ADDED JG 20 Jul 13 - AUTOFILL HTML BUTTON 
-
-	private void setButtonHTML() {
-
-		String str = (m_jDisplay.getText());
-		int length = str.length();
-
-		if (!reportlock) {
-			reportlock = true;
-
-			if (length == 0) {
-				jButtonHTML.setText("Click Me");
-			} else {
-				jButtonHTML.setText(m_jDisplay.getText());
-			}
-			reportlock = false;
-		}
-	}
-
-	private void calculateMargin() {
-
-		if (!reportlock) {
-			reportlock = true;
-
-			Double dPriceBuy = readCurrency(m_jPriceBuy.getText());
-			Double dPriceSell = (Double) pricesell;
-
-			if (dPriceBuy == null || dPriceSell == null) {
-				m_jmargin.setText(null);
-			} else {
-				m_jmargin.setText(Formats.PERCENT.formatValue(dPriceSell / dPriceBuy - 1.0));
-			}
-			reportlock = false;
-		}
-	}
-
-	private void calculatePriceSellTax() {
-
-		if (!reportlock) {
-			reportlock = true;
-
-			Double dPriceSell = (Double) pricesell;
-
-			if (dPriceSell == null) {
-				m_jPriceSellTax.setText(null);
-			} else {
-				double dTaxRate = taxeslogic.getTaxRate((TaxCategoryInfo) taxcatmodel.getSelectedItem());
-				m_jPriceSellTax.setText(Formats.CURRENCY.formatValue(dPriceSell * (1.0 + dTaxRate)));
-			}
-			reportlock = false;
-		}
-	}
-
-	private void calculateGP() {
-
-		if (!reportlock) {
-			reportlock = true;
-
-			Double dPriceBuy = readCurrency(m_jPriceBuy.getText());
-			Double dPriceSell = (Double) pricesell;
-
-			if (dPriceBuy == null || dPriceSell == null) {
-				m_jGrossProfit.setText(null);
-			} else {
-				m_jGrossProfit.setText(Formats.PERCENT.formatValue((dPriceSell - dPriceBuy) / dPriceSell));
-			}
-			reportlock = false;
-		}
-	}
-
-	private void calculatePriceSellfromMargin() {
-
-		if (!reportlock) {
-			reportlock = true;
-
-			Double dPriceBuy = readCurrency(m_jPriceBuy.getText());
-			Double dMargin = readPercent(m_jmargin.getText());
-
-			if (dMargin == null || dPriceBuy == null) {
-				setPriceSell(null);
-			} else {
-				setPriceSell(dPriceBuy * (1.0 + dMargin));
-			}
-
-			reportlock = false;
-		}
-
-	}
-
-	private void calculatePriceSellfromPST() {
-
-		if (!reportlock) {
-			reportlock = true;
-
-			Double dPriceSellTax = readCurrency(m_jPriceSellTax.getText());
-
-			if (dPriceSellTax == null) {
-				setPriceSell(null);
-			} else {
-				double dTaxRate = taxeslogic.getTaxRate((TaxCategoryInfo) taxcatmodel.getSelectedItem());
-				setPriceSell(dPriceSellTax / (1.0 + dTaxRate));
-			}
-
-			reportlock = false;
-		}
-	}
-
-	private void setPriceSell(Object value) {
-
-		if (!priceselllock) {
-			priceselllock = true;
-			pricesell = value;
-			m_jPriceSell.setText(Formats.CURRENCY.formatValue(pricesell));
-			priceselllock = false;
-		}
-	}
-
-	private class PriceSellManager implements DocumentListener {
-
-		@Override
-		public void changedUpdate(DocumentEvent e) {
-			if (!priceselllock) {
-				priceselllock = true;
-				pricesell = readCurrency(m_jPriceSell.getText());
-				priceselllock = false;
-			}
-			calculateMargin();
-			calculatePriceSellTax();
-			calculateGP();
-		}
-
-		@Override
-		public void insertUpdate(DocumentEvent e) {
-			if (!priceselllock) {
-				priceselllock = true;
-				pricesell = readCurrency(m_jPriceSell.getText());
-				priceselllock = false;
-			}
-			calculateMargin();
-			calculatePriceSellTax();
-			calculateGP();
-		}
-
-		@Override
-		public void removeUpdate(DocumentEvent e) {
-			if (!priceselllock) {
-				priceselllock = true;
-				pricesell = readCurrency(m_jPriceSell.getText());
-				priceselllock = false;
-			}
-			calculateMargin();
-			calculatePriceSellTax();
-			calculateGP();
-		}
-	}
-
-	private class FieldsManager implements DocumentListener, ActionListener {
-
-		@Override
-		public void changedUpdate(DocumentEvent e) {
-			calculateMargin();
-			calculatePriceSellTax();
-			calculateGP();
-
-		}
-
-		@Override
-		public void insertUpdate(DocumentEvent e) {
-			calculateMargin();
-			calculatePriceSellTax();
-			calculateGP();
-		}
-
-		@Override
-		public void removeUpdate(DocumentEvent e) {
-			calculateMargin();
-			calculatePriceSellTax();
-			calculateGP();
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			calculateMargin();
-			calculatePriceSellTax();
-			calculateGP();
-		}
-	}
-
-	private class PriceTaxManager implements DocumentListener {
-
-		@Override
-		public void changedUpdate(DocumentEvent e) {
-			calculatePriceSellfromPST();
-			calculateMargin();
-			calculateGP();
-		}
-
-		@Override
-		public void insertUpdate(DocumentEvent e) {
-			calculatePriceSellfromPST();
-			calculateMargin();
-			calculateGP();
-		}
-
-		@Override
-		public void removeUpdate(DocumentEvent e) {
-			calculatePriceSellfromPST();
-			calculateMargin();
-			calculateGP();
-		}
-	}
-
-	private class MarginManager implements DocumentListener {
-
-		@Override
-		public void changedUpdate(DocumentEvent e) {
-			calculatePriceSellfromMargin();
-			calculatePriceSellTax();
-			calculateGP();
-		}
-
-		@Override
-		public void insertUpdate(DocumentEvent e) {
-			calculatePriceSellfromMargin();
-			calculatePriceSellTax();
-			calculateGP();
-		}
-
-		@Override
-		public void removeUpdate(DocumentEvent e) {
-			calculatePriceSellfromMargin();
-			calculatePriceSellTax();
-			calculateGP();
-		}
-	}
-
-	private static Double readCurrency(String sValue) {
-		try {
-			return (Double) Formats.CURRENCY.parseValue(sValue);
-		} catch (BasicException e) {
-			return null;
-		}
-	}
-
-	private static Double readPercent(String sValue) {
-		try {
-			return (Double) Formats.PERCENT.parseValue(sValue);
-		} catch (BasicException e) {
-			return null;
-		}
-	}
-
-	/**
-	 * This method is called from within the constructor to initialize the form.
-	 * WARNING: Do NOT modify this code. The content of this method is always
-	 * regenerated by the Form Editor.
-	 */
+    private final SentenceList m_sentcat;
+    private ComboBoxValModel m_CategoryModel;
+
+    private final SentenceList taxcatsent;
+    private ComboBoxValModel taxcatmodel;
+
+    private final SentenceList attsent;
+    private ComboBoxValModel attmodel;
+
+    private final SentenceList taxsent;
+    private TaxesLogic taxeslogic;
+
+    private Object m_id;
+    private Object pricesell;
+    private boolean priceselllock = false;
+
+    private boolean reportlock = false;
+
+    private DataLogicSales dataLogicSales = null;
+
+    public ProductsEditor(DataLogicSales dlSales, DirtyManager dirty) {
+        initComponents();
+
+        taxsent = dlSales.getTaxList();
+        dataLogicSales = dlSales;
+
+        m_sentcat = dlSales.getCategoriesList();
+        m_CategoryModel = new ComboBoxValModel();
+
+        taxcatsent = dlSales.getTaxCategoriesList();
+        taxcatmodel = new ComboBoxValModel();
+
+        attsent = dlSales.getAttributeSetList();
+        attmodel = new ComboBoxValModel();
+
+        m_jRef.getDocument().addDocumentListener(dirty);
+        m_jCode.getDocument().addDocumentListener(dirty);
+        m_jCodetype.addActionListener(dirty);
+        m_jName.getDocument().addDocumentListener(dirty);
+        m_jPriceBuy.getDocument().addDocumentListener(dirty);
+        m_jPriceSell.getDocument().addDocumentListener(dirty);
+        m_jCategory.addActionListener(dirty);
+        m_jTax.addActionListener(dirty);
+        m_jAtt.addActionListener(dirty);
+        m_jstockcost.getDocument().addDocumentListener(dirty);
+        m_jstockvolume.getDocument().addDocumentListener(dirty);
+        m_jImage.addPropertyChangeListener("image", dirty);
+        m_jComment.addActionListener(dirty);
+        m_jScale.addActionListener(dirty);
+        m_jKitchen.addActionListener(dirty);
+        m_jPrintKB.addActionListener(dirty);
+        m_jSendStatus.addActionListener(dirty);
+        m_jService.addActionListener(dirty);
+        txtAttributes.getDocument().addDocumentListener(dirty);
+        m_jDisplay.getDocument().addDocumentListener(dirty);
+        m_jVprice.addActionListener(dirty);
+        m_jVerpatrib.addActionListener(dirty);
+        m_jTextTip.getDocument().addDocumentListener(dirty);
+        m_jCheckWarrantyReceipt.addActionListener(dirty);
+        m_jStockUnits.getDocument().putProperty(dlSales, 26);
+
+        m_jInCatalog.addActionListener(dirty);
+        m_jCatalogOrder.getDocument().addDocumentListener(dirty);
+
+        FieldsManager fm = new FieldsManager();
+        m_jPriceBuy.getDocument().addDocumentListener(fm);
+        m_jPriceSell.getDocument().addDocumentListener(new PriceSellManager());
+        m_jTax.addActionListener(fm);
+        m_jPriceSellTax.getDocument().addDocumentListener(new PriceTaxManager());
+        m_jmargin.getDocument().addDocumentListener(new MarginManager());
+        m_jGrossProfit.getDocument().addDocumentListener(new MarginManager());
+
+        writeValueEOF();
+    }
+
+    /**
+     *
+     * @throws BasicException
+     */
+    public void activate() throws BasicException {
+
+        // Load the taxes logic
+        taxeslogic = new TaxesLogic(taxsent.list());
+
+        m_CategoryModel = new ComboBoxValModel(m_sentcat.list());
+        m_jCategory.setModel(m_CategoryModel);
+
+        taxcatmodel = new ComboBoxValModel(taxcatsent.list());
+        m_jTax.setModel(taxcatmodel);
+
+        attmodel = new ComboBoxValModel(attsent.list());
+        attmodel.add(0, null);
+        m_jAtt.setModel(attmodel);
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void refresh() {
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void writeValueEOF() {
+
+        reportlock = true;
+
+        m_jTitle.setText(AppLocal.getIntString("label.recordeof"));
+        m_id = null;
+        m_jRef.setText(null);
+        m_jCode.setText(null);
+        m_jCodetype.setSelectedIndex(0);
+        m_jName.setText(null);
+        m_jPriceBuy.setText(null);
+        setPriceSell(null);
+        m_CategoryModel.setSelectedKey(null);
+        taxcatmodel.setSelectedKey(null);
+        attmodel.setSelectedKey(null);
+        m_jstockcost.setText("0.0");
+        m_jstockvolume.setText("0.0");
+        m_jImage.setImage(null);
+        m_jComment.setSelected(false);
+        m_jScale.setSelected(false);
+        m_jKitchen.setSelected(false);
+        m_jPrintKB.setSelected(false);
+        m_jSendStatus.setSelected(false);
+        m_jService.setSelected(false);
+        txtAttributes.setText(null);
+        m_jDisplay.setText(null);
+        m_jVprice.setSelected(false);
+        m_jVerpatrib.setSelected(false);
+        m_jTextTip.setText(null);
+        m_jCheckWarrantyReceipt.setSelected(false);
+        m_jStockUnits.setVisible(false);
+
+        m_jInCatalog.setSelected(false);
+        m_jCatalogOrder.setText(null);
+
+        reportlock = false;
+
+        m_jRef.setEnabled(false);
+        m_jCode.setEnabled(false);
+        m_jCodetype.setEnabled(false);
+        m_jName.setEnabled(false);
+        m_jPriceBuy.setEnabled(false);
+        m_jPriceSell.setEnabled(false);
+        m_jCategory.setEnabled(false);
+        m_jTax.setEnabled(false);
+        m_jAtt.setEnabled(false);
+        m_jstockcost.setEnabled(false);
+        m_jstockvolume.setEnabled(false);
+        m_jImage.setEnabled(false);
+        m_jComment.setEnabled(false);
+        m_jScale.setEnabled(false);
+        m_jKitchen.setEnabled(false);
+        m_jPrintKB.setVisible(false);
+        m_jSendStatus.setVisible(false);
+        m_jService.setEnabled(false);
+        txtAttributes.setEnabled(false);
+        m_jDisplay.setEnabled(false);
+        m_jVprice.setEnabled(false);
+        m_jVerpatrib.setEnabled(false);
+        m_jTextTip.setEnabled(false);
+        m_jCheckWarrantyReceipt.setEnabled(false);
+        m_jStockUnits.setVisible(false);
+
+        m_jInCatalog.setEnabled(false);
+        m_jCatalogOrder.setEnabled(false);
+
+        m_jPriceSellTax.setEnabled(false);
+        m_jmargin.setEnabled(false);
+
+        calculateMargin();
+        calculatePriceSellTax();
+        calculateGP();
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void writeValueInsert() {
+
+        reportlock = true;
+
+        m_jTitle.setText(AppLocal.getIntString("label.recordnew"));
+
+        m_id = UUID.randomUUID().toString();
+        m_jRef.setText(null);
+        m_jCode.setText(null);
+        m_jCodetype.setSelectedIndex(0);
+        m_jName.setText(null);
+        m_jPriceBuy.setText(null);
+        setPriceSell(null);
+        m_CategoryModel.setSelectedKey(null);
+        taxcatmodel.setSelectedKey(null);
+        attmodel.setSelectedKey(null);
+        m_jstockcost.setText("0.0");
+        m_jstockvolume.setText("0.0");
+        m_jImage.setImage(null);
+        m_jComment.setSelected(false);
+        m_jScale.setSelected(false);
+        m_jKitchen.setSelected(false);
+        m_jPrintKB.setSelected(false);
+        m_jSendStatus.setSelected(false);
+        m_jService.setSelected(false);
+        txtAttributes.setText(null);
+        m_jDisplay.setText(null);
+        m_jVprice.setSelected(false);
+        m_jVerpatrib.setSelected(false);
+        m_jTextTip.setText(null);
+        m_jCheckWarrantyReceipt.setSelected(false);
+        m_jStockUnits.setVisible(false);
+
+        m_jInCatalog.setSelected(true);
+        m_jCatalogOrder.setText(null);
+
+        reportlock = false;
+
+        m_jRef.setEnabled(true);
+        m_jCode.setEnabled(true);
+        m_jCodetype.setEnabled(true);
+        m_jName.setEnabled(true);
+        m_jPriceBuy.setEnabled(true);
+        m_jPriceSell.setEnabled(true);
+        m_jCategory.setEnabled(true);
+        m_jTax.setEnabled(true);
+        m_jAtt.setEnabled(true);
+        m_jstockcost.setEnabled(true);
+        m_jstockvolume.setEnabled(true);
+        m_jImage.setEnabled(true);
+        m_jComment.setEnabled(true);
+        m_jScale.setEnabled(true);
+        m_jKitchen.setEnabled(true);
+        m_jPrintKB.setVisible(false);
+        m_jSendStatus.setVisible(false);
+        m_jService.setEnabled(true);
+        txtAttributes.setEnabled(true);
+        m_jDisplay.setEnabled(true);
+        m_jVprice.setEnabled(true);
+        m_jVerpatrib.setEnabled(true);
+        m_jTextTip.setEnabled(true);
+        m_jCheckWarrantyReceipt.setEnabled(true);
+        m_jStockUnits.setVisible(false);
+
+        m_jPriceSellTax.setEnabled(true);
+        m_jmargin.setEnabled(true);
+
+        m_jInCatalog.setEnabled(true);
+        m_jCatalogOrder.setEnabled(false);
+
+        calculateMargin();
+        calculatePriceSellTax();
+        calculateGP();
+    }
+
+    /**
+     *
+     * @return myprod
+     * @throws BasicException
+     */
+    @Override
+    public Object createValue() throws BasicException {
+
+        Object[] myprod = new Object[28];
+        myprod[0] = m_id;
+        myprod[1] = m_jRef.getText();
+        myprod[2] = m_jCode.getText();
+        myprod[3] = m_jCodetype.getSelectedItem();
+        myprod[4] = m_jName.getText();
+        myprod[5] = Formats.CURRENCY.parseValue(m_jPriceBuy.getText());
+        myprod[6] = pricesell;
+        myprod[7] = m_CategoryModel.getSelectedKey();
+        myprod[8] = taxcatmodel.getSelectedKey();
+        myprod[9] = attmodel.getSelectedKey();
+        myprod[10] = Formats.CURRENCY.parseValue(m_jstockcost.getText());
+        myprod[11] = Formats.DOUBLE.parseValue(m_jstockvolume.getText());
+        myprod[12] = m_jImage.getImage();
+        myprod[13] = m_jComment.isSelected();
+        myprod[14] = m_jScale.isSelected();
+        myprod[15] = m_jKitchen.isSelected();
+        myprod[16] = m_jPrintKB.isSelected();
+        myprod[17] = m_jSendStatus.isSelected();
+        myprod[18] = m_jService.isSelected();
+        myprod[19] = Formats.BYTEA.parseValue(txtAttributes.getText());
+        myprod[20] = m_jDisplay.getText();
+        myprod[21] = m_jVprice.isSelected();
+        myprod[22] = m_jVerpatrib.isSelected();
+        myprod[23] = m_jTextTip.getText();
+        myprod[24] = m_jCheckWarrantyReceipt.isSelected();
+        myprod[25] = Formats.DOUBLE.parseValue(m_jStockUnits.getText());
+
+        myprod[26] = m_jInCatalog.isSelected();
+        myprod[27] = Formats.INT.parseValue(m_jCatalogOrder.getText());
+
+        return myprod;
+
+    }
+
+    /**
+     *
+     * @param value
+     */
+    @Override
+    public void writeValueEdit(Object value) {
+
+        reportlock = true;
+        Object[] myprod = (Object[]) value;
+        m_jTitle.setText(Formats.STRING.formatValue(myprod[1]) + " - " + Formats.STRING.formatValue(myprod[4]));
+        m_id = myprod[0];
+        m_jRef.setText(Formats.STRING.formatValue(myprod[1]));
+        m_jCode.setText(Formats.STRING.formatValue(myprod[2]));
+        m_jCodetype.setSelectedItem(myprod[3]);
+        m_jName.setText(Formats.STRING.formatValue(myprod[4]));
+        m_jPriceBuy.setText(Formats.CURRENCY.formatValue(myprod[5]));
+        setPriceSell(myprod[6]);
+        m_CategoryModel.setSelectedKey(myprod[7]);
+        taxcatmodel.setSelectedKey(myprod[8]);
+        attmodel.setSelectedKey(myprod[9]);
+        m_jstockcost.setText(Formats.CURRENCY.formatValue(myprod[10]));
+        m_jstockvolume.setText(Formats.DOUBLE.formatValue(myprod[11]));
+        m_jImage.setImage((BufferedImage) myprod[12]);
+        m_jComment.setSelected(((Boolean) myprod[13]));
+        m_jScale.setSelected(((Boolean) myprod[14]));
+        m_jKitchen.setSelected(((Boolean) myprod[15]));
+        m_jPrintKB.setSelected(((Boolean) myprod[16]));
+        m_jSendStatus.setSelected(((Boolean) myprod[17]));
+        m_jService.setSelected(((Boolean) myprod[18]));
+        txtAttributes.setText(Formats.BYTEA.formatValue(myprod[19]));
+        m_jDisplay.setText(Formats.STRING.formatValue(myprod[20]));
+        m_jVprice.setSelected(((Boolean) myprod[21]));
+        m_jVerpatrib.setSelected(((Boolean) myprod[22]));
+        m_jTextTip.setText(Formats.STRING.formatValue(myprod[23]));
+        m_jCheckWarrantyReceipt.setSelected(((Boolean) myprod[24]));
+        m_jStockUnits.setText(Formats.DOUBLE.formatValue(0.0));
+
+        m_jInCatalog.setSelected(((Boolean) myprod[26]));
+        m_jCatalogOrder.setText(Formats.INT.formatValue(myprod[27]));
+
+        txtAttributes.setCaretPosition(0);
+
+        reportlock = false;
+
+        m_jRef.setEnabled(true);
+        m_jCode.setEnabled(true);
+        m_jCodetype.setEnabled(true);
+        m_jName.setEnabled(true);
+        m_jPriceBuy.setEnabled(true);
+        m_jPriceSell.setEnabled(true);
+        m_jCategory.setEnabled(true);
+        m_jTax.setEnabled(true);
+        m_jAtt.setEnabled(true);
+        m_jstockcost.setEnabled(true);
+        m_jstockvolume.setEnabled(true);
+        m_jImage.setEnabled(true);
+        m_jComment.setEnabled(true);
+        m_jScale.setEnabled(true);
+        m_jKitchen.setEnabled(true);
+        m_jPrintKB.setVisible(false);
+        m_jSendStatus.setVisible(false);
+        m_jService.setEnabled(true);
+        txtAttributes.setEnabled(true);
+        m_jDisplay.setEnabled(true);
+        m_jSendStatus.setEnabled(true);
+        m_jVerpatrib.setEnabled(true);
+        m_jTextTip.setEnabled(true);
+        m_jCheckWarrantyReceipt.setEnabled(true);
+        m_jStockUnits.setVisible(false);
+
+        m_jInCatalog.setEnabled(true);
+        m_jCatalogOrder.setEnabled(m_jInCatalog.isSelected());
+
+        m_jPriceSellTax.setEnabled(true);
+        m_jmargin.setEnabled(true);
+
+        setButtonHTML();
+        calculateMargin();
+        calculatePriceSellTax();
+        calculateGP();
+
+        try {
+            int unit = (int) dataLogicSales.findProductStock("0", (String) m_id, null);
+            product_unit.setText(Integer.toString(unit));
+        } catch (BasicException ex) {
+            Logger.getLogger(ProductsEditor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     *
+     * @param value
+     */
+    @Override
+    public void writeValueDelete(Object value) {
+
+        reportlock = true;
+        Object[] myprod = (Object[]) value;
+        m_jTitle.setText(Formats.STRING.formatValue(myprod[1]) + " - " + Formats.STRING.formatValue(myprod[4]) + " " + AppLocal.getIntString("label.recorddeleted"));
+        m_id = myprod[0];
+        m_jRef.setText(Formats.STRING.formatValue(myprod[1]));
+        m_jCode.setText(Formats.STRING.formatValue(myprod[2]));
+        m_jCodetype.setSelectedItem(myprod[3]);
+        m_jName.setText(Formats.STRING.formatValue(myprod[4]));
+        m_jPriceBuy.setText(Formats.CURRENCY.formatValue(myprod[5]));
+        setPriceSell(myprod[6]);
+        m_CategoryModel.setSelectedKey(myprod[7]);
+        taxcatmodel.setSelectedKey(myprod[8]);
+        attmodel.setSelectedKey(myprod[9]);
+        m_jstockcost.setText(Formats.CURRENCY.formatValue(myprod[10]));
+        m_jstockvolume.setText(Formats.DOUBLE.formatValue(myprod[11]));
+        m_jImage.setImage((BufferedImage) myprod[12]);
+        m_jComment.setSelected(((Boolean) myprod[13]));
+        m_jScale.setSelected(((Boolean) myprod[14]));
+        m_jKitchen.setSelected(((Boolean) myprod[15]));
+        m_jPrintKB.setSelected(((Boolean) myprod[16]));
+        m_jSendStatus.setSelected(((Boolean) myprod[17]));
+        m_jService.setSelected(((Boolean) myprod[18]));
+        txtAttributes.setText(Formats.BYTEA.formatValue(myprod[19]));
+        m_jDisplay.setText(Formats.STRING.formatValue(myprod[20]));
+        m_jVprice.setSelected(((Boolean) myprod[21]));
+        m_jVerpatrib.setSelected(((Boolean) myprod[22]));
+        m_jTextTip.setText(Formats.STRING.formatValue(myprod[23]));
+        m_jCheckWarrantyReceipt.setSelected(((Boolean) myprod[24]));
+        m_jStockUnits.setText(Formats.DOUBLE.formatValue(myprod[25]));
+
+        m_jInCatalog.setSelected(((Boolean) myprod[26]));
+        m_jCatalogOrder.setText(Formats.INT.formatValue(myprod[27]));
+
+        txtAttributes.setCaretPosition(0);
+
+        reportlock = false;
+
+        m_jRef.setEnabled(false);
+        m_jCode.setEnabled(false);
+        m_jCodetype.setEnabled(false);
+        m_jName.setEnabled(false);
+        m_jPriceBuy.setEnabled(false);
+        m_jPriceSell.setEnabled(false);
+        m_jCategory.setEnabled(false);
+        m_jTax.setEnabled(false);
+        m_jAtt.setEnabled(false);
+        m_jstockcost.setEnabled(false);
+        m_jstockvolume.setEnabled(false);
+        m_jImage.setEnabled(false);
+        m_jComment.setEnabled(false);
+        m_jScale.setEnabled(false);
+        m_jKitchen.setEnabled(false);
+        m_jPrintKB.setVisible(false);
+        m_jSendStatus.setVisible(false);
+        m_jService.setEnabled(true);
+        txtAttributes.setEnabled(false);
+        m_jDisplay.setEnabled(false);
+        m_jVprice.setEnabled(false);
+        m_jVerpatrib.setEnabled(false);
+        m_jTextTip.setEnabled(false);
+        m_jCheckWarrantyReceipt.setEnabled(false);
+        m_jStockUnits.setVisible(false);
+
+        m_jInCatalog.setEnabled(false);
+        m_jCatalogOrder.setEnabled(false);
+
+        m_jPriceSellTax.setEnabled(false);
+        m_jmargin.setEnabled(false);
+
+        calculateMargin();
+        calculatePriceSellTax();
+        calculateGP();
+    }
+
+    /**
+     *
+     * @return this
+     */
+    @Override
+    public Component getComponent() {
+        return this;
+    }
+
+    private void setCode() {
+        Long lDateTime = new Date().getTime(); // USED FOR RANDOM CODE DETAILS
+        if (!reportlock) {
+            reportlock = true;
+            if (m_jRef == null) {
+                m_jCode.setText(Long.toString(lDateTime));
+            } else if (m_jCode.getText() == null || "".equals(m_jCode.getText())) {
+                m_jCode.setText(m_jRef.getText());
+            }
+            reportlock = false;
+        }
+    }
+
+// ADDED JG 19 NOV 12 - AUTOFILL BUTTON
+// AMENDED JDL 11 MAY 12 - STOP AUTOFILL IF FIELD ALREADY EXSISTS
+    private void setDisplay() {
+
+        String str = (m_jName.getText());
+        int length = str.length();
+
+        if (!reportlock) {
+            reportlock = true;
+
+            if (length == 0) {
+                m_jDisplay.setText(m_jName.getText());
+            } else if (m_jDisplay.getText() == null || "".equals(m_jDisplay.getText())) {
+                m_jDisplay.setText("<html>" + m_jName.getText());
+            }
+            reportlock = false;
+        }
+    }
+// ADDED JG 20 Jul 13 - AUTOFILL HTML BUTTON
+
+    private void setButtonHTML() {
+
+        String str = (m_jDisplay.getText());
+        int length = str.length();
+
+        if (!reportlock) {
+            reportlock = true;
+
+            if (length == 0) {
+                jButtonHTML.setText("Click Me");
+            } else {
+                jButtonHTML.setText(m_jDisplay.getText());
+            }
+            reportlock = false;
+        }
+    }
+
+    private void calculateMargin() {
+
+        if (!reportlock) {
+            reportlock = true;
+
+            Double dPriceBuy = readCurrency(m_jPriceBuy.getText());
+            Double dPriceSell = (Double) pricesell;
+
+            if (dPriceBuy == null || dPriceSell == null) {
+                m_jmargin.setText(null);
+            } else {
+                m_jmargin.setText(Formats.PERCENT.formatValue(dPriceSell / dPriceBuy - 1.0));
+            }
+            reportlock = false;
+        }
+    }
+
+    private void calculatePriceSellTax() {
+
+        if (!reportlock) {
+            reportlock = true;
+
+            Double dPriceSell = (Double) pricesell;
+
+            if (dPriceSell == null) {
+                m_jPriceSellTax.setText(null);
+            } else {
+                double dTaxRate = taxeslogic.getTaxRate((TaxCategoryInfo) taxcatmodel.getSelectedItem());
+                m_jPriceSellTax.setText(Formats.CURRENCY.formatValue(dPriceSell * (1.0 + dTaxRate)));
+            }
+            reportlock = false;
+        }
+    }
+
+    private void calculateGP() {
+
+        if (!reportlock) {
+            reportlock = true;
+
+            Double dPriceBuy = readCurrency(m_jPriceBuy.getText());
+            Double dPriceSell = (Double) pricesell;
+
+            if (dPriceBuy == null || dPriceSell == null) {
+                m_jGrossProfit.setText(null);
+            } else {
+                m_jGrossProfit.setText(Formats.PERCENT.formatValue((dPriceSell - dPriceBuy) / dPriceSell));
+            }
+            reportlock = false;
+        }
+    }
+
+    private void calculatePriceSellfromMargin() {
+
+        if (!reportlock) {
+            reportlock = true;
+
+            Double dPriceBuy = readCurrency(m_jPriceBuy.getText());
+            Double dMargin = readPercent(m_jmargin.getText());
+
+            if (dMargin == null || dPriceBuy == null) {
+                setPriceSell(null);
+            } else {
+                setPriceSell(dPriceBuy * (1.0 + dMargin));
+            }
+
+            reportlock = false;
+        }
+
+    }
+
+    private void calculatePriceSellfromPST() {
+
+        if (!reportlock) {
+            reportlock = true;
+
+            Double dPriceSellTax = readCurrency(m_jPriceSellTax.getText());
+
+            if (dPriceSellTax == null) {
+                setPriceSell(null);
+            } else {
+                double dTaxRate = taxeslogic.getTaxRate((TaxCategoryInfo) taxcatmodel.getSelectedItem());
+                setPriceSell(dPriceSellTax / (1.0 + dTaxRate));
+            }
+
+            reportlock = false;
+        }
+    }
+
+    private void setPriceSell(Object value) {
+
+        if (!priceselllock) {
+            priceselllock = true;
+            pricesell = value;
+            m_jPriceSell.setText(Formats.CURRENCY.formatValue(pricesell));
+            priceselllock = false;
+        }
+    }
+
+    private class PriceSellManager implements DocumentListener {
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            if (!priceselllock) {
+                priceselllock = true;
+                pricesell = readCurrency(m_jPriceSell.getText());
+                priceselllock = false;
+            }
+            calculateMargin();
+            calculatePriceSellTax();
+            calculateGP();
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            if (!priceselllock) {
+                priceselllock = true;
+                pricesell = readCurrency(m_jPriceSell.getText());
+                priceselllock = false;
+            }
+            calculateMargin();
+            calculatePriceSellTax();
+            calculateGP();
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            if (!priceselllock) {
+                priceselllock = true;
+                pricesell = readCurrency(m_jPriceSell.getText());
+                priceselllock = false;
+            }
+            calculateMargin();
+            calculatePriceSellTax();
+            calculateGP();
+        }
+    }
+
+    private class FieldsManager implements DocumentListener, ActionListener {
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            calculateMargin();
+            calculatePriceSellTax();
+            calculateGP();
+
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            calculateMargin();
+            calculatePriceSellTax();
+            calculateGP();
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            calculateMargin();
+            calculatePriceSellTax();
+            calculateGP();
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            calculateMargin();
+            calculatePriceSellTax();
+            calculateGP();
+        }
+    }
+
+    private class PriceTaxManager implements DocumentListener {
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            calculatePriceSellfromPST();
+            calculateMargin();
+            calculateGP();
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            calculatePriceSellfromPST();
+            calculateMargin();
+            calculateGP();
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            calculatePriceSellfromPST();
+            calculateMargin();
+            calculateGP();
+        }
+    }
+
+    private class MarginManager implements DocumentListener {
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            calculatePriceSellfromMargin();
+            calculatePriceSellTax();
+            calculateGP();
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            calculatePriceSellfromMargin();
+            calculatePriceSellTax();
+            calculateGP();
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            calculatePriceSellfromMargin();
+            calculatePriceSellTax();
+            calculateGP();
+        }
+    }
+
+    private static Double readCurrency(String sValue) {
+        try {
+            return (Double) Formats.CURRENCY.parseValue(sValue);
+        } catch (BasicException e) {
+            return null;
+        }
+    }
+
+    private static Double readPercent(String sValue) {
+        try {
+            return (Double) Formats.PERCENT.parseValue(sValue);
+        } catch (BasicException e) {
+            return null;
+        }
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -810,11 +822,13 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         m_jPriceBuy = new javax.swing.JTextField();
         m_jVerpatrib = new javax.swing.JCheckBox();
         m_jTextTip = new javax.swing.JTextField();
-        jLabel21 = new javax.swing.JLabel();
+        product_unit = new javax.swing.JLabel();
         m_jCheckWarrantyReceipt = new javax.swing.JCheckBox();
         m_jGrossProfit = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         m_jTitle = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         m_jstockcost = new javax.swing.JTextField();
@@ -1017,10 +1031,10 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         jPanel1.add(m_jTextTip);
         m_jTextTip.setBounds(190, 250, 370, 25);
 
-        jLabel21.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
-        jLabel21.setText(bundle.getString("label.texttip")); // NOI18N
-        jPanel1.add(jLabel21);
-        jLabel21.setBounds(10, 250, 170, 25);
+        product_unit.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
+        product_unit.setText("0");
+        jPanel1.add(product_unit);
+        product_unit.setBounds(600, 40, 110, 25);
 
         m_jCheckWarrantyReceipt.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         m_jCheckWarrantyReceipt.setText(bundle.getString("label.productreceipt")); // NOI18N
@@ -1048,7 +1062,17 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         m_jTitle.setFont(new java.awt.Font("Saysettha OT", 1, 16)); // NOI18N
         m_jTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jPanel1.add(m_jTitle);
-        m_jTitle.setBounds(380, 10, 240, 20);
+        m_jTitle.setBounds(380, 10, 390, 20);
+
+        jLabel33.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
+        jLabel33.setText(bundle.getString("label.texttip")); // NOI18N
+        jPanel1.add(jLabel33);
+        jLabel33.setBounds(10, 250, 170, 25);
+
+        jLabel34.setFont(new java.awt.Font("Saysettha OT", 1, 16)); // NOI18N
+        jLabel34.setText(bundle.getString("label.stock_unit")); // NOI18N
+        jPanel1.add(jLabel34);
+        jLabel34.setBounds(470, 40, 130, 25);
 
         jTabbedPane1.addTab(AppLocal.getIntString("label.prodgeneral"), jPanel1); // NOI18N
 
@@ -1317,12 +1341,12 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
     private void m_jInCatalogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jInCatalogActionPerformed
 
-		if (m_jInCatalog.isSelected()) {
-			m_jCatalogOrder.setEnabled(true);
-		} else {
-			m_jCatalogOrder.setEnabled(false);
-			m_jCatalogOrder.setText(null);
-		}
+        if (m_jInCatalog.isSelected()) {
+            m_jCatalogOrder.setEnabled(true);
+        } else {
+            m_jCatalogOrder.setEnabled(false);
+            m_jCatalogOrder.setText(null);
+        }
 
     }//GEN-LAST:event_m_jInCatalogActionPerformed
 
@@ -1336,12 +1360,12 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
     private void m_jRefFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m_jRefFocusLost
 // ADDED JG 19 NOV 12 - AUTOFILL CODE FIELD AS CANNOT BE NOT NULL
-		setCode();
+        setCode();
     }//GEN-LAST:event_m_jRefFocusLost
 
     private void m_jNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m_jNameFocusLost
 // ADDED JG 19 NOV 12 - AUTOFILL
-		setDisplay();
+        setDisplay();
     }//GEN-LAST:event_m_jNameFocusLost
 
     private void none(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_none
@@ -1353,7 +1377,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
     }//GEN-LAST:event_m_jCheckWarrantyReceiptActionPerformed
 
     private void jButtonHTMLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonHTMLMouseClicked
-		setButtonHTML();
+        setButtonHTML();
     }//GEN-LAST:event_jButtonHTMLMouseClicked
 
     private void jButtonHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHTMLActionPerformed
@@ -1361,13 +1385,12 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
     }//GEN-LAST:event_jButtonHTMLActionPerformed
 
     private void jLabel32MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel32MouseDragged
-		// TODO for later
+        // TODO for later
     }//GEN-LAST:event_jLabel32MouseDragged
 
     private void m_jCodetypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jCodetypeActionPerformed
-		// TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_m_jCodetypeActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonHTML;
@@ -1384,7 +1407,6 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -1397,6 +1419,8 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1442,6 +1466,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
     private javax.swing.JTextField m_jmargin;
     private javax.swing.JTextField m_jstockcost;
     private javax.swing.JTextField m_jstockvolume;
+    private javax.swing.JLabel product_unit;
     private javax.swing.JTextArea txtAttributes;
     // End of variables declaration//GEN-END:variables
 

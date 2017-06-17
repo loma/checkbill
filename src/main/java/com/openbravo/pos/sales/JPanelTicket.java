@@ -814,7 +814,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                             oProduct.setProperty("product.barcode", sCode);
                             double dPriceSell = oProduct.getPriceSell();
                             double weight = 1;
-                            String sVariableTypePrefix = sCode.substring(0, 2);
+                            String sVariableTypePrefix = "";//sCode.substring(0, 2);
                             String sVariableNum = sCode.substring(8, 12);
                             switch (sVariableTypePrefix) {
                                 case "20":
