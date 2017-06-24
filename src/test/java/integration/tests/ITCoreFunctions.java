@@ -13,9 +13,9 @@ public class ITCoreFunctions {
     @BeforeClass
     public static void launchApp() throws Exception {
         System.out.println("Launching Java App");
-        String[] arguments = new String[]{"~/checkbill.properties"};
+        String[] arguments = new String[]{"/Users/loma/checkbill.properties"};
         StartPOS.main(arguments);
-        Thread.sleep(5000);
+        Thread.sleep(30000);
 
         final Swinger forSwingWindow = Swinger.getUserWith(StartPOS.root);
 
