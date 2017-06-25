@@ -86,7 +86,9 @@ public class DataLogicSales extends BeanFactoryDataSingle {
             new Field("WARRANTY", Datas.BOOLEAN, Formats.BOOLEAN),
             new Field(AppLocal.getIntString("label.stockunits"), Datas.DOUBLE, Formats.DOUBLE),
             new Field("ISCATALOG", Datas.BOOLEAN, Formats.BOOLEAN),
-            new Field("CATORDER", Datas.INT, Formats.INT)
+            new Field("CATORDER", Datas.INT, Formats.INT),
+            new Field("BUNDLE_SELL_PRICE", Datas.DOUBLE, Formats.DOUBLE),
+            new Field("BUNDLE_UNITS", Datas.DOUBLE, Formats.DOUBLE)
         );
     }
 
@@ -623,9 +625,10 @@ public class DataLogicSales extends BeanFactoryDataSingle {
             + "P.ISSCALE, " + "P.ISKITCHEN, " + "P.PRINTKB, " + "P.SENDSTATUS, " + "P.ISSERVICE, "
             + "P.ATTRIBUTES, " + "P.DISPLAY, " + "P.ISVPRICE, " + "P.ISVERPATRIB, " + "P.TEXTTIP, "
             + "P.WARRANTY, " + "P.STOCKUNITS, " + "CASE WHEN " + "C.PRODUCT IS NULL " + "THEN " + s.DB.FALSE()
-            + " ELSE " + s.DB.TRUE() + " END, " + "C.CATORDER " + "FROM PRODUCTS P LEFT OUTER JOIN PRODUCTS_CAT C "
+            + " ELSE " + s.DB.TRUE() + " END, " + "C.CATORDER, P.BUNDLE_SELL_PRICE, P.BUNDLE_UNITS " + "FROM PRODUCTS P LEFT OUTER JOIN PRODUCTS_CAT C "
             + "ON P.ID = C.PRODUCT " + "WHERE ?(QBF_FILTER) " + "ORDER BY P.REFERENCE", new String[]{"P.NAME",
-                "P.PRICEBUY", "P.PRICESELL", "P.CATEGORY", "P.CODE"}), new SerializerWriteBasic(new Datas[]{
+                "P.PRICEBUY", "P.PRICESELL", "P.CATEGORY", "P.CODE"}), 
+            new SerializerWriteBasic(new Datas[]{
             Datas.OBJECT, Datas.STRING, Datas.OBJECT, Datas.DOUBLE, Datas.OBJECT, Datas.DOUBLE, Datas.OBJECT,
             Datas.STRING, Datas.OBJECT, Datas.STRING}), productsRow.getSerializerRead());
     }
@@ -635,14 +638,24 @@ public class DataLogicSales extends BeanFactoryDataSingle {
             @Override
             public int execInTransaction(Object params) throws BasicException {
                 Object[] values = (Object[]) params;
+
+                boolean hasBundle = values.length >= 30;
+                
                 int i = new PreparedSentence(s, "INSERT INTO PRODUCTS ( " + "ID, " + "REFERENCE, " + "CODE, "
                     + "CODETYPE, " + "NAME, " + "PRICEBUY, " + "PRICESELL, " + "CATEGORY, " + "TAXCAT, "
                     + "ATTRIBUTESET_ID, " + "STOCKCOST, " + "STOCKVOLUME, " + "IMAGE, " + "ISCOM, " + "ISSCALE, "
                     + "ISKITCHEN, " + "PRINTKB, " + "SENDSTATUS, " + "ISSERVICE, " + "ATTRIBUTES, " + "DISPLAY, "
-                    + "ISVPRICE, " + "ISVERPATRIB, " + "TEXTTIP, " + "WARRANTY, " + "STOCKUNITS) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                    new SerializerWriteBasicExt(productsRow.getDatas(),
-                        new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25})).exec(params);
+                    + "ISVPRICE, " + "ISVERPATRIB, " + "TEXTTIP, " + "WARRANTY, " + "STOCKUNITS "+ 
+                    (hasBundle ? ", BUNDLE_SELL_PRICE, BUNDLE_UNITS" : "")
+                    +") "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?" +
+                    (hasBundle ? ", ?, ?" : "")
+                    +")",
+                    new SerializerWriteBasicExt(productsRow.getDatas(), 
+                        (hasBundle ? 
+                            new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 28, 29} :
+                            new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25}) 
+                        )).exec(params);
                 new PreparedSentence(s, "INSERT INTO STOCKCURRENT (LOCATION, PRODUCT, UNITS) VALUES ('0', ?, 0.0)",
                     new SerializerWriteBasicExt(productsRow.getDatas(),
                         new int[]{0})).exec(params);
@@ -662,16 +675,24 @@ public class DataLogicSales extends BeanFactoryDataSingle {
             @Override
             public int execInTransaction(Object params) throws BasicException {
                 Object[] values = (Object[]) params;
+
+                boolean hasBundle = values.length >= 30;
+
                 int i = new PreparedSentence(s, "UPDATE PRODUCTS SET " + "ID = ?, " + "REFERENCE = ?, " + "CODE = ?, "
                     + "CODETYPE = ?, " + "NAME = ?, " + "PRICEBUY = ?, " + "PRICESELL = ?, " + "CATEGORY = ?, "
                     + "TAXCAT = ?, " + "ATTRIBUTESET_ID = ?, " + "STOCKCOST = ?, " + "STOCKVOLUME = ?, "
                     + "IMAGE = ?, " + "ISCOM = ?, " + "ISSCALE = ?, " + "ISKITCHEN = ?, " + "PRINTKB = ?, "
                     + "SENDSTATUS = ?, " + "ISSERVICE = ?, " + "ATTRIBUTES = ?, " + "DISPLAY = ?, "
                     + "ISVPRICE = ?, " + "ISVERPATRIB = ?, " + "TEXTTIP = ?, " + "WARRANTY = ?, "
-                    + "STOCKUNITS = ? " + "WHERE ID = ?",
+                    + "STOCKUNITS = ? " 
+                    + (hasBundle ? ", BUNDLE_SELL_PRICE = ?, BUNDLE_UNITS = ? " : "")
+                    + " WHERE ID = ?",
                     new SerializerWriteBasicExt(productsRow.getDatas(),
-                        new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-                            23, 24, 25, 0})).exec(params);
+                        (hasBundle ? 
+                            new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 28, 29, 0} :
+                            new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 0}
+                        )
+                    )).exec(params);
 
                 if (i > 0) {
                     if (((Boolean) values[26])) {

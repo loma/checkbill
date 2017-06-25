@@ -95,6 +95,9 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         m_jmargin.getDocument().addDocumentListener(new MarginManager());
         m_jGrossProfit.getDocument().addDocumentListener(new MarginManager());
 
+        m_jBundleUnit.getDocument().addDocumentListener(dirty);
+        m_jPriceSellBundle.getDocument().addDocumentListener(dirty);
+        
         writeValueEOF();
     }
 
@@ -290,7 +293,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
     @Override
     public Object createValue() throws BasicException {
 
-        Object[] myprod = new Object[28];
+        Object[] myprod = new Object[30];
         myprod[0] = m_id;
         myprod[1] = m_jRef.getText();
         myprod[2] = m_jCode.getText();
@@ -320,6 +323,9 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
         myprod[26] = m_jInCatalog.isSelected();
         myprod[27] = Formats.INT.parseValue(m_jCatalogOrder.getText());
+
+        myprod[28] = Formats.DOUBLE.parseValue(m_jPriceSellBundle.getText());
+        myprod[29] = Formats.DOUBLE.parseValue(m_jBundleUnit.getText());
 
         return myprod;
 
@@ -364,6 +370,9 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
         m_jInCatalog.setSelected(((Boolean) myprod[26]));
         m_jCatalogOrder.setText(Formats.INT.formatValue(myprod[27]));
+
+        m_jPriceSellBundle.setText(Formats.DOUBLE.formatValue(myprod[28]));
+        m_jBundleUnit.setText(Formats.DOUBLE.formatValue(myprod[29]));
 
         txtAttributes.setCaretPosition(0);
 
