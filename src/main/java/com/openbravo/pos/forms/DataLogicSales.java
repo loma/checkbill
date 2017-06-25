@@ -160,7 +160,8 @@ public class DataLogicSales extends BeanFactoryDataSingle {
             + "P.NAME, " + "P.PRICEBUY, " + "P.PRICESELL, " + "P.CATEGORY, " + "P.TAXCAT, " + "P.ATTRIBUTESET_ID, "
             + "P.STOCKCOST, " + "P.STOCKVOLUME, " + "P.IMAGE, " + "P.ISCOM, " + "P.ISSCALE, " + "P.ISKITCHEN, "
             + "P.PRINTKB, " + "P.SENDSTATUS, " + "P.ISSERVICE, " + "P.ATTRIBUTES, " + "P.DISPLAY, "
-            + "P.ISVPRICE, " + "P.ISVERPATRIB, " + "P.TEXTTIP, " + "P.WARRANTY, " + "P.STOCKUNITS "
+            + "P.ISVPRICE, " + "P.ISVERPATRIB, " + "P.TEXTTIP, " + "P.WARRANTY, " + "P.STOCKUNITS, "
+            + "P.BUNDLE_SELL_PRICE, P.BUNDLE_UNITS "
             + "FROM PRODUCTS P, PRODUCTS_CAT O " + "WHERE P.ID = O.PRODUCT AND P.CATEGORY = ? "
             + "ORDER BY O.CATORDER, P.NAME ", SerializerWriteString.INSTANCE, ProductInfoExt.getSerializerRead())
             .list(category);
@@ -474,6 +475,16 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                     s,
                     "INSERT INTO TICKETLINES (TICKET, LINE, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, TAXID, ATTRIBUTES) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                     SerializerWriteBuilder.INSTANCE);
+
+                //convert all bundle ticket line to be single items
+                for (TicketLineInfo l : ticket.getLines()) {
+                    if (l.getProductID().contains("_BUNDLE")) {
+                        l.setProductID(l.getProductID().replace("_BUNDLE", ""));
+                        l.setPrice(l.bundlePrice / l.bundleUnits);
+                        l.setMultiply(l.getMultiply() * l.bundleUnits);
+                    }
+                }
+                
 
                 for (TicketLineInfo l : ticket.getLines()) {
 

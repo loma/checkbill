@@ -503,19 +503,15 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
             if (m_jaddtax.isSelected()) {
                 dPrice /= (1 + tax.getRate());
             }
-            addTicketLine(new TicketLineInfo(oProduct, dMul, dPrice, tax,
-                (java.util.Properties) (oProduct.getProperties().clone())));
+            addTicketLine(new TicketLineInfo(oProduct, dMul, dPrice, tax, (java.util.Properties) (oProduct.getProperties().clone())));
         } else {
-            TaxInfo tax = taxeslogic.getTaxInfo(oProduct.getTaxCategoryID(),
-                m_oTicket.getCustomer());
-            addTicketLine(new TicketLineInfo(oProduct, dMul, dPrice, tax,
-                (java.util.Properties) (oProduct.getProperties().clone())));
+            TaxInfo tax = taxeslogic.getTaxInfo(oProduct.getTaxCategoryID(), m_oTicket.getCustomer());
+            addTicketLine(new TicketLineInfo(oProduct, dMul, dPrice, tax, (java.util.Properties) (oProduct.getProperties().clone())));
         }
     }
 
     protected void addTicketLine(TicketLineInfo oLine) {
-        if (executeEventAndRefresh("ticket.addline", new ScriptArg("line",
-            oLine)) == null) {
+        if (executeEventAndRefresh("ticket.addline", new ScriptArg("line", oLine)) == null) {
             if (oLine.isProductCom()) {
                 int i = m_ticketlines.getSelectedIndex();
                 if (i >= 0 && !m_oTicket.getLine(i).isProductCom()) {
@@ -540,20 +536,19 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                     m_ticketlines.addTicketLine(oLine);
                 }
 
+                if (m_oTicket.checkForBundle(oLine)) 
+                    refreshTicket();
+                
                 try {
                     int i = m_ticketlines.getSelectedIndex();
                     TicketLineInfo line = m_oTicket.getLine(i);
                     if (line.isProductVerpatrib()) {
-                        JProductAttEdit attedit = JProductAttEdit
-                            .getAttributesEditor(this, m_App.getSession());
-                        attedit.editAttributes(line.getProductAttSetId(),
-                            line.getProductAttSetInstId());
+                        JProductAttEdit attedit = JProductAttEdit.getAttributesEditor(this, m_App.getSession());
+                        attedit.editAttributes(line.getProductAttSetId(), line.getProductAttSetInstId());
                         attedit.setVisible(true);
                         if (attedit.isOK()) {
-                            line.setProductAttSetInstId(attedit
-                                .getAttributeSetInst());
-                            line.setProductAttSetInstDesc(attedit
-                                .getAttributeSetInstDescription());
+                            line.setProductAttSetInstId(attedit .getAttributeSetInst());
+                            line.setProductAttSetInstDesc(attedit .getAttributeSetInstDescription());
                             paintTicketLine(i, line);
                         }
                     }

@@ -61,6 +61,8 @@ public class ProductInfoExt {
     protected String m_sTextTip;
     protected boolean m_bWarranty;
     public double m_dStockUnits;
+    private Double bundleUnits;
+    private Double bundlePrice;
 
     public ProductInfoExt() {
         m_ID = null;
@@ -326,6 +328,9 @@ public class ProductInfoExt {
                 product.m_bWarranty = dr.getBoolean(25);                        
                 product.m_dStockUnits = dr.getDouble(26);                       
 
+                product.bundlePrice = dr.getDouble(27);
+                product.bundleUnits = dr.getDouble(28);
+
                 return product;
             }
         };
@@ -334,5 +339,17 @@ public class ProductInfoExt {
     @Override
     public final String toString() {
         return m_sRef + " - " + m_sName;
+    }
+
+    public boolean hasBundleOption(){
+        return bundleUnits > 1;
+    }
+
+    public double getBundleUnits(){
+        return bundleUnits;
+    }
+
+    public double getBundlePrice(){
+        return bundlePrice;
     }
 }
