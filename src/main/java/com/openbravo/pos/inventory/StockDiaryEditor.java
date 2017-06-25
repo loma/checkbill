@@ -62,10 +62,15 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
         m_ReasonModel.add(MovementReason.IN_PURCHASE);
         m_ReasonModel.add(MovementReason.IN_REFUND);
         m_ReasonModel.add(MovementReason.IN_MOVEMENT);
-        m_ReasonModel.add(MovementReason.OUT_SALE);
-        m_ReasonModel.add(MovementReason.OUT_REFUND);
-        m_ReasonModel.add(MovementReason.OUT_BREAK);
-        m_ReasonModel.add(MovementReason.OUT_MOVEMENT);
+
+        String user = m_App.getAppUserView().getUser().getName();
+        if (user.equals("Administrator")) {
+            m_ReasonModel.add(MovementReason.OUT_SALE);
+            m_ReasonModel.add(MovementReason.OUT_REFUND);
+            m_ReasonModel.add(MovementReason.OUT_BREAK);
+            m_ReasonModel.add(MovementReason.OUT_MOVEMENT);        
+            m_ReasonModel.add(MovementReason.OUT_CROSSING);        
+        }
 
         m_jreason.setModel(m_ReasonModel);
 

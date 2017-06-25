@@ -466,7 +466,9 @@ public class JRootApp extends JPanel implements AppView {
 			}
 
 			// cache the factory
-			m_aBeanFactories.put(beanfactory, bf);
+            if (!beanfactory.equals("com.openbravo.pos.inventory.StockManagement") 
+                && !beanfactory.equals("com.openbravo.pos.inventory.StockDiaryPanel"))
+                m_aBeanFactories.put(beanfactory, bf);
 
 			// Initialize if it is a BeanFactoryApp
 			if (bf instanceof BeanFactoryApp) {

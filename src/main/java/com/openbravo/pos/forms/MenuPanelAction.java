@@ -50,7 +50,6 @@ public class MenuPanelAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-
         m_App.getAppUserView().showTask(m_sMyView);
     }
 }

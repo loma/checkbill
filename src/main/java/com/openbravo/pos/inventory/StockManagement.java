@@ -41,6 +41,7 @@ import com.openbravo.pos.scripting.ScriptEngine;
 import com.openbravo.pos.scripting.ScriptException;
 import com.openbravo.pos.scripting.ScriptFactory;
 import com.openbravo.pos.ticket.ProductInfoExt;
+import com.openbravo.pos.ticket.UserInfo;
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -79,8 +80,6 @@ public class StockManagement extends JPanel implements JPanelView {
     private final String user;
    
    
-    /** Creates new form StockManagement
-     * @param app */
     public StockManagement(AppView app) {
         
         m_App = app;
@@ -102,11 +101,15 @@ public class StockManagement extends JPanel implements JPanelView {
         m_ReasonModel.add(MovementReason.IN_PURCHASE);
         m_ReasonModel.add(MovementReason.IN_REFUND);
         m_ReasonModel.add(MovementReason.IN_MOVEMENT);
-        m_ReasonModel.add(MovementReason.OUT_SALE);
-        m_ReasonModel.add(MovementReason.OUT_REFUND);
-        m_ReasonModel.add(MovementReason.OUT_BREAK);
-        m_ReasonModel.add(MovementReason.OUT_MOVEMENT);        
-        m_ReasonModel.add(MovementReason.OUT_CROSSING);        
+
+
+        if (user.equals("Administrator")) {
+            m_ReasonModel.add(MovementReason.OUT_SALE);
+            m_ReasonModel.add(MovementReason.OUT_REFUND);
+            m_ReasonModel.add(MovementReason.OUT_BREAK);
+            m_ReasonModel.add(MovementReason.OUT_MOVEMENT);        
+            m_ReasonModel.add(MovementReason.OUT_CROSSING);        
+        }
         
         m_jreason.setModel(m_ReasonModel);
         
@@ -115,9 +118,6 @@ public class StockManagement extends JPanel implements JPanelView {
 
         catcontainer.add(m_cat.getComponent(), BorderLayout.CENTER);
        
-
-
-        // Las lineas de inventario
         m_invlines = new JInventoryLines();
         jPanel5.add(m_invlines, BorderLayout.CENTER);
     }
