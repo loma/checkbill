@@ -443,7 +443,6 @@ public final class TicketInfo implements SerializableRead, Externalizable {
      * @param oLine
      */
     public void addLine(TicketLineInfo oLine) {
-
         oLine.setTicket(m_sId, m_aLines.size());
         m_aLines.add(oLine);
     }
@@ -894,19 +893,17 @@ public final class TicketInfo implements SerializableRead, Externalizable {
                     TicketLineInfo bundleLine = m_aLines.get(index).copyTicketLine();
                     bundleLine.bundleUnits = oLine.bundleUnits;
                     bundleLine.bundlePrice = oLine.bundlePrice;
-                    bundleLine.copyTicketInfo(m_aLines.get(index));
 
                     bundleLine.setMultiply(bundleSellUnits);
                     bundleLine.setPrice(oLine.bundlePrice);
                     bundleLine.setProductID(bundleLine.getProductID() + "_BUNDLE");
-                    bundleLine.setProductName(bundleLine.getProductName() + " - ແພັກ ("+ (int)bundleLine.bundleUnits + " ອັນ)");
+                    bundleLine.setProductName(bundleLine.getProductName() + " - Pack (x"+ (int)bundleLine.bundleUnits + ")");
 
                     TicketLineInfo singleLine = m_aLines.get(index);
                     singleLine.setMultiply(singleSellUnits);
                     
-
                     if (singleSellUnits == 0){
-                        m_aLines.remove(index);
+                        removeLine(index);
                     }
 
                     
@@ -916,12 +913,11 @@ public final class TicketInfo implements SerializableRead, Externalizable {
                             existingBundleLine = each;
                             break;
                         }
-                        index++;
                     }
                     if (existingBundleLine != null){
                         existingBundleLine.increaseMultiplyBy(bundleSellUnits);
                     } else {
-                        m_aLines.add(bundleLine);
+                        addLine(bundleLine);
                     }
 
                     return true;

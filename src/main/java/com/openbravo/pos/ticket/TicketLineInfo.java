@@ -189,12 +189,6 @@ public class TicketLineInfo implements SerializableWrite, SerializableRead, Seri
         m_sTicket = ticket;
         m_iLine = line;
     }
-
-    void copyTicketInfo(TicketLineInfo t){
-        this.m_iLine = t.m_iLine;
-        this.m_sTicket = t.m_sTicket;
-    }
-
     /**
      *
      * @param dp

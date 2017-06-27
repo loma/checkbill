@@ -120,7 +120,9 @@ public class AppConfig implements AppProperties {
 		String defaultLookAndFeel = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
 		if (SystemUtils.IS_OS_WINDOWS) {
 			defaultLookAndFeel = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
-		}
+		} else if (SystemUtils.IS_OS_MAC ||SystemUtils.IS_OS_MAC_OSX){
+			defaultLookAndFeel = "com.apple.laf.AquaLookAndFeel";
+        }
 		m_propsconfig.setProperty("swing.defaultlaf", System.getProperty("swing.defaultlaf", defaultLookAndFeel));
 		m_propsconfig.setProperty("format.currency", System.getProperty("format.currency", "#,###'kip'"));
 

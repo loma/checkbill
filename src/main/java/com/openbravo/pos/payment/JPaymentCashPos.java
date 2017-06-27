@@ -30,7 +30,6 @@ import com.openbravo.pos.scripting.ScriptFactory;
 import com.openbravo.pos.util.RoundUtils;
 import com.openbravo.pos.util.ThumbNailBuilder;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
