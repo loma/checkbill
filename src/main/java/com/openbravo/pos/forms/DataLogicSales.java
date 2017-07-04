@@ -105,7 +105,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
             + "NAME, " + "PRICEBUY, " + "PRICESELL, " + "CATEGORY, " + "TAXCAT, " + "ATTRIBUTESET_ID, "
             + "STOCKCOST, " + "STOCKVOLUME, " + "IMAGE, " + "ISCOM, " + "ISSCALE, " + "ISKITCHEN, " + "PRINTKB, "
             + "SENDSTATUS, " + "ISSERVICE, " + "ATTRIBUTES, " + "DISPLAY, " + "ISVPRICE, " + "ISVERPATRIB, "
-            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS "
+            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS, BUNDLE_UNITS, BUNDLE_SELL_PRICE  "
             + "FROM STOCKCURRENT LEFT JOIN PRODUCTS ON (STOCKCURRENT.PRODUCT = PRODUCTS.ID) " + "WHERE ID = ? "
             + "GROUP BY ID, REFERENCE, NAME;", SerializerWriteString.INSTANCE, ProductInfoExt.getSerializerRead())
             .find(id);
@@ -116,7 +116,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
             + "NAME, " + "PRICEBUY, " + "PRICESELL, " + "CATEGORY, " + "TAXCAT, " + "ATTRIBUTESET_ID, "
             + "STOCKCOST, " + "STOCKVOLUME, " + "IMAGE, " + "ISCOM, " + "ISSCALE, " + "ISKITCHEN, " + "PRINTKB, "
             + "SENDSTATUS, " + "ISSERVICE, " + "ATTRIBUTES, " + "DISPLAY, " + "ISVPRICE, " + "ISVERPATRIB, "
-            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS "
+            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS, BUNDLE_UNITS, BUNDLE_SELL_PRICE "
             + "FROM STOCKCURRENT RIGHT JOIN PRODUCTS ON (STOCKCURRENT.PRODUCT = PRODUCTS.ID) " + "WHERE CODE = ?",
             SerializerWriteString.INSTANCE, ProductInfoExt.getSerializerRead()).find(sCode);
     }
@@ -126,7 +126,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
             + "NAME, " + "PRICEBUY, " + "PRICESELL, " + "CATEGORY, " + "TAXCAT, " + "ATTRIBUTESET_ID, "
             + "STOCKCOST, " + "STOCKVOLUME, " + "IMAGE, " + "ISCOM, " + "ISSCALE, " + "ISKITCHEN, " + "PRINTKB, "
             + "SENDSTATUS, " + "ISSERVICE, " + "ATTRIBUTES, " + "DISPLAY, " + "ISVPRICE, " + "ISVERPATRIB, "
-            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS "
+            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS, BUNDLE_UNITS, BUNDLE_SELL_PRICE  "
             + "FROM STOCKCURRENT RIGHT JOIN PRODUCTS ON (STOCKCURRENT.PRODUCT = PRODUCTS.ID) "
             + "WHERE SUBSTR( CODE, 3, 6 ) = ?", SerializerWriteString.INSTANCE, ProductInfoExt.getSerializerRead())
             .find(sCode.substring(2, 8));
@@ -137,7 +137,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
             + "NAME, " + "PRICEBUY, " + "PRICESELL, " + "CATEGORY, " + "TAXCAT, " + "ATTRIBUTESET_ID, "
             + "STOCKCOST, " + "STOCKVOLUME, " + "IMAGE, " + "ISCOM, " + "ISSCALE, " + "ISKITCHEN, " + "PRINTKB, "
             + "SENDSTATUS, " + "ISSERVICE, " + "ATTRIBUTES, " + "DISPLAY, " + "ISVPRICE, " + "ISVERPATRIB, "
-            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS "
+            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS, BUNDLE_UNITS, BUNDLE_SELL_PRICE  "
             + "FROM STOCKCURRENT RIGHT JOIN PRODUCTS ON (STOCKCURRENT.PRODUCT = PRODUCTS.ID) "
             + "WHERE REFERENCE = ?", SerializerWriteString.INSTANCE, ProductInfoExt.getSerializerRead())
             .find(sReference);

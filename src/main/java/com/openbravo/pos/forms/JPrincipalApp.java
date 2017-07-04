@@ -100,7 +100,7 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
         group.addPanel("/com/openbravo/images/sale.png", "Menu.Ticket", "com.openbravo.pos.sales.JPanelTicketSales");
         group.addPanel("/com/openbravo/images/saleedit.png", "Menu.TicketEdit", "com.openbravo.pos.sales.JPanelTicketEdits");
         //group.addPanel("/com/openbravo/images/customerpay.png", "Menu.CustomersPayment", "com.openbravo.pos.customers.CustomersPayment");
-        group.addPanel("/com/openbravo/images/payments.png", "Menu.Payments", "com.openbravo.pos.panels.JPanelPayments");
+        //group.addPanel("/com/openbravo/images/payments.png", "Menu.Payments", "com.openbravo.pos.panels.JPanelPayments");
         group.addPanel("/com/openbravo/images/calculator.png", "Menu.CloseTPV", "com.openbravo.pos.panels.JPanelCloseMoney");
 
         group = menu.addGroup("Menu.Backoffice");
@@ -136,12 +136,12 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
 
         submenu.addTitle("Menu.StockManagement.Reports");
         //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.BarcodeSheet", "/com/openbravo/reports/barcodesheet.bs");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.Inventory", "/com/openbravo/reports/inventory.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.Inventory", "/com/openbravo/reports/inventory.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.Inventory2", "/com/openbravo/reports/inventoryb.bs");
-        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.InventoryBroken", "/com/openbravo/reports/inventorybroken.bs");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.InventoryDiff", "/com/openbravo/reports/inventorydiff.bs");
+        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.InventoryBroken", "/com/openbravo/reports/inventorybroken.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.InventoryDiff", "/com/openbravo/reports/inventorydiff.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.InventoryDiffDetail", "/com/openbravo/reports/inventorydiffdetail.bs");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.InventoryListDetail", "/com/openbravo/reports/inventorylistdetail.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.InventoryListDetail", "/com/openbravo/reports/inventorylistdetail.bs");
         //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.ProductCatalog", "/com/openbravo/reports/productscatalog.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.Products", "/com/openbravo/reports/products.bs");
         //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.ProductLabels", "/com/openbravo/reports/productlabels.bs");
@@ -151,22 +151,23 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
         submenu = group.addSubmenu("/com/openbravo/images/sales.png", "Menu.SalesManagement", "com.openbravo.pos.forms.MenuSalesManagement");
         submenu.addTitle("Menu.SalesManagement.Reports");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.Closing", "/com/openbravo/reports/closedpos.bs");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.Closing1", "/com/openbravo/reports/closedpos_1.bs");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.CashRegisterLog", "/com/openbravo/reports/cashregisterlog.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.Closing1", "/com/openbravo/reports/closedpos_1.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.CashRegisterLog", "/com/openbravo/reports/cashregisterlog.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.ExtendedCashRegisterLog", "/com/openbravo/reports/extendedcashregisterlog.bs");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.CashFlow", "/com/openbravo/reports/cashflow.bs");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.PaymentReport", "/com/openbravo/reports/paymentreport.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.CashFlow", "/com/openbravo/reports/cashflow.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.PaymentReport", "/com/openbravo/reports/paymentreport.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.CategorySales", "/com/openbravo/reports/categorysales.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.ClosedProducts", "/com/openbravo/reports/closedproducts.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.ClosedProducts1", "/com/openbravo/reports/closedproducts_1.bs");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.ExtendedByProducts", "/com/openbravo/reports/extproducts.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.ExtendedByProducts", "/com/openbravo/reports/extproducts.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.SalesProfit", "/com/openbravo/reports/productsalesprofit.bs");
 
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.SaleTaxes", "/com/openbravo/reports/saletaxes.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.SaleTaxes", "/com/openbravo/reports/saletaxes.bs");
 
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.TaxCatSales", "/com/openbravo/reports/taxcatsales.bs");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.ReportTaxes", "/com/openbravo/reports/taxes.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.TaxCatSales", "/com/openbravo/reports/taxcatsales.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.ReportTaxes", "/com/openbravo/reports/taxes.bs");
 
+        /*
         submenu.addTitle("Menu.SalesManagement.Charts");
         submenu.addPanel("/com/openbravo/images/chart.png", "Menu.ProductSales", "/com/openbravo/reports/productsales.bs");
         submenu.addPanel("/com/openbravo/images/chart.png", "Menu.ProductCategorySalesPieChart", "/com/openbravo/reports/piesalescat.bs");
@@ -174,6 +175,7 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
         submenu.addPanel("/com/openbravo/images/chart.png", "Menu.TimeSeriesProduct", "/com/openbravo/reports/timeseriesproduct.bs");
         submenu.addPanel("/com/openbravo/images/chart.png", "Menu.Top10Sales", "/com/openbravo/reports/top10sales.bs");
         submenu.addPanel("/com/openbravo/images/chart.png", "Menu.Top10Sales", "/com/openbravo/reports/top10salesMySQL.bs");
+        */
 
         submenu = group.addSubmenu("/com/openbravo/images/maintain.png", "Menu.Maintenance", "com.openbravo.pos.forms.MenuMaintenance");
         submenu.addTitle("Menu.Maintenance.POS");
