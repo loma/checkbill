@@ -182,19 +182,20 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
         submenu.addPanel("/com/openbravo/images/user.png", "Menu.Users", "com.openbravo.pos.admin.PeoplePanel");
         submenu.addPanel("/com/openbravo/images/roles.png", "Menu.Roles", "com.openbravo.pos.admin.RolesPanel");
         submenu.addPanel("/com/openbravo/images/bookmark.png", "Menu.Taxes", "com.openbravo.pos.inventory.TaxPanel");
-        submenu.addPanel("/com/openbravo/images/bookmark.png", "Menu.TaxCategories", "com.openbravo.pos.inventory.TaxCategoriesPanel");
-        submenu.addPanel("/com/openbravo/images/bookmark.png", "Menu.TaxCustCategories", "com.openbravo.pos.inventory.TaxCustCategoriesPanel");
+        //submenu.addPanel("/com/openbravo/images/bookmark.png", "Menu.TaxCategories", "com.openbravo.pos.inventory.TaxCategoriesPanel");
+        //submenu.addPanel("/com/openbravo/images/bookmark.png", "Menu.TaxCustCategories", "com.openbravo.pos.inventory.TaxCustCategoriesPanel");
         submenu.addPanel("/com/openbravo/images/resources.png", "Menu.Resources", "com.openbravo.pos.admin.ResourcesPanel");
-        submenu.addPanel("/com/openbravo/images/location.png", "Menu.Locations", "com.openbravo.pos.inventory.LocationsPanel");
-        submenu.addPanel("/com/openbravo/images/floors.png", "Menu.Floors", "com.openbravo.pos.mant.JPanelFloors");
-        submenu.addPanel("/com/openbravo/images/tables.png", "Menu.Tables", "com.openbravo.pos.mant.JPanelPlaces");
+        //submenu.addPanel("/com/openbravo/images/location.png", "Menu.Locations", "com.openbravo.pos.inventory.LocationsPanel");
+        //submenu.addPanel("/com/openbravo/images/floors.png", "Menu.Floors", "com.openbravo.pos.mant.JPanelFloors");
+        //submenu.addPanel("/com/openbravo/images/tables.png", "Menu.Tables", "com.openbravo.pos.mant.JPanelPlaces");
 
         submenu.addTitle("Menu.Maintenance.Reports");
-        submenu.addPanel("/com/openbravo/images/reports.png", "Menu.UsersReport", "/com/openbravo/reports/people.bs");
+        //submenu.addPanel("/com/openbravo/images/reports.png", "Menu.UsersReport", "/com/openbravo/reports/people.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.UserSells", "/com/openbravo/reports/usersales.bs");
 
 // EPM
 //** Reporting only tested with MySQL.  Using with Derby (Default) DB will result in errors
+/*
         submenu = group.addSubmenu("/com/openbravo/images/users.png", "Menu.PresenceManagement", "com.openbravo.pos.forms.MenuEmployees");
         submenu.addTitle("Menu.PresenceManagement");
         submenu.addPanel("/com/openbravo/images/coffee.png", "Menu.Breaks", "com.openbravo.pos.epm.BreaksPanel");
@@ -203,8 +204,9 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.DailyPresenceReport", "/com/openbravo/reports/dailypresencereport.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.DailyScheduleReport", "/com/openbravo/reports/dailyschedulereport.bs");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.PerformanceReport", "/com/openbravo/reports/performancereport.bs");
+        */
 
-        group = menu.addGroup("Menu.Utilities");
+        //group = menu.addGroup("Menu.Utilities");
         submenu = group.addSubmenu("/com/openbravo/images/utilities.png", "Menu.Tools", "com.openbravo.pos.imports.JPanelCSV");
         submenu.addTitle("Menu.Import");
         submenu.addPanel("/com/openbravo/images/import.png", "Menu.CSVImport", "com.openbravo.pos.imports.JPanelCSVImport");
@@ -219,7 +221,7 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
         group.addChangePasswordAction();
         group.addPanel("/com/openbravo/images/configuration.png", "Menu.Configuration", "com.openbravo.pos.config.JPanelConfiguration");
         group.addPanel("/com/openbravo/images/printer.png", "Menu.Printer", "com.openbravo.pos.panels.JPanelPrinter");
-        group.addPanel("/com/openbravo/images/timer.png", "Menu.CheckInCheckOut", "com.openbravo.pos.epm.JPanelEmployeePresence");
+        //group.addPanel("/com/openbravo/images/timer.png", "Menu.CheckInCheckOut", "com.openbravo.pos.epm.JPanelEmployeePresence");
 
 // Deprecated options. Only required with Openbravo ERP software
 //       submenu.addTitle("Menu.Maintenance.ERP");

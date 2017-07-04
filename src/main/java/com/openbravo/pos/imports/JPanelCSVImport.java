@@ -751,7 +751,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(630, 430));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Saysettha OT", 0, 14)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("pos_messages"); // NOI18N
         jLabel1.setText(bundle.getString("label.csvfile")); // NOI18N
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 30));
@@ -799,7 +799,6 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
         jComboReference.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jComboReference.setEnabled(false);
         jComboReference.setMinimumSize(new java.awt.Dimension(32, 25));
-        jComboReference.setOpaque(false);
         jComboReference.setPreferredSize(new java.awt.Dimension(275, 30));
         jComboReference.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -827,11 +826,11 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Saysettha OT", 0, 14)); // NOI18N
         jLabel3.setText(bundle.getString("label.prodref")); // NOI18N
         jLabel3.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Saysettha OT", 0, 14)); // NOI18N
         jLabel4.setText(bundle.getString("label.prodbarcode")); // NOI18N
         jLabel4.setPreferredSize(new java.awt.Dimension(100, 30));
 
@@ -864,7 +863,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Saysettha OT", 0, 14)); // NOI18N
         jLabel11.setText(bundle.getString("label.prodcategory")); // NOI18N
         jLabel11.setPreferredSize(new java.awt.Dimension(100, 30));
 
@@ -872,11 +871,11 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
         jComboTax.setEnabled(false);
         jComboTax.setPreferredSize(new java.awt.Dimension(275, 30));
 
-        jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Saysettha OT", 0, 14)); // NOI18N
         jLabel10.setText(bundle.getString("label.prodpricebuy")); // NOI18N
         jLabel10.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Saysettha OT", 0, 14)); // NOI18N
         jLabel7.setText(bundle.getString("label.prodtaxcode")); // NOI18N
         jLabel7.setPreferredSize(new java.awt.Dimension(100, 30));
 
@@ -910,15 +909,15 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
             }
         });
 
-        jLabel20.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Saysettha OT", 0, 14)); // NOI18N
         jLabel20.setText(bundle.getString("label.prodpricesell")); // NOI18N
         jLabel20.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Saysettha OT", 0, 14)); // NOI18N
         jLabel5.setText(bundle.getString("label.prodname")); // NOI18N
         jLabel5.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Saysettha OT", 0, 14)); // NOI18N
         jLabel6.setText(bundle.getString("label.proddefaultcategory")); // NOI18N
         jLabel6.setPreferredSize(new java.awt.Dimension(100, 30));
 
@@ -1044,7 +1043,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel17.setText("Import Version v2.3");
 
-        jLabel18.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Saysettha OT", 0, 14)); // NOI18N
         jLabel18.setText(bundle.getString("label.csvdelimit")); // NOI18N
         jLabel18.setPreferredSize(new java.awt.Dimension(100, 30));
 
