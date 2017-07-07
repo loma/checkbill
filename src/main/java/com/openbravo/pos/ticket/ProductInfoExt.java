@@ -61,8 +61,8 @@ public class ProductInfoExt {
     protected String m_sTextTip;
     protected boolean m_bWarranty;
     public double m_dStockUnits;
-    private Double bundleUnits;
-    private Double bundlePrice;
+    private double bundleUnits = 0;
+    private double bundlePrice = 0;
 
     public ProductInfoExt() {
         m_ID = null;

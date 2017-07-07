@@ -105,7 +105,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
             + "NAME, " + "PRICEBUY, " + "PRICESELL, " + "CATEGORY, " + "TAXCAT, " + "ATTRIBUTESET_ID, "
             + "STOCKCOST, " + "STOCKVOLUME, " + "IMAGE, " + "ISCOM, " + "ISSCALE, " + "ISKITCHEN, " + "PRINTKB, "
             + "SENDSTATUS, " + "ISSERVICE, " + "ATTRIBUTES, " + "DISPLAY, " + "ISVPRICE, " + "ISVERPATRIB, "
-            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS, BUNDLE_UNITS, BUNDLE_SELL_PRICE  "
+            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS, BUNDLE_SELL_PRICE, BUNDLE_UNITS  "
             + "FROM STOCKCURRENT LEFT JOIN PRODUCTS ON (STOCKCURRENT.PRODUCT = PRODUCTS.ID) " + "WHERE ID = ? "
             + "GROUP BY ID, REFERENCE, NAME;", SerializerWriteString.INSTANCE, ProductInfoExt.getSerializerRead())
             .find(id);
@@ -116,7 +116,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
             + "NAME, " + "PRICEBUY, " + "PRICESELL, " + "CATEGORY, " + "TAXCAT, " + "ATTRIBUTESET_ID, "
             + "STOCKCOST, " + "STOCKVOLUME, " + "IMAGE, " + "ISCOM, " + "ISSCALE, " + "ISKITCHEN, " + "PRINTKB, "
             + "SENDSTATUS, " + "ISSERVICE, " + "ATTRIBUTES, " + "DISPLAY, " + "ISVPRICE, " + "ISVERPATRIB, "
-            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS, BUNDLE_UNITS, BUNDLE_SELL_PRICE "
+            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS,  BUNDLE_SELL_PRICE, BUNDLE_UNITS  "
             + "FROM STOCKCURRENT RIGHT JOIN PRODUCTS ON (STOCKCURRENT.PRODUCT = PRODUCTS.ID) " + "WHERE CODE = ?",
             SerializerWriteString.INSTANCE, ProductInfoExt.getSerializerRead()).find(sCode);
     }
@@ -126,7 +126,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
             + "NAME, " + "PRICEBUY, " + "PRICESELL, " + "CATEGORY, " + "TAXCAT, " + "ATTRIBUTESET_ID, "
             + "STOCKCOST, " + "STOCKVOLUME, " + "IMAGE, " + "ISCOM, " + "ISSCALE, " + "ISKITCHEN, " + "PRINTKB, "
             + "SENDSTATUS, " + "ISSERVICE, " + "ATTRIBUTES, " + "DISPLAY, " + "ISVPRICE, " + "ISVERPATRIB, "
-            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS, BUNDLE_UNITS, BUNDLE_SELL_PRICE  "
+            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS,  BUNDLE_SELL_PRICE, BUNDLE_UNITS  "
             + "FROM STOCKCURRENT RIGHT JOIN PRODUCTS ON (STOCKCURRENT.PRODUCT = PRODUCTS.ID) "
             + "WHERE SUBSTR( CODE, 3, 6 ) = ?", SerializerWriteString.INSTANCE, ProductInfoExt.getSerializerRead())
             .find(sCode.substring(2, 8));
@@ -137,7 +137,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
             + "NAME, " + "PRICEBUY, " + "PRICESELL, " + "CATEGORY, " + "TAXCAT, " + "ATTRIBUTESET_ID, "
             + "STOCKCOST, " + "STOCKVOLUME, " + "IMAGE, " + "ISCOM, " + "ISSCALE, " + "ISKITCHEN, " + "PRINTKB, "
             + "SENDSTATUS, " + "ISSERVICE, " + "ATTRIBUTES, " + "DISPLAY, " + "ISVPRICE, " + "ISVERPATRIB, "
-            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS, BUNDLE_UNITS, BUNDLE_SELL_PRICE  "
+            + "TEXTTIP, " + "WARRANTY, " + "STOCKCURRENT.UNITS,  BUNDLE_SELL_PRICE, BUNDLE_UNITS   "
             + "FROM STOCKCURRENT RIGHT JOIN PRODUCTS ON (STOCKCURRENT.PRODUCT = PRODUCTS.ID) "
             + "WHERE REFERENCE = ?", SerializerWriteString.INSTANCE, ProductInfoExt.getSerializerRead())
             .find(sReference);
@@ -728,10 +728,12 @@ public class DataLogicSales extends BeanFactoryDataSingle {
         return new SentenceExecTransaction(s) {
             @Override
             public int execInTransaction(Object params) throws BasicException {
-                new PreparedSentence(s, "DELETE FROM PRODUCTS_CAT WHERE PRODUCT = ?",
-                    new SerializerWriteBasicExt(productsRow.getDatas(), new int[]{0})).exec(params);
-                return new PreparedSentence(s, "DELETE FROM PRODUCTS WHERE ID = ?",
-                    new SerializerWriteBasicExt(productsRow.getDatas(), new int[]{0})).exec(params);
+                new PreparedSentence(s, "DELETE FROM PRODUCTS_CAT WHERE PRODUCT = ?", new SerializerWriteBasicExt(productsRow.getDatas(), new int[]{0})).exec(params);
+                new PreparedSentence(s, "DELETE FROM STOCKCURRENT WHERE PRODUCT = ?", new SerializerWriteBasicExt(productsRow.getDatas(), new int[]{0})).exec(params);
+                new PreparedSentence(s, "DELETE FROM STOCKDIARY WHERE PRODUCT = ?", new SerializerWriteBasicExt(productsRow.getDatas(), new int[]{0})).exec(params);
+                new PreparedSentence(s, "DELETE FROM STOCKLEVEL WHERE PRODUCT = ?", new SerializerWriteBasicExt(productsRow.getDatas(), new int[]{0})).exec(params);
+                new PreparedSentence(s, "DELETE FROM TICKETLINES WHERE PRODUCT = ?", new SerializerWriteBasicExt(productsRow.getDatas(), new int[]{0})).exec(params);
+                return new PreparedSentence(s, "DELETE FROM PRODUCTS WHERE ID = ?", new SerializerWriteBasicExt(productsRow.getDatas(), new int[]{0})).exec(params);
 
             }
         };

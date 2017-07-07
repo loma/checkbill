@@ -130,7 +130,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
         initComponents();
         m_jButtons.setVisible(false);
 
-        jPanel2.setVisible(false);
+        //jPanel2.setVisible(false);
     }
 
     @Override
@@ -380,8 +380,8 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
         if ((m_oTicket != null)
             && (((Boolean.valueOf(m_App.getProperties().getProperty(
                 "table.showcustomerdetails"))) || (Boolean
-            .parseBoolean(m_App.getProperties().getProperty(
-                "table.showwaiterdetails")))))) {
+                .parseBoolean(m_App.getProperties().getProperty(
+                    "table.showwaiterdetails")))))) {
             if (restDB.getTableMovedFlag(m_oTicket.getId())) {
                 restDB.moveCustomer(oTicketExt.toString(), m_oTicket.getId());
             }
@@ -529,9 +529,10 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                     m_ticketlines.addTicketLine(oLine);
                 }
 
-                if (m_oTicket.checkForBundle(oLine)) 
+                if (m_oTicket.checkForBundle(oLine)) {
                     refreshTicket();
-                
+                }
+
                 try {
                     int i = m_ticketlines.getSelectedIndex();
                     TicketLineInfo line = m_oTicket.getLine(i);
@@ -540,8 +541,8 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                         attedit.editAttributes(line.getProductAttSetId(), line.getProductAttSetInstId());
                         attedit.setVisible(true);
                         if (attedit.isOK()) {
-                            line.setProductAttSetInstId(attedit .getAttributeSetInst());
-                            line.setProductAttSetInstDesc(attedit .getAttributeSetInstDescription());
+                            line.setProductAttSetInstId(attedit.getAttributeSetInst());
+                            line.setProductAttSetInstDesc(attedit.getAttributeSetInstDescription());
                             paintTicketLine(i, line);
                         }
                     }
@@ -781,130 +782,6 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                     stateToZero();
                 } else if (sCode.startsWith(";")) {
                     stateToZero();
-                } else if ((sCode.length() == 13)) {
-                    try {
-                        ProductInfoExt oProduct = dlSales
-                            .getProductInfoByCode(sCode);
-                        if (oProduct == null) {
-                            Toolkit.getDefaultToolkit().beep();
-                            JOptionPane
-                                .showMessageDialog(
-                                    null,
-                                    sCode
-                                    + " - "
-                                    + AppLocal
-                                    .getIntString("message.noproduct"),
-                                    "Check",
-                                    JOptionPane.WARNING_MESSAGE);
-                            stateToZero();
-                        } else {
-                            oProduct.setProperty("product.barcode", sCode);
-                            double dPriceSell = oProduct.getPriceSell();
-                            double weight = 1;
-                            String sVariableTypePrefix = "";//sCode.substring(0, 2);
-                            String sVariableNum = sCode.substring(8, 12);
-                            switch (sVariableTypePrefix) {
-                                case "20":
-                                    dPriceSell = Double.parseDouble(sVariableNum) / 100;
-                                    break;
-                                case "02":
-                                    dPriceSell = Double.parseDouble(sVariableNum) / 100;
-                                    break;
-                                case "21":
-                                    dPriceSell = Double.parseDouble(sVariableNum) / 10;
-                                    break;
-                                case "22":
-                                    dPriceSell = Double.parseDouble(sVariableNum);
-                                    break;
-                                case "23":
-                                    weight = Double.parseDouble(sVariableNum) / 1000;
-                                    break;
-                                case "24":
-                                    weight = Double.parseDouble(sVariableNum) / 100;
-                                    break;
-                                case "25":
-                                    weight = Double.parseDouble(sVariableNum) / 10;
-                                    break;
-                                case "28":
-                                    sVariableNum = sCode.substring(7, 12);
-                                    dPriceSell = Double.parseDouble(sVariableNum) / 100;
-                                    break;
-                            }
-
-                            if ((sVariableTypePrefix.equals("20"))
-                                || (sVariableTypePrefix.equals("21"))
-                                || (sVariableTypePrefix.equals("22"))) {
-                                TaxInfo tax = taxeslogic.getTaxInfo(
-                                    oProduct.getTaxCategoryID(),
-                                    m_oTicket.getCustomer());
-                                dPriceSell /= (1.0 + tax.getRate());
-                                oProduct.setProperty("product.price",
-                                    Double.toString(dPriceSell));
-                            } else if ((sVariableTypePrefix.equals("23"))
-                                || (sVariableTypePrefix.equals("24"))
-                                || (sVariableTypePrefix.equals("25"))) {
-                                dPriceSell = weight * oProduct.getPriceSell();
-                                oProduct.setProperty("product.weight",
-                                    Double.toString(weight));
-                            }
-
-                            if (m_jaddtax.isSelected()) {
-                                TaxInfo tax = taxeslogic.getTaxInfo(
-                                    oProduct.getTaxCategoryID(),
-                                    m_oTicket.getCustomer());
-                                addTicketLine(oProduct, weight, dPriceSell
-                                    / (1.0 + tax.getRate()));
-                            } else {
-                                addTicketLine(oProduct, weight, dPriceSell);
-                            }
-
-                        }
-                    } catch (BasicException eData) {
-                        stateToZero();
-                        new MessageInf(eData).show(this);
-                    }
-
-                } else if ((sCode.length() == 12 && sCode.startsWith("2"))) {
-                    try {
-                        ProductInfoExt oProduct = dlSales
-                            .getProductInfoByCode(sCode);
-                        if (oProduct == null) {
-                            Toolkit.getDefaultToolkit().beep();
-                            JOptionPane
-                                .showMessageDialog(
-                                    null,
-                                    sCode
-                                    + " - "
-                                    + AppLocal
-                                    .getIntString("message.noproduct"),
-                                    "Check",
-                                    JOptionPane.WARNING_MESSAGE);
-                            stateToZero();
-                        } else {
-                            oProduct.setProperty("product.barcode", sCode);
-                            double dPriceSell = oProduct.getPriceSell();
-                            double weight = 1;
-                            String sVariableNum = sCode.substring(8, 11);
-                            dPriceSell = Double.parseDouble(sVariableNum) / 100;
-                            TaxInfo tax = taxeslogic.getTaxInfo(
-                                oProduct.getTaxCategoryID(),
-                                m_oTicket.getCustomer());
-                            dPriceSell /= (1.0 + tax.getRate());
-                            oProduct.setProperty("product.price",
-                                Double.toString(dPriceSell));
-
-                            if (m_jaddtax.isSelected()) {
-                                addTicketLine(oProduct, weight, dPriceSell
-                                    / (1.0 + tax.getRate()));
-                            } else {
-                                addTicketLine(oProduct, weight, dPriceSell);
-                            }
-
-                        }
-                    } catch (BasicException eData) {
-                        stateToZero();
-                        new MessageInf(eData).show(this);
-                    }
                 } else {
                     incProductByCode(sCode);
                 }
@@ -1025,7 +902,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                 && m_iNumberStatusPor == NUMBERZERO) {
                 if (m_App.getDeviceScale().existsScale()
                     && m_App.getAppUserView().getUser()
-                    .hasPermission("sales.EditLines")) {
+                        .hasPermission("sales.EditLines")) {
                     try {
                         Double value = m_App.getDeviceScale().readWeight();
                         if (value != null) {
@@ -1088,7 +965,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                 && m_iNumberStatusInput == NUMBERZERO
                 && m_iNumberStatusPor == NUMBERZERO
                 && m_App.getAppUserView().getUser()
-                .hasPermission("sales.EditLines")) {
+                    .hasPermission("sales.EditLines")) {
 
                 int i = m_ticketlines.getSelectedIndex();
                 if (i < 0) {
@@ -1137,7 +1014,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                 && m_iNumberStatusInput == NUMBERZERO
                 && m_iNumberStatusPor == NUMBERVALID
                 && m_App.getAppUserView().getUser()
-                .hasPermission("sales.EditLines")) {
+                    .hasPermission("sales.EditLines")) {
 
                 int i = m_ticketlines.getSelectedIndex();
                 if (i < 0) {
@@ -1156,7 +1033,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                 && m_iNumberStatusInput == NUMBERVALID
                 && m_iNumberStatusPor == NUMBERZERO
                 && m_App.getAppUserView().getUser()
-                .hasPermission("sales.EditLines")) {
+                    .hasPermission("sales.EditLines")) {
                 ProductInfoExt product = getInputProduct();
                 addTicketLine(product, 1.0, product.getPriceSell());
                 m_jEditLine.doClick();
@@ -1164,7 +1041,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                 && m_iNumberStatusInput == NUMBERVALID
                 && m_iNumberStatusPor == NUMBERZERO
                 && m_App.getAppUserView().getUser()
-                .hasPermission("sales.EditLines")) {
+                    .hasPermission("sales.EditLines")) {
                 ProductInfoExt product = getInputProduct();
                 addTicketLine(product, 1.0, -product.getPriceSell());
                 m_jEditLine.doClick();
@@ -1172,14 +1049,14 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                 && m_iNumberStatusInput == NUMBERVALID
                 && m_iNumberStatusPor == NUMBERVALID
                 && m_App.getAppUserView().getUser()
-                .hasPermission("sales.EditLines")) {
+                    .hasPermission("sales.EditLines")) {
                 ProductInfoExt product = getInputProduct();
                 addTicketLine(product, getPorValue(), product.getPriceSell());
             } else if (cTrans == '-'
                 && m_iNumberStatusInput == NUMBERVALID
                 && m_iNumberStatusPor == NUMBERVALID
                 && m_App.getAppUserView().getUser()
-                .hasPermission("sales.EditLines")) {
+                    .hasPermission("sales.EditLines")) {
                 ProductInfoExt product = getInputProduct();
                 addTicketLine(product, getPorValue(), -product.getPriceSell());
             } else if (cTrans == ' ' || cTrans == '=') {
@@ -1193,10 +1070,10 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                                 if ("restaurant".equals(m_App.getProperties()
                                     .getProperty("machine.ticketsbag"))
                                     && ("true"
-                                    .equals(m_App
-                                        .getProperties()
-                                        .getProperty(
-                                            "till.autoLogoffrestaurant")))) {
+                                        .equals(m_App
+                                            .getProperties()
+                                            .getProperty(
+                                                "till.autoLogoffrestaurant")))) {
                                     deactivate();
                                     setActiveTicket(null, null);
                                 } else {
@@ -1236,8 +1113,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                     printTicket("Printer.TicketTotal", ticket, ticketext);
                     JPaymentSelect paymentdialog = ticket.getTicketType() == TicketInfo.RECEIPT_NORMAL ? paymentdialogreceipt
                         : paymentdialogrefund;
-                    paymentdialog.setPrintSelected("true".equals(m_jbtnconfig
-                        .getProperty("printselected", "true")));
+                    paymentdialog.setPrintSelected("true".equals(m_jbtnconfig.getProperty("printselected", "true")));
                     paymentdialog.setTransactionID(ticket.getTransactionID());
 
                     if (paymentdialog.showDialog(ticket.getTotal(),
@@ -2279,7 +2155,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                     restDB.setCustomerNameInTableByTicketId(
                         dlSales.loadCustomerExt(
                             finder.getSelectedCustomer().getId())
-                        .toString(), m_oTicket.getId());
+                            .toString(), m_oTicket.getId());
                 }
             }
 

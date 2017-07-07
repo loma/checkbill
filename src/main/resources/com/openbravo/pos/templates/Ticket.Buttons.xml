@@ -115,8 +115,8 @@
         <!-- <event key="ticket.close" code="event.close"/> -->
 
 
-         <taxesincluded value="true"/>
-         <taxcategoryid value="001"/>
+         <taxesincluded value="false"/>
+         <taxcategoryid value="000"/>
          <!-- <pricevisible value="true" /> -->
          
 </configuration>
