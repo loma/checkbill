@@ -50,12 +50,12 @@ public class ITCoreFunctions {
         swinger.clickOn("text:ສາງສິນຄ້າ");
         swinger.clickOn("text:ສິນຄ້າ");
 
+        swinger.clickOn("sell_price_plus_tax").type("10000");
+        swinger.clickOn("buy_price").type("8000");
         swinger.clickOn("product_code").type("1234");
         swinger.clickOn("product_name").type("test item 1234");
         swinger.clickOn("product_category").clickOn("text:new category");
         swinger.clickOn("product_tax").clickOn("text:Tax Exempt");
-        swinger.clickOn("sell_price_plus_tax").type("10000");
-        swinger.clickOn("buy_price").type("8000");
         swinger.clickOn("save_button");
 
         swinger.clickOn("toggle-menu");
@@ -65,7 +65,7 @@ public class ITCoreFunctions {
         swinger.clickOn("user0");
         swinger.clickOn("toggle-menu");
         swinger.clickOn("text:ສາງສິນຄ້າ");
-        swinger.clickOn("text:Stock Diary");
+        swinger.clickOn("text:Menu.StockDiary=ບັນທຶກສາງສິນຄ້າ");
         SafeSwinger catalogSwinger = new SafeSwinger(Swinger.getUserWith(swinger.getAt("catcontainer")));
         catalogSwinger.clickOn("text:new category");
         swinger.clickOn("test item 1234");

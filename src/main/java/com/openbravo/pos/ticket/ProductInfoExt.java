@@ -63,6 +63,8 @@ public class ProductInfoExt {
     public double m_dStockUnits;
     private double bundleUnits = 0;
     private double bundlePrice = 0;
+    private double boxUnits = 0;
+    private double boxPrice = 0;
 
     public ProductInfoExt() {
         m_ID = null;
@@ -330,6 +332,8 @@ public class ProductInfoExt {
 
                 product.bundlePrice = dr.getDouble(27);
                 product.bundleUnits = dr.getDouble(28);
+                product.boxPrice = dr.getDouble(29);
+                product.boxUnits = dr.getDouble(30);
 
                 return product;
             }
@@ -341,15 +345,19 @@ public class ProductInfoExt {
         return m_sRef + " - " + m_sName;
     }
 
-    public boolean hasBundleOption(){
-        return bundleUnits > 1;
-    }
-
     public double getBundleUnits(){
         return bundleUnits;
     }
 
     public double getBundlePrice(){
         return bundlePrice;
+    }
+
+    public double getBoxUnits(){
+        return boxUnits;
+    }
+
+    public double getBoxPrice(){
+        return boxPrice;
     }
 }

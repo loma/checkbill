@@ -45,9 +45,10 @@ public class TicketLineInfo implements SerializableWrite, SerializableRead, Seri
     private String productid;
     private String attsetinstid;
     
-    public boolean hasBundleOption;
     public double bundleUnits;
     public double bundlePrice;
+    public double boxUnits;
+    public double boxPrice;
 
     /**
      * Creates new TicketLineInfo
@@ -148,9 +149,10 @@ public class TicketLineInfo implements SerializableWrite, SerializableRead, Seri
             if (product.getCategoryID() != null) {
                 attributes.setProperty("product.categoryid", product.getCategoryID());
             }
-            hasBundleOption = product.hasBundleOption();
             bundleUnits = product.getBundleUnits();
             bundlePrice = product.getBundlePrice();
+            boxUnits = product.getBoxUnits();
+            boxPrice = product.getBoxPrice();
         }
         init(pid, null, dMultiply, dPrice, tax, attributes);
     }
@@ -645,5 +647,12 @@ public class TicketLineInfo implements SerializableWrite, SerializableRead, Seri
 
     void increaseMultiplyBy(double addition) {
         multiply = multiply + addition;
+    }
+
+    public boolean hasBundleOption(){
+        return bundleUnits > 1;
+    }
+    public boolean hasBoxOption(){
+        return boxUnits >1;
     }
 }

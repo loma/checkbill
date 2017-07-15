@@ -97,6 +97,9 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
         m_jBundleUnit.getDocument().addDocumentListener(dirty);
         m_jPriceSellBundle.getDocument().addDocumentListener(dirty);
+
+        box_sell_price.getDocument().addDocumentListener(dirty);
+        box_units.getDocument().addDocumentListener(dirty);
         
         writeValueEOF();
     }
@@ -293,7 +296,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
     @Override
     public Object createValue() throws BasicException {
 
-        Object[] myprod = new Object[30];
+        Object[] myprod = new Object[32];
         myprod[0] = m_id;
         myprod[1] = m_jRef.getText();
         myprod[2] = m_jCode.getText();
@@ -326,6 +329,9 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
         myprod[28] = Formats.DOUBLE.parseValue(m_jPriceSellBundle.getText());
         myprod[29] = Formats.DOUBLE.parseValue(m_jBundleUnit.getText());
+
+        myprod[30] = Formats.DOUBLE.parseValue(box_sell_price.getText());
+        myprod[31] = Formats.DOUBLE.parseValue(box_units.getText());
 
         return myprod;
 
@@ -373,6 +379,9 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
         m_jPriceSellBundle.setText(Formats.DOUBLE.formatValue(myprod[28]));
         m_jBundleUnit.setText(Formats.DOUBLE.formatValue(myprod[29]));
+
+        box_sell_price.setText(Formats.DOUBLE.formatValue(myprod[30]));
+        box_units.setText(Formats.DOUBLE.formatValue(myprod[31]));
 
         txtAttributes.setCaretPosition(0);
 
@@ -842,6 +851,10 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         m_jPriceSellBundle = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
         m_jBundleUnit = new javax.swing.JTextField();
+        jLabel36 = new javax.swing.JLabel();
+        box_sell_price = new javax.swing.JTextField();
+        jLabel37 = new javax.swing.JLabel();
+        box_units = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         m_jstockcost = new javax.swing.JTextField();
@@ -1010,25 +1023,25 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         jLabel19.setText(bundle.getString("label.margin")); // NOI18N
         jLabel19.setPreferredSize(new java.awt.Dimension(48, 15));
         jPanel1.add(jLabel19);
-        jLabel19.setBounds(350, 250, 100, 30);
+        jLabel19.setBounds(350, 280, 100, 30);
 
         m_jmargin.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         m_jmargin.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         m_jmargin.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         m_jmargin.setEnabled(false);
         jPanel1.add(m_jmargin);
-        m_jmargin.setBounds(450, 250, 130, 25);
+        m_jmargin.setBounds(450, 280, 130, 25);
 
         jLabel3.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         jLabel3.setText(AppLocal.getIntString("label.prodpricebuy")); // NOI18N
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(10, 250, 170, 25);
+        jLabel3.setBounds(10, 280, 170, 25);
 
         m_jPriceBuy.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         m_jPriceBuy.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         m_jPriceBuy.setName("buy_price"); // NOI18N
         jPanel1.add(m_jPriceBuy);
-        m_jPriceBuy.setBounds(190, 250, 140, 25);
+        m_jPriceBuy.setBounds(190, 280, 140, 25);
 
         m_jVerpatrib.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         m_jVerpatrib.setText(bundle.getString("label.mandatory")); // NOI18N
@@ -1042,7 +1055,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
         m_jTextTip.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         jPanel1.add(m_jTextTip);
-        m_jTextTip.setBounds(190, 280, 370, 25);
+        m_jTextTip.setBounds(190, 310, 390, 25);
 
         product_unit.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         product_unit.setText("0");
@@ -1057,20 +1070,20 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
             }
         });
         jPanel1.add(m_jCheckWarrantyReceipt);
-        m_jCheckWarrantyReceipt.setBounds(190, 320, 310, 23);
+        m_jCheckWarrantyReceipt.setBounds(190, 340, 310, 23);
 
         m_jGrossProfit.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         m_jGrossProfit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         m_jGrossProfit.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         m_jGrossProfit.setEnabled(false);
         jPanel1.add(m_jGrossProfit);
-        m_jGrossProfit.setBounds(670, 250, 110, 25);
+        m_jGrossProfit.setBounds(670, 280, 110, 25);
 
         jLabel22.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText(bundle.getString("label.grossprofit")); // NOI18N
         jPanel1.add(jLabel22);
-        jLabel22.setBounds(580, 250, 90, 30);
+        jLabel22.setBounds(580, 280, 90, 30);
 
         m_jTitle.setFont(new java.awt.Font("Saysettha OT", 1, 16)); // NOI18N
         m_jTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -1080,7 +1093,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         jLabel33.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         jLabel33.setText(bundle.getString("label.texttip")); // NOI18N
         jPanel1.add(jLabel33);
-        jLabel33.setBounds(10, 280, 170, 25);
+        jLabel33.setBounds(10, 310, 170, 25);
 
         jLabel34.setFont(new java.awt.Font("Saysettha OT", 1, 16)); // NOI18N
         jLabel34.setText(bundle.getString("label.stock_unit")); // NOI18N
@@ -1113,6 +1126,34 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         m_jBundleUnit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel1.add(m_jBundleUnit);
         m_jBundleUnit.setBounds(450, 220, 130, 25);
+
+        jLabel36.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
+        jLabel36.setText(AppLocal.getIntString("label.prodpricesell_box")); // NOI18N
+        jLabel36.setToolTipText("");
+        jPanel1.add(jLabel36);
+        jLabel36.setBounds(10, 250, 170, 25);
+
+        box_sell_price.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        box_sell_price.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        box_sell_price.setName("buy_price"); // NOI18N
+        box_sell_price.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                box_sell_priceActionPerformed(evt);
+            }
+        });
+        jPanel1.add(box_sell_price);
+        box_sell_price.setBounds(190, 250, 140, 25);
+
+        jLabel37.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
+        jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel37.setText(AppLocal.getIntString("label.prod_box_quantity")); // NOI18N
+        jPanel1.add(jLabel37);
+        jLabel37.setBounds(330, 250, 120, 25);
+
+        box_units.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        box_units.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPanel1.add(box_units);
+        box_units.setBounds(450, 250, 130, 25);
 
         jTabbedPane1.addTab(AppLocal.getIntString("label.prodgeneral"), jPanel1); // NOI18N
 
@@ -1436,7 +1477,13 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         // TODO add your handling code here:
     }//GEN-LAST:event_m_jPriceSellBundleActionPerformed
 
+    private void box_sell_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_box_sell_priceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_box_sell_priceActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField box_sell_price;
+    private javax.swing.JTextField box_units;
     private javax.swing.JButton jButtonHTML;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1467,6 +1514,8 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

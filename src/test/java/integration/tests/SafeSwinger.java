@@ -18,7 +18,7 @@ class SafeSwinger {
 
     Component getAt(String name) {
         int i = 0;
-        while (i++ < 10) {
+        while (i++ < 30) {
             try {
                 return forSwingWindow.getAt(name);
             } catch (Exception e) {
@@ -28,13 +28,13 @@ class SafeSwinger {
                 }
             }
         }
-        System.out.println("Cant find element " + name + " after 10 seconds");
+        System.out.println("Cant find element " + name + " after 30 seconds");
         return null;
     }
 
     SafeSwinger clickOn(String name) {
         int i = 0;
-        while (i++ < 10) {
+        while (i++ < 30) {
             try {
                 forSwingWindow.clickOn(name);
                 return this;
@@ -46,25 +46,25 @@ class SafeSwinger {
             }
         }
 
-        System.out.println("Cant click element " + name + " after 10 seconds");
+        System.out.println("Cant click element " + name + " after 30 seconds");
         return null;
     }
 
     SafeSwinger type(String text) {
         int i = 0;
-        while (i++ < 100) {
+        while (i++ < 30) {
             try {
                 forSwingWindow.type(text);
                 return this;
             } catch (Exception e) {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(1000);
                 } catch (InterruptedException ex) {
                 }
             }
         }
 
-        System.out.println("Cant type element " + text + " after 10 seconds");
+        System.out.println("Cant type element " + text + " after 30 seconds");
         return null;
     }
 

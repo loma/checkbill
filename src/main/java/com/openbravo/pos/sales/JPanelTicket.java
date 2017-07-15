@@ -474,8 +474,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
     }
 
     private void paintTicketLine(int index, TicketLineInfo oLine) {
-        if (executeEventAndRefresh("ticket.setline", new ScriptArg("index",
-            index), new ScriptArg("line", oLine)) == null) {
+        if (executeEventAndRefresh("ticket.setline", new ScriptArg("index", index), new ScriptArg("line", oLine)) == null) {
             m_oTicket.setLine(index, oLine);
             m_ticketlines.setTicketLine(index, oLine);
             m_ticketlines.setSelectedIndex(index);
@@ -529,7 +528,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                     m_ticketlines.addTicketLine(oLine);
                 }
 
-                if (m_oTicket.checkForBundle(oLine)) {
+                if (m_oTicket.checkForBundle(oLine, oLine.getProductName())) {
                     refreshTicket();
                 }
 
@@ -945,14 +944,12 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                 } else {
                     Toolkit.getDefaultToolkit().beep();
                 }
-            } else if (cTrans == '+' && m_iNumberStatusInput == NUMBERZERO
-                && m_iNumberStatusPor == NUMBERZERO) {
+            } else if (cTrans == '+' && m_iNumberStatusInput == NUMBERZERO && m_iNumberStatusPor == NUMBERZERO) {
                 int i = m_ticketlines.getSelectedIndex();
                 if (i < 0) {
                     Toolkit.getDefaultToolkit().beep();
                 } else {
-                    TicketLineInfo newline = new TicketLineInfo(
-                        m_oTicket.getLine(i));
+                    TicketLineInfo newline = new TicketLineInfo(m_oTicket.getLine(i));
                     if (m_oTicket.getTicketType() == TicketInfo.RECEIPT_REFUND) {
                         newline.setMultiply(newline.getMultiply() - 1.0);
                         paintTicketLine(i, newline);
@@ -990,8 +987,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                     }
                 }
 
-            } else if (cTrans == '+' && m_iNumberStatusInput == NUMBERZERO
-                && m_iNumberStatusPor == NUMBERVALID) {
+            } else if (cTrans == '+' && m_iNumberStatusInput == NUMBERZERO && m_iNumberStatusPor == NUMBERVALID) {
                 int i = m_ticketlines.getSelectedIndex();
                 if (i < 0) {
                     Toolkit.getDefaultToolkit().beep();
@@ -1029,11 +1025,10 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                         paintTicketLine(i, newline);
                     }
                 }
-            } else if (cTrans == '+'
-                && m_iNumberStatusInput == NUMBERVALID
-                && m_iNumberStatusPor == NUMBERZERO
-                && m_App.getAppUserView().getUser()
-                    .hasPermission("sales.EditLines")) {
+            } else if (cTrans == '+' 
+                && m_iNumberStatusInput == NUMBERVALID 
+                && m_iNumberStatusPor == NUMBERZERO 
+                && m_App.getAppUserView().getUser() .hasPermission("sales.EditLines")) {
                 ProductInfoExt product = getInputProduct();
                 addTicketLine(product, 1.0, product.getPriceSell());
                 m_jEditLine.doClick();
@@ -1048,8 +1043,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
             } else if (cTrans == '+'
                 && m_iNumberStatusInput == NUMBERVALID
                 && m_iNumberStatusPor == NUMBERVALID
-                && m_App.getAppUserView().getUser()
-                    .hasPermission("sales.EditLines")) {
+                && m_App.getAppUserView().getUser().hasPermission("sales.EditLines")) {
                 ProductInfoExt product = getInputProduct();
                 addTicketLine(product, getPorValue(), product.getPriceSell());
             } else if (cTrans == '-'
