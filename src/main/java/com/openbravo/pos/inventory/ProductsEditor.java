@@ -855,6 +855,8 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         box_sell_price = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
         box_units = new javax.swing.JTextField();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         m_jstockcost = new javax.swing.JTextField();
@@ -1118,9 +1120,9 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
         jLabel35.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel35.setText(AppLocal.getIntString("label.prodBundle_quantity")); // NOI18N
+        jLabel35.setText(AppLocal.getIntString("label.prodBundle_quantity_unit_box")); // NOI18N
         jPanel1.add(jLabel35);
-        jLabel35.setBounds(330, 220, 120, 25);
+        jLabel35.setBounds(590, 250, 40, 25);
 
         m_jBundleUnit.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         m_jBundleUnit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -1148,12 +1150,24 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel37.setText(AppLocal.getIntString("label.prod_box_quantity")); // NOI18N
         jPanel1.add(jLabel37);
-        jLabel37.setBounds(330, 250, 120, 25);
+        jLabel37.setBounds(360, 250, 90, 25);
 
         box_units.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         box_units.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel1.add(box_units);
         box_units.setBounds(450, 250, 130, 25);
+
+        jLabel38.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
+        jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel38.setText(AppLocal.getIntString("label.prodBundle_quantity")); // NOI18N
+        jPanel1.add(jLabel38);
+        jLabel38.setBounds(350, 220, 100, 25);
+
+        jLabel39.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
+        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel39.setText(AppLocal.getIntString("label.prodBundle_quantity_unit")); // NOI18N
+        jPanel1.add(jLabel39);
+        jLabel39.setBounds(580, 220, 40, 25);
 
         jTabbedPane1.addTab(AppLocal.getIntString("label.prodgeneral"), jPanel1); // NOI18N
 
@@ -1516,6 +1530,8 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

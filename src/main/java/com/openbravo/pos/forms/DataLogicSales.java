@@ -480,7 +480,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                 //convert all bundle ticket line to be single items
                 for (TicketLineInfo l : ticket.getLines()) {
                     if (l.getProductID().contains("_BOX")) {
-                        l.setProductID(l.getProductID().replace("_BOX", ""));
+                        l.setProductID(l.getProductID().replace("_BOX", "").replace("_BUNDLE", ""));
                         ProductInfoExt info = getProductInfo(l.getProductID());
                         l.setPrice(info.getBoxPrice() / (info.getBoxUnits() * info.getBundleUnits()));
                         l.setMultiply(l.getMultiply() * info.getBoxUnits() * info.getBundleUnits());

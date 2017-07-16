@@ -886,6 +886,52 @@ public final class TicketInfo implements SerializableRead, Externalizable {
                 index++;
             }
 
+            boolean isBundleItem = oLine.getProductID().contains("_BUNDLE");
+
+            if (isBundleItem){
+                if (sameLine.getMultiply() >= oLine.boxUnits){
+                    int bundleSellUnits = (int) Math.floor(sameLine.getMultiply() / oLine.boxUnits);
+                    int singleSellUnits = (int) (sameLine.getMultiply() % oLine.boxUnits);
+
+                    TicketLineInfo bundleLine = m_aLines.get(index).copyTicketLine();
+
+                    originalId = bundleLine.getProductID();
+                    
+                    bundleLine.bundleUnits = oLine.bundleUnits;
+                    bundleLine.bundlePrice = oLine.bundlePrice;
+                    bundleLine.boxUnits = oLine.boxUnits;
+                    bundleLine.boxPrice = oLine.boxPrice;
+
+                    bundleLine.setMultiply(bundleSellUnits);
+                    bundleLine.setPrice(oLine.boxPrice);
+                    bundleLine.setProductID(bundleLine.getProductID().replace("_BUNDLE", "") + "_BOX");
+                    bundleLine.setProductName("Box ("+ (int)bundleLine.boxUnits + " Pack)-" + originalName);
+
+                    TicketLineInfo singleLine = m_aLines.get(index);
+                    singleLine.setMultiply(singleSellUnits);
+                    
+                    if (singleSellUnits == 0){
+                        removeLine(index);
+                    }
+                    
+                    TicketLineInfo existingBundleLine = null;
+                    for (TicketLineInfo each : m_aLines) {
+                        if (each.getProductID() == null ? bundleLine.getProductID() == null : each.getProductID().equals(bundleLine.getProductID())) {
+                            existingBundleLine = each;
+                            break;
+                        }
+                    }
+
+                    if (existingBundleLine != null){
+                        existingBundleLine.increaseMultiplyBy(bundleSellUnits);
+                    } else {
+                        addLine(bundleLine);
+                        existingBundleLine = bundleLine;
+                    }
+                    return true;
+                }
+            }
+
             if (sameLine != null) {
                 if (sameLine.getMultiply() >= oLine.bundleUnits){
                     int bundleSellUnits = (int) Math.floor(sameLine.getMultiply() / oLine.bundleUnits);
@@ -919,6 +965,7 @@ public final class TicketInfo implements SerializableRead, Externalizable {
                             break;
                         }
                     }
+
                     if (existingBundleLine != null){
                         existingBundleLine.increaseMultiplyBy(bundleSellUnits);
                     } else {

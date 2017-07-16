@@ -956,6 +956,19 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                     } else {
                         newline.setMultiply(newline.getMultiply() + 1.0);
                         paintTicketLine(i, newline);
+                        // check for bundle/box
+                        try {
+                            ProductInfoExt info = dlSales.getProductInfo(newline.getProductID().replace("_BOX", "").replace("_BUNDLE", ""));
+                            newline.boxPrice = info.getBoxPrice();
+                            newline.boxUnits = info.getBoxUnits();
+                            newline.bundlePrice = info.getBundlePrice();
+                            newline.bundleUnits = info.getBundleUnits();
+                            if (m_oTicket.checkForBundle(m_oTicket.getLine(i), info.getName())) {
+                                refreshTicket();
+                            }
+                        } catch (BasicException ex) {
+                            Logger.getLogger(JPanelTicket.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             } else if (cTrans == '-'
