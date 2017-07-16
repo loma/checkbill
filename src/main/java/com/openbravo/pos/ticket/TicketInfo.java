@@ -887,6 +887,8 @@ public final class TicketInfo implements SerializableRead, Externalizable {
             }
 
             boolean isBundleItem = oLine.getProductID().contains("_BUNDLE");
+            boolean isBoxItem = oLine.getProductID().contains("_BOX");
+            if (isBoxItem) return true;
 
             if (isBundleItem){
                 if (sameLine.getMultiply() >= oLine.boxUnits){
