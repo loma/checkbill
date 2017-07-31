@@ -661,6 +661,16 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
             }
 
             ProductInfoExt oProduct = dlSales.getProductInfoByCode(sCode);
+
+            // check for ref and barcode
+            if (oProduct != null){
+                String ref = oProduct.getReference();
+                if (ref.contains("-")) {
+                    oProduct = dlSales.getProductInfoByCode(ref.split("-")[0]);
+                }
+            }
+            
+            
             if (oProduct == null) {
                 Toolkit.getDefaultToolkit().beep();
                 String message = sCode + " - " + AppLocal.getIntString("message.noproduct") + "\n" + "Do you want to create a new product?";
@@ -687,6 +697,13 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
     private void incProductByCodePrice(String sCode, double dPriceSell) {
         try {
             ProductInfoExt oProduct = dlSales.getProductInfoByCode(sCode);
+            // check for ref and barcode
+            if (oProduct != null){
+                String ref = oProduct.getReference();
+                if (ref.contains("-")) {
+                    oProduct = dlSales.getProductInfoByCode(ref.split("-")[0]);
+                }
+            }
             if (oProduct == null) {
                 Toolkit.getDefaultToolkit().beep();
                 new MessageInf(MessageInf.SGN_WARNING,
@@ -740,8 +757,24 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
     }
 
     protected void buttonTransition(ProductInfoExt prod) {
-        if (m_iNumberStatusInput == NUMBERZERO
-            && m_iNumberStatusPor == NUMBERZERO) {
+        // check for ref and barcode
+        ProductInfoExt newProd = prod;
+        if (newProd != null){
+            String ref = newProd.getReference();
+            if (ref.contains("-")) {
+                try {
+                    newProd = dlSales.getProductInfoByCode(ref.split("-")[0]);
+                } catch (BasicException ex) {
+                    Logger.getLogger(JPanelTicket.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (newProd != null) {
+                prod = newProd;
+            }
+        }
+
+        if (m_iNumberStatusInput == NUMBERZERO && m_iNumberStatusPor == NUMBERZERO) {
+
             incProduct(prod);
         } else if (m_iNumberStatusInput == NUMBERVALID
             && m_iNumberStatusPor == NUMBERZERO) {
