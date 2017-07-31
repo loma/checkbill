@@ -7,6 +7,7 @@ import com.openbravo.data.gui.ComboBoxValModel;
 import com.openbravo.data.gui.ListKeyed;
 import com.openbravo.data.gui.MessageInf;
 import com.openbravo.data.loader.SentenceList;
+import com.openbravo.format.Formats;
 import com.openbravo.pos.customers.CustomerInfoExt;
 import com.openbravo.pos.customers.DataLogicCustomers;
 import com.openbravo.pos.customers.JCustomerFinder;
@@ -23,6 +24,7 @@ import com.openbravo.pos.scale.ScaleException;
 import com.openbravo.pos.scripting.ScriptEngine;
 import com.openbravo.pos.scripting.ScriptException;
 import com.openbravo.pos.scripting.ScriptFactory;
+import com.openbravo.pos.ticket.CategoryInfo;
 import com.openbravo.pos.ticket.ProductInfoExt;
 import com.openbravo.pos.ticket.TaxInfo;
 import com.openbravo.pos.ticket.TicketInfo;
@@ -40,6 +42,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import static java.lang.System.in;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -206,6 +209,55 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
     @Override
     public JComponent getComponent() {
         return this;
+    }
+
+    private void checkForDiscount(TicketInfo ticket) {
+        Map<String, Double> categories = new HashMap<String, Double>();
+        for (TicketLineInfo t : ticket.getLines()) {
+            String category_id = t.getProductCategoryID();
+            if (categories.containsKey(category_id)) {
+                Double price = categories.get(category_id);
+                categories.put(category_id, price + t.getValue());
+            } else {
+                categories.put(category_id, t.getValue());
+            }
+        }
+
+        try {
+            List<CategoryInfo> category_info = dlSales.getRootCategories();
+            if (category_info != null){
+                for ( Map.Entry<String, Double> entry : categories.entrySet() ) {
+                    String key = entry.getKey();
+                    Double total = entry.getValue();
+
+                    for (CategoryInfo c : category_info){
+                        if (c.getID() == null ? key == null : c.getID().equals(key)){
+                            if (c.getDiscountThreshold() > 0 && total >= c.getDiscountThreshold()){
+
+                                String cat_name = c.getName();
+                                Double discount = c.getDiscount();
+                                Double discountPrice = -total * discount;
+
+                                int dialogResult = JOptionPane.showConfirmDialog (null, 
+                                    "Total price ("+Formats.CURRENCY.formatValue(total)+") in category [" +c.getName()+ "] has "+ Math.round(discount*100) +"% discount.\nDo you want to apply "+ Formats.CURRENCY.formatValue(discountPrice) +" discount?", "Warning", JOptionPane.YES_NO_OPTION);
+                                if(dialogResult == JOptionPane.YES_OPTION){
+                                    ProductInfoExt oProduct = new ProductInfoExt();
+                                    oProduct.setID("xxx999_999xxx_x9x9x9");
+                                    oProduct.setTaxCategoryID("000");
+                                    oProduct.setName(Math.round(discount*100) + "% discount for " + cat_name);
+                                    TaxInfo tax = taxeslogic.getTaxInfo(oProduct.getTaxCategoryID(), m_oTicket.getCustomer());
+                                    addTicketLine(new TicketLineInfo(oProduct, 1, discountPrice, tax, (java.util.Properties) (oProduct.getProperties().clone())));
+                                    refreshTicket();
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        } catch (BasicException ex) {
+            Logger.getLogger(JPanelTicket.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private class logout extends AbstractAction {
@@ -1140,6 +1192,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
 
         if (m_App.getAppUserView().getUser().hasPermission("sales.Total")) {
             warrantyCheck(ticket);
+            checkForDiscount(ticket);
             try {
                 taxeslogic.calculateTaxes(ticket);
                 if (ticket.getTotal() >= 0.0) {

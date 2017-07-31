@@ -852,6 +852,7 @@ public final class TicketInfo implements SerializableRead, Externalizable {
     }
 
     public boolean hasSameProduct(TicketLineInfo oLine) {
+        if ("xxx999_999xxx_x9x9x9".equals(oLine.getProductID()))return false;
         for (TicketLineInfo each : m_aLines) {
             if (each.getProductID() == null ? oLine.getProductID() == null : each.getProductID().equals(oLine.getProductID())) {
                 return true;
@@ -861,6 +862,7 @@ public final class TicketInfo implements SerializableRead, Externalizable {
     }
 
     public void increaseSameLine(TicketLineInfo oLine) {
+        if ("xxx999_999xxx_x9x9x9".equals(oLine.getProductID()))return;
         TicketLineInfo sameLine = null;
         for (TicketLineInfo each : m_aLines) {
             if (each.getProductID() == null ? oLine.getProductID() == null : each.getProductID().equals(oLine.getProductID())) {
@@ -874,6 +876,7 @@ public final class TicketInfo implements SerializableRead, Externalizable {
     }
 
     public boolean checkForBundle(TicketLineInfo oLine, String originalName) {
+        if ("xxx999_999xxx_x9x9x9".equals(oLine.getProductID())) return false;
         String originalId = "";
         if (oLine.hasBundleOption() && hasSameProduct(oLine)) {
             TicketLineInfo sameLine = null;

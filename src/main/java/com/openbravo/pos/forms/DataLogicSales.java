@@ -145,14 +145,14 @@ public class DataLogicSales extends BeanFactoryDataSingle {
     }
 
     public final List<CategoryInfo> getRootCategories() throws BasicException {
-        return new PreparedSentence(s, "SELECT " + "ID, " + "NAME, " + "IMAGE, " + "TEXTTIP, " + "CATSHOWNAME "
-            + "FROM CATEGORIES " + "WHERE PARENTID IS NULL AND CATSHOWNAME = " + s.DB.TRUE() + " "
+        return new PreparedSentence(s, "SELECT " + "ID, " + "NAME, " + "IMAGE, " + "TEXTTIP, " + "CATSHOWNAME, "
+            + "DISCOUNT_THRESHOLD, DISCOUNT FROM CATEGORIES " + "WHERE PARENTID IS NULL AND CATSHOWNAME = " + s.DB.TRUE() + " "
             + "ORDER BY NAME", null, CategoryInfo.getSerializerRead()).list();
     }
 
     public final List<CategoryInfo> getSubcategories(String category) throws BasicException {
-        return new PreparedSentence(s, "SELECT " + "ID, " + "NAME, " + "IMAGE, " + "TEXTTIP, " + "CATSHOWNAME "
-            + "FROM CATEGORIES WHERE PARENTID = ? ORDER BY NAME", SerializerWriteString.INSTANCE,
+        return new PreparedSentence(s, "SELECT " + "ID, " + "NAME, " + "IMAGE, " + "TEXTTIP, " + "CATSHOWNAME, "
+            + "DISCOUNT_THRESHOLD, DISCOUNT FROM CATEGORIES WHERE PARENTID = ? ORDER BY NAME", SerializerWriteString.INSTANCE,
             CategoryInfo.getSerializerRead()).list(category);
     }
 
@@ -225,7 +225,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
 
     public final CategoryInfo getCategoryInfo(String id) throws BasicException {
         return (CategoryInfo) new PreparedSentence(s, "SELECT " + "ID, " + "NAME, " + "IMAGE, " + "TEXTTIP, "
-            + "CATSHOWNAME " + "FROM CATEGORIES " + "WHERE ID = ? " + "ORDER BY NAME",
+            + "CATSHOWNAME, DISCOUNT_THRESHOLD, DISCOUNT " + "FROM CATEGORIES " + "WHERE ID = ? " + "ORDER BY NAME",
             SerializerWriteString.INSTANCE, CategoryInfo.getSerializerRead()).find(id);
     }
 
@@ -303,8 +303,8 @@ public class DataLogicSales extends BeanFactoryDataSingle {
     }
 
     public final SentenceList getCategoriesList() {
-        return new StaticSentence(s, "SELECT " + "ID, " + "NAME, " + "IMAGE, " + "TEXTTIP, " + "CATSHOWNAME "
-            + "FROM CATEGORIES " + "ORDER BY NAME", null, CategoryInfo.getSerializerRead());
+        return new StaticSentence(s, "SELECT " + "ID, " + "NAME, " + "IMAGE, " + "TEXTTIP, " + "CATSHOWNAME, "
+            + "DISCOUNT_THRESHOLD, DISCOUNT FROM CATEGORIES " + "ORDER BY NAME", null, CategoryInfo.getSerializerRead());
     }
 
     public final SentenceList getTaxCustCategoriesList() {
@@ -479,13 +479,13 @@ public class DataLogicSales extends BeanFactoryDataSingle {
 
                 //convert all bundle ticket line to be single items
                 for (TicketLineInfo l : ticket.getLines()) {
-                    if (l.getProductID().contains("_BOX")) {
+                    if (l.getProductID() != null && l.getProductID().contains("_BOX")) {
                         l.setProductID(l.getProductID().replace("_BOX", "").replace("_BUNDLE", ""));
                         ProductInfoExt info = getProductInfo(l.getProductID());
                         l.setPrice(info.getBoxPrice() / (info.getBoxUnits() * info.getBundleUnits()));
                         l.setMultiply(l.getMultiply() * info.getBoxUnits() * info.getBundleUnits());
                     }
-                    if (l.getProductID().contains("_BUNDLE")) {
+                    if (l.getProductID() != null && l.getProductID().contains("_BUNDLE")) {
                         l.setProductID(l.getProductID().replace("_BUNDLE", ""));
                         ProductInfoExt info = getProductInfo(l.getProductID());
                         l.setPrice(info.getBundlePrice() / info.getBundleUnits());
@@ -872,10 +872,10 @@ public class DataLogicSales extends BeanFactoryDataSingle {
 
     public final TableDefinition getTableCategories() {
         return new TableDefinition(s, "CATEGORIES",
-            new String[]{"ID", "NAME", "PARENTID", "IMAGE", "TEXTTIP", "CATSHOWNAME"},
+            new String[]{"ID", "NAME", "PARENTID", "IMAGE", "TEXTTIP", "CATSHOWNAME", "DISCOUNT_THRESHOLD", "DISCOUNT"},
             new String[]{"ID", AppLocal.getIntString("Label.Name"), "", AppLocal.getIntString("label.image")},
-            new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.IMAGE, Datas.STRING, Datas.BOOLEAN},
-            new Formats[]{Formats.STRING, Formats.STRING, Formats.STRING, Formats.NULL, Formats.STRING, Formats.BOOLEAN},
+            new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.IMAGE, Datas.STRING, Datas.BOOLEAN, Datas.DOUBLE, Datas.DOUBLE},
+            new Formats[]{Formats.STRING, Formats.STRING, Formats.STRING, Formats.NULL, Formats.STRING, Formats.BOOLEAN, Formats.DOUBLE, Formats.DOUBLE},
             new int[]{0});
     }
 

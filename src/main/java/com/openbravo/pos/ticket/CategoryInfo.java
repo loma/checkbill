@@ -40,18 +40,23 @@ public class CategoryInfo implements IKeyed {
     private BufferedImage m_Image;
     private Boolean m_bCatShowName;
 
+    private double discountThreshold;
+    private double discount;
+
     /** Creates new CategoryInfo
      * @param id
      * @param name
      * @param image
      * @param texttip
      * @param catshowname */
-    public CategoryInfo(String id, String name, BufferedImage image, String texttip, Boolean catshowname) {
+    public CategoryInfo(String id, String name, BufferedImage image, String texttip, Boolean catshowname, double threshold, double disc) {
         m_sID = id;
         m_sName = name;
         m_Image = image;
         m_sTextTip = texttip;
         m_bCatShowName = catshowname;
+        discountThreshold = threshold;
+        discount = disc;
     }
 
     /**
@@ -163,7 +168,15 @@ public class CategoryInfo implements IKeyed {
     public static SerializerRead getSerializerRead() {
         return new SerializerRead() {@Override
  public Object readValues(DataRead dr) throws BasicException {
-            return new CategoryInfo(dr.getString(1), dr.getString(2), ImageUtils.readImage(dr.getBytes(3)),dr.getString(4),dr.getBoolean(5));
+            return new CategoryInfo(dr.getString(1), dr.getString(2), ImageUtils.readImage(dr.getBytes(3)),dr.getString(4),dr.getBoolean(5), dr.getDouble(6), dr.getDouble(7));
         }};
+    }
+
+    public Double getDiscountThreshold() {
+        return discountThreshold;
+    }
+
+    public Double getDiscount() {
+        return discount;
     }
 }
