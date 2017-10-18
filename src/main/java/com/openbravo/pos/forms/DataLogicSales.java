@@ -474,20 +474,25 @@ public class DataLogicSales extends BeanFactoryDataSingle {
 
                 SentenceExec ticketlineinsert = new PreparedSentence(
                     s,
-                    "INSERT INTO TICKETLINES (TICKET, LINE, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, TAXID, ATTRIBUTES) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                    SerializerWriteBuilder.INSTANCE);
+                    "INSERT INTO TICKETLINES (TICKET, LINE, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, TAXID, ATTRIBUTES) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", SerializerWriteBuilder.INSTANCE);
 
                 //convert all bundle ticket line to be single items
                 for (TicketLineInfo l : ticket.getLines()) {
                     if (l.getProductID() != null && l.getProductID().contains("_BOX")) {
-                        l.setProductID(l.getProductID().replace("_BOX", "").replace("_BUNDLE", ""));
+
+                        l.setProductID(l.getProductID().replaceAll("_BOX", "").replaceAll("_BUNDLE", ""));
+
                         ProductInfoExt info = getProductInfo(l.getProductID());
+
                         l.setPrice(info.getBoxPrice() / (info.getBoxUnits() * info.getBundleUnits()));
                         l.setMultiply(l.getMultiply() * info.getBoxUnits() * info.getBundleUnits());
                     }
                     if (l.getProductID() != null && l.getProductID().contains("_BUNDLE")) {
-                        l.setProductID(l.getProductID().replace("_BUNDLE", ""));
+
+                        l.setProductID(l.getProductID().replaceAll("_BUNDLE", ""));
+
                         ProductInfoExt info = getProductInfo(l.getProductID());
+
                         l.setPrice(info.getBundlePrice() / info.getBundleUnits());
                         l.setMultiply(l.getMultiply() * info.getBundleUnits());
                     }

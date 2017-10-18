@@ -1043,7 +1043,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                         paintTicketLine(i, newline);
                         // check for bundle/box
                         try {
-                            ProductInfoExt info = dlSales.getProductInfo(newline.getProductID().replace("_BOX", "").replace("_BUNDLE", ""));
+                            ProductInfoExt info = dlSales.getProductInfo(newline.getProductID().replaceAll("_BOX", "").replaceAll("_BUNDLE", ""));
                             newline.boxPrice = info.getBoxPrice();
                             newline.boxUnits = info.getBoxUnits();
                             newline.bundlePrice = info.getBundlePrice();
@@ -2332,8 +2332,6 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
     }// GEN-LAST:event_jbtnMooringActionPerformed
 
     private void j_btnKitchenPrtActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_j_btnKitchenPrtActionPerformed
-        // John L - replace older SendOrder script
-
         String rScript = (dlSystem.getResourceAsText("script.SendOrder"));
 
         Interpreter i = new Interpreter();

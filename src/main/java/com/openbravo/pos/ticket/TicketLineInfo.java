@@ -278,9 +278,7 @@ public class TicketLineInfo implements SerializableWrite, SerializableRead, Seri
      * @return
      */
     public String getProductID() {
-// System.out.println(productid);
         return productid;
-
     }
 
     /**
@@ -288,14 +286,7 @@ public class TicketLineInfo implements SerializableWrite, SerializableRead, Seri
      * @param value
      */
     public void setProductID(String value) {
-//        if (value == null) {
-//            productid = getProductName();
-//System.out.println(getProductName());
-//System.out.println(value);
-//        }else{
         productid = value;
-//System.out.println(value);
-
     }
 
     /**

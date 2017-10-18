@@ -909,7 +909,7 @@ public final class TicketInfo implements SerializableRead, Externalizable {
 
                     bundleLine.setMultiply(bundleSellUnits);
                     bundleLine.setPrice(oLine.boxPrice);
-                    bundleLine.setProductID(bundleLine.getProductID().replace("_BUNDLE", "") + "_BOX");
+                    bundleLine.setProductID(bundleLine.getProductID().replaceAll("_BUNDLE", "") + "_BOX");
                     bundleLine.setProductName("Box ("+ (int)bundleLine.boxUnits + " Pack)-" + originalName);
 
                     TicketLineInfo singleLine = m_aLines.get(index);
