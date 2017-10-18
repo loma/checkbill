@@ -1218,8 +1218,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                         ticket.setDate(new Date());
                         if (executeEvent(ticket, ticketext, "ticket.save") == null) {
                             try {
-                                dlSales.saveTicket(ticket,
-                                    m_App.getInventoryLocation());
+                                dlSales.saveTicket(ticket, m_App.getInventoryLocation());
                             } catch (BasicException eData) {
                                 MessageInf msg = new MessageInf(
                                     MessageInf.SGN_NOTICE,
