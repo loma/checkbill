@@ -476,6 +476,18 @@ public final class TicketInfo implements SerializableRead, Externalizable {
         refreshLines();
     }
 
+    public void removeLine(TicketLineInfo line) {
+        int index = 0;
+        for (TicketLineInfo each : m_aLines) {
+            if (each.getProductID() == null ? line.getProductID() == null : each.getProductID().equals(line.getProductID())) {
+                break;
+            }
+            index++;
+        }
+        m_aLines.remove(index);
+        refreshLines();
+    }
+
     private void refreshLines() {
         for (int i = 0; i < m_aLines.size(); i++) {
             getLine(i).setTicket(m_sId, i);
@@ -875,159 +887,6 @@ public final class TicketInfo implements SerializableRead, Externalizable {
         }
     }
 
-    public boolean checkForBundle(TicketLineInfo oLine, String originalName) {
-        if ("xxx999_999xxx_x9x9x9".equals(oLine.getProductID())) return false;
-        String originalId = "";
-        if (oLine.hasBundleOption() && hasSameProduct(oLine)) {
-            TicketLineInfo sameLine = null;
-            int index = 0;
-            for (TicketLineInfo each : m_aLines) {
-                if (each.getProductID() == null ? oLine.getProductID() == null : each.getProductID().equals(oLine.getProductID())) {
-                    sameLine = each;
-                    break;
-                }
-                index++;
-            }
-
-            boolean isBundleItem = oLine.getProductID().contains("_BUNDLE");
-            boolean isBoxItem = oLine.getProductID().contains("_BOX");
-            if (isBoxItem) return true;
-
-            if (isBundleItem){
-                if (sameLine.getMultiply() >= oLine.boxUnits){
-                    int bundleSellUnits = (int) Math.floor(sameLine.getMultiply() / oLine.boxUnits);
-                    int singleSellUnits = (int) (sameLine.getMultiply() % oLine.boxUnits);
-
-                    TicketLineInfo bundleLine = m_aLines.get(index).copyTicketLine();
-
-                    originalId = bundleLine.getProductID();
-                    
-                    bundleLine.bundleUnits = oLine.bundleUnits;
-                    bundleLine.bundlePrice = oLine.bundlePrice;
-                    bundleLine.boxUnits = oLine.boxUnits;
-                    bundleLine.boxPrice = oLine.boxPrice;
-
-                    bundleLine.setMultiply(bundleSellUnits);
-                    bundleLine.setPrice(oLine.boxPrice);
-                    bundleLine.setProductID(bundleLine.getProductID().replaceAll("_BUNDLE", "") + "_BOX");
-                    bundleLine.setProductName("Box ("+ (int)bundleLine.boxUnits + " Pack)-" + originalName);
-
-                    TicketLineInfo singleLine = m_aLines.get(index);
-                    singleLine.setMultiply(singleSellUnits);
-                    
-                    if (singleSellUnits == 0){
-                        removeLine(index);
-                    }
-                    
-                    TicketLineInfo existingBundleLine = null;
-                    for (TicketLineInfo each : m_aLines) {
-                        if (each.getProductID() == null ? bundleLine.getProductID() == null : each.getProductID().equals(bundleLine.getProductID())) {
-                            existingBundleLine = each;
-                            break;
-                        }
-                    }
-
-                    if (existingBundleLine != null){
-                        existingBundleLine.increaseMultiplyBy(bundleSellUnits);
-                    } else {
-                        addLine(bundleLine);
-                        existingBundleLine = bundleLine;
-                    }
-                    return true;
-                }
-            }
-
-            if (sameLine != null) {
-                if (sameLine.getMultiply() >= oLine.bundleUnits){
-                    int bundleSellUnits = (int) Math.floor(sameLine.getMultiply() / oLine.bundleUnits);
-                    int singleSellUnits = (int) (sameLine.getMultiply() % oLine.bundleUnits);
-
-                    TicketLineInfo bundleLine = m_aLines.get(index).copyTicketLine();
-
-                    originalId = bundleLine.getProductID();
-                    
-                    bundleLine.bundleUnits = oLine.bundleUnits;
-                    bundleLine.bundlePrice = oLine.bundlePrice;
-                    bundleLine.boxUnits = oLine.boxUnits;
-                    bundleLine.boxPrice = oLine.boxPrice;
-
-                    bundleLine.setMultiply(bundleSellUnits);
-                    bundleLine.setPrice(oLine.bundlePrice);
-                    bundleLine.setProductID(bundleLine.getProductID() + "_BUNDLE");
-                    bundleLine.setProductName("Pack ("+ (int)bundleLine.bundleUnits + " Units)-" + originalName);
-
-                    TicketLineInfo singleLine = m_aLines.get(index);
-                    singleLine.setMultiply(singleSellUnits);
-                    
-                    if (singleSellUnits == 0){
-                        removeLine(index);
-                    }
-                    
-                    TicketLineInfo existingBundleLine = null;
-                    for (TicketLineInfo each : m_aLines) {
-                        if (each.getProductID() == null ? bundleLine.getProductID() == null : each.getProductID().equals(bundleLine.getProductID())) {
-                            existingBundleLine = each;
-                            break;
-                        }
-                    }
-
-                    if (existingBundleLine != null){
-                        existingBundleLine.increaseMultiplyBy(bundleSellUnits);
-                    } else {
-                        addLine(bundleLine);
-                        existingBundleLine = bundleLine;
-                    }
-
-
-                    // for box
-                    if (existingBundleLine != null && oLine.hasBoxOption() && existingBundleLine.getMultiply() >= oLine.boxUnits) {
-
-                        int boxSellUnits = (int) Math.floor(existingBundleLine.getMultiply() / oLine.boxUnits);
-                            bundleSellUnits = (int) (existingBundleLine.getMultiply() % oLine.boxUnits);
-
-                        TicketLineInfo boxLine = existingBundleLine.copyTicketLine();
-                        boxLine.bundleUnits = oLine.bundleUnits;
-                        boxLine.bundlePrice = oLine.bundlePrice;
-                        boxLine.boxUnits = oLine.boxUnits;
-                        boxLine.boxPrice = oLine.boxPrice;
-
-                        boxLine.setMultiply(boxSellUnits);
-                        boxLine.setPrice(oLine.boxPrice);
-                        boxLine.setProductID(originalId + "_BOX");
-                        boxLine.setProductName("Box ("+ (int)bundleLine.boxUnits + " Packs)-" + originalName);
-
-                        existingBundleLine.setMultiply(bundleSellUnits);
-                        if (bundleSellUnits == 0){
-                            index = findIndexByProductId(existingBundleLine.getProductID());
-                            if (index > -1) removeLine(index);
-                        }
-                        
-                        TicketLineInfo existingBoxLine = null;
-                        for (TicketLineInfo each : m_aLines) {
-                            if (each.getProductID() == null ? boxLine.getProductID() == null : each.getProductID().equals(boxLine.getProductID())) {
-                                existingBoxLine = each;
-                                break;
-                            }
-                        }
-                        if (existingBoxLine != null){
-                            existingBoxLine.increaseMultiplyBy(boxSellUnits);
-                        } else {
-                            addLine(boxLine);
-                        }
-                    }
-
-                    return true;
-                } 
-            }
-
-        }
-        return false;
-    }
-
-    public boolean checkForBox(TicketLineInfo oLine) {
-        return false;
-    }
-
     private int findIndexByProductId(String productID) {
         int index = 0;
         for (TicketLineInfo each : m_aLines) {
@@ -1037,6 +896,115 @@ public final class TicketInfo implements SerializableRead, Externalizable {
             index++;
         }
         return -1;
+    }
+
+    public boolean checkForBundleItem(TicketLineInfo oLine) {
+        if ("xxx999_999xxx_x9x9x9".equals(oLine.getProductID())) return false;
+        return oLine.hasBundleOption();
+    }
+
+    public void bundleItem(TicketLineInfo oLine) {
+
+        TicketLineInfo sameLine = searchProduct(oLine);
+
+        if (sameLine == null) return;
+        if (sameLine.getMultiply() < oLine.bundleUnits) return;
+
+        TicketLineInfo bundleLine = sameLine.copyTicketLine();
+        bundleLine.bundleUnits = oLine.bundleUnits;
+        bundleLine.bundlePrice = oLine.bundlePrice;
+        bundleLine.boxUnits = oLine.boxUnits;
+        bundleLine.boxPrice = oLine.boxPrice;
+
+        int bundleSellUnits = (int) Math.floor(sameLine.getMultiply() / oLine.bundleUnits);
+        bundleLine.setMultiply(bundleSellUnits);
+
+        bundleLine.setPrice(oLine.bundlePrice);
+        bundleLine.setProductID(bundleLine.getProductID() + "_BUNDLE");
+        String name = sameLine.getProductName();
+        String[] nameSplit = name.split(":");
+        if (nameSplit.length > 1)
+            name = nameSplit[1];
+
+        bundleLine.setProductName("Pack ("+ (int)bundleLine.bundleUnits + " Units):" + name);
+
+        int singleSellUnits = (int) (sameLine.getMultiply() % oLine.bundleUnits);
+        sameLine.setMultiply(singleSellUnits);
+        
+        if (singleSellUnits == 0){
+            removeLine(sameLine);
+        }
+        
+        TicketLineInfo existingBundleLine = searchProduct(bundleLine);
+        if (existingBundleLine != null){
+            existingBundleLine.increaseMultiplyBy(bundleSellUnits);
+        } else {
+            addLine(bundleLine);
+        }
+    }
+
+    private TicketLineInfo searchProduct(TicketLineInfo oLine) {
+        for (TicketLineInfo each : m_aLines) {
+            if (each.getProductID() == null ? oLine.getProductID() == null : each.getProductID().equals(oLine.getProductID())) {
+                return each;
+            }
+        }
+        return null;
+    }
+
+    private TicketLineInfo searchBundleProduct(TicketLineInfo oLine) {
+        String productId = oLine.getProductID().replaceAll("_BUNDLE", "") + "_BUNDLE";
+        for (TicketLineInfo each : m_aLines) {
+            if (each.getProductID() == null ? productId == null : each.getProductID().equals(productId)) {
+                return each;
+            }
+        }
+        return null;
+    }
+
+    public boolean checkForBoxItem(TicketLineInfo oLine) {
+        if ("xxx999_999xxx_x9x9x9".equals(oLine.getProductID())) return false;
+        return oLine.hasBoxOption();
+    }
+
+    public void boxItem(TicketLineInfo oLine) {
+
+        TicketLineInfo sameLine = searchBundleProduct(oLine);
+
+        if (sameLine == null) return;
+        if (sameLine.getMultiply() < oLine.boxUnits) return;
+
+        TicketLineInfo bundleLine = sameLine.copyTicketLine();
+        bundleLine.bundleUnits = oLine.bundleUnits;
+        bundleLine.bundlePrice = oLine.bundlePrice;
+        bundleLine.boxUnits = oLine.boxUnits;
+        bundleLine.boxPrice = oLine.boxPrice;
+
+        int bundleSellUnits = (int) Math.floor(sameLine.getMultiply() / oLine.boxUnits);
+        bundleLine.setMultiply(bundleSellUnits);
+
+        bundleLine.setPrice(oLine.boxPrice);
+        bundleLine.setProductID(bundleLine.getProductID() + "_BOX");
+        String name = sameLine.getProductName();
+        String[] nameSplit = name.split(":");
+        if (nameSplit.length > 1)
+            name = nameSplit[1];
+
+        bundleLine.setProductName("Box ("+ (int)bundleLine.boxUnits + " Packs):" + name);
+
+        int bundleUnits = (int) (sameLine.getMultiply() % oLine.boxUnits);
+        sameLine.setMultiply(bundleUnits);
+        
+        if (bundleUnits == 0){
+            removeLine(sameLine);
+        }
+        
+        TicketLineInfo existingBundleLine = searchProduct(bundleLine);
+        if (existingBundleLine != null){
+            existingBundleLine.increaseMultiplyBy(bundleSellUnits);
+        } else {
+            addLine(bundleLine);
+        }
     }
 
 }

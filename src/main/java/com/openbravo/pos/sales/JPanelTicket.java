@@ -580,7 +580,13 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                     m_ticketlines.addTicketLine(oLine);
                 }
 
-                if (m_oTicket.checkForBundle(oLine, oLine.getProductName())) {
+                if (m_oTicket.checkForBundleItem(oLine)) {
+                    m_oTicket.bundleItem(oLine);
+                    refreshTicket();
+                }
+
+                if (m_oTicket.checkForBoxItem(oLine)) {
+                    m_oTicket.boxItem(oLine);
                     refreshTicket();
                 }
 
@@ -1048,9 +1054,27 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
                             newline.boxUnits = info.getBoxUnits();
                             newline.bundlePrice = info.getBundlePrice();
                             newline.bundleUnits = info.getBundleUnits();
-                            if (m_oTicket.checkForBundle(m_oTicket.getLine(i), info.getName())) {
-                                refreshTicket();
+
+                            boolean isBundle = newline.getProductID().contains("_BUNDLE");
+                            boolean isBox = newline.getProductID().contains("_BOX");
+
+                            if (isBox){
+                            } else if (isBundle){
+                                if (m_oTicket.checkForBoxItem(newline)) {
+                                    m_oTicket.boxItem(newline);
+                                    refreshTicket();
+                                }
+                            } else{
+                                if (m_oTicket.checkForBundleItem(newline)) {
+                                    m_oTicket.bundleItem(newline);
+                                    refreshTicket();
+                                }
+                                if (m_oTicket.checkForBoxItem(newline)) {
+                                    m_oTicket.boxItem(newline);
+                                    refreshTicket();
+                                }
                             }
+
                         } catch (BasicException ex) {
                             Logger.getLogger(JPanelTicket.class.getName()).log(Level.SEVERE, null, ex);
                         }
