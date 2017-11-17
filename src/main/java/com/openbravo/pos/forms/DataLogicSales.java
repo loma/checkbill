@@ -642,6 +642,17 @@ public class DataLogicSales extends BeanFactoryDataSingle {
         return (Integer) s.DB.getSequenceSentence(s, "TICKETSNUM_PAYMENT").find();
     }
 
+    public final void insertXXX999() throws BasicException {
+        new SentenceExecTransaction(s) {
+            @Override
+            public int execInTransaction(Object params) throws BasicException {
+                new PreparedSentence(s, "INSERT INTO PRODUCTS(ID, REFERENCE, CODE, NAME, PRICEBUY, PRICESELL, CATEGORY, TAXCAT, ISSERVICE, ISKITCHEN, ISVPRICE, ISVERPATRIB, TEXTTIP, WARRANTY)" +
+"VALUES ('xxx999_999xxx_x9x9x9', 'xxx999', 'xxx999', '***', 0.00, 0.00, '000', '001', 1, 0, 0, 0,'',0)").exec();
+                return 0;
+            }
+        }.exec();
+    }
+
     public final SentenceList getProductCatQBF() {
         return new StaticSentence(s, new QBFBuilder("SELECT " + "P.ID, " + "P.REFERENCE, " + "P.CODE, "
             + "P.CODETYPE, " + "P.NAME, " + "P.PRICEBUY, " + "P.PRICESELL, " + "P.CATEGORY, " + "P.TAXCAT, "

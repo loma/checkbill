@@ -53,7 +53,10 @@ import java.util.regex.Matcher;
 import javax.swing.*;
 import com.athaydes.automaton.Swinger;
 import static com.athaydes.automaton.selector.SwingerSelectors.byText;
+import com.openbravo.pos.ticket.ProductInfoExt;
 import java.awt.Component;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -130,12 +133,10 @@ public class JRootApp extends JPanel implements AppView {
 	 */
 	public JRootApp() {
 
-// JG 16 May 2013 use multicatch
 		m_aBeanFactories = new HashMap<>();
 
 		// Inicializo los componentes visuales
 		initComponents();
-		//jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(30, 30));
 	}
 
 	/**
@@ -286,6 +287,20 @@ public class JRootApp extends JPanel implements AppView {
 				+ "</center>");
 
 		showLogin();
+
+
+        //check for xxx app
+        try {
+            DataLogicSales dataLogicSales = (DataLogicSales) getBean("com.openbravo.pos.forms.DataLogicSales");
+            ProductInfoExt xxx = dataLogicSales.getProductInfoByCode("xxx999");
+            if (xxx == null){
+                dataLogicSales.insertXXX999();
+            }
+        } catch (BasicException ex) {
+            Logger.getLogger(JRootApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
 
 		return true;
 	}

@@ -1,6 +1,8 @@
 package com.openbravo.pos.forms;
 
+import com.openbravo.basic.BasicException;
 import com.openbravo.format.Formats;
+import com.openbravo.pos.ticket.ProductInfoExt;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +37,8 @@ public class StartPOS {
 	public static String TempProductCode = null;
 
 	public static void main(final String args[]) throws InterruptedException {
+
+        
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -47,6 +51,7 @@ public class StartPOS {
 				setLookAndFeel(config);
 				setHostName(config);
 				initScreenMode(config);
+
 			}
 
 			private void setHostName(AppConfig config) {

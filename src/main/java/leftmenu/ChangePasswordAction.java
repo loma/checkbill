@@ -19,7 +19,6 @@ class ChangePasswordAction extends AbstractAction {
     public ChangePasswordAction(String icon, String keytext, JPrincipalApp app) {
         putValue(Action.SMALL_ICON, new ImageIcon(JPrincipalApp.class.getResource(icon)));
         putValue(Action.NAME, AppLocal.getIntString(keytext));
-        System.out.println(AppLocal.getIntString(keytext));
         putValue(AppUserView.ACTION_TASKNAME, keytext);
         this.app = app;
     }
