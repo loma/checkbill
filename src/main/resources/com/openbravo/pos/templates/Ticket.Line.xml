@@ -25,7 +25,9 @@
     <column name="label.item" width="140" align="left" value="&lt;html&gt;#if ($ticketline.isProductCom()) &lt;i&gt;*&amp;nbsp;&amp;nbsp;${ticketline.printName()}&lt;/i&gt; #else ${ticketline.printName()} #end&lt;br&gt;${ticketline.getProductAttSetInstDesc()}"/>
     <column name="label.price" width="80" align="right" value="${ticketline.printPrice()}"/>
     <column name="label.units" width="15" align="right" value="x${ticketline.printMultiply()}"/>
+    <!--
     <column name="label.taxes" width="15" align="right" value="${ticketline.printTaxRate()}"/>
+    -->
     <column name="label.value" width="80" align="right" value="${ticketline.printValue()}"/>
 </line>
 

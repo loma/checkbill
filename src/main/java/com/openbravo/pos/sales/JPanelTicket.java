@@ -1797,12 +1797,12 @@ public abstract class JPanelTicket extends JPanel implements JPanelView,
         m_jPanContainer.add(m_jOptions, java.awt.BorderLayout.NORTH);
 
         m_jPanTicket.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        m_jPanTicket.setPreferredSize(new java.awt.Dimension(800, 250));
+        m_jPanTicket.setPreferredSize(new java.awt.Dimension(600, 250));
         m_jPanTicket.setLayout(new java.awt.BorderLayout());
 
         m_jPanelCentral.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
-        m_jPanelCentral.setMinimumSize(new java.awt.Dimension(500, 50));
-        m_jPanelCentral.setPreferredSize(new java.awt.Dimension(500, 240));
+        m_jPanelCentral.setMinimumSize(new java.awt.Dimension(600, 50));
+        m_jPanelCentral.setPreferredSize(new java.awt.Dimension(400, 240));
         m_jPanelCentral.setLayout(new java.awt.BorderLayout());
 
         jPanel4.setLayout(new java.awt.BorderLayout());

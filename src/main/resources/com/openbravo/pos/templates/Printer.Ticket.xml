@@ -173,19 +173,20 @@
 	#end
 #end
 
+<!--
 	<line></line>
 	<line><text align ="left" bold="true" length="16">Nett of Tax:</text><text align ="right" length="26">${ticket.printSubTotal()}</text></line>
 	<line><text align ="left" length="16">Taxes:</text><text align ="right" length="26">${ticket.printTax()}</text></line>
 	<line></line>
 
 #foreach ($taxinfo in $taxes)
-<!--        #set( $taxline = $ticket.getTaxLine($taxinfo)) -->
         <line>
             <text align ="left" length="18">${taxline.getTaxInfo()}</text>
             <text align ="right" length="12">${taxline.printSubTotal()}</text>
             <text align ="right" length="12">${taxline.printTax()}</text>
         </line>
 #end
+-->
 
 
 	<line></line>
